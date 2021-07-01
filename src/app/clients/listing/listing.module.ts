@@ -6,7 +6,6 @@ import { ListingComponent } from './listing.component';
 
 @NgModule({
   declarations: [
-    ListingComponent
   ],
   imports: [
     CommonModule
