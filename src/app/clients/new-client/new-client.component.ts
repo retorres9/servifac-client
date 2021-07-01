@@ -31,7 +31,7 @@ export class NewClientComponent implements OnInit {
       }),
       cli_phone: new FormControl("", {
         updateOn: 'change',
-        validators: [Validators.minLength(10), Validators.pattern(/\d{10}\W/)]
+        validators: [Validators.minLength(10)]
       }),
       cli_debt: new FormControl("", {
         updateOn: 'change',

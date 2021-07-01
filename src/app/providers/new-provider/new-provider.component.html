@@ -8,8 +8,8 @@
                 <form [formGroup]="new_prov_form">
                     <div class="card-body">
 
-                        <div class="alert text-center" *ngIf="alert === true">
-                            <!-- {{message}} -->
+                        <div class="alert text-center" *ngIf="alert === true" [ngClass]="type">
+                            {{message}}
                         </div>
                         <div class="row">
                             <!-- Ruc -->
