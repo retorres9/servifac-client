@@ -1,0 +1,27 @@
+.offcanvas-header,
+.offcanvas-body {
+    background: #ffee58;
+    // background: linear-gradient(0deg, rgba(189, 28, 53, 1) 0%, rgba(194, 21, 56, 1) 100%);
+}
+
+.offcanvas-body,
+.offcanvas-header>* {
+    color: black;
+}
+
+.list-group {
+    border-radius: 0px;
+}
+
+.list-group-item.active {
+    background-color: #c9bc1f;
+    border-color: transparent;
+}
+
+.list-group-item {
+    background-color: #ffee58;
+}
+
+.offcanvas-start {
+    width: 300px;
+}

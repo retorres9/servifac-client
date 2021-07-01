@@ -1,0 +1,25 @@
+.table-wrap {
+    height: 380px;
+    overflow-y: auto;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #d6dbe0;
+    background-color: white;
+}
+
+.thead-inverse {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+.row-detail {
+    border-style: solid;
+    border-color: #ebecee;
+    border-width: 1px;
+    background-color: white;
+}
+
+.cant-input {
+    width: 50px;
+}

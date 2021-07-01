@@ -2,12 +2,13 @@
  * Custom angular webpack configuration
  */
 
+const { resolve } = require("@angular/compiler-cli/src/ngtsc/file_system");
+
 module.exports = (config, options) => {
     config.target = 'electron-renderer';
 
-
     if (options.fileReplacements) {
-        for(let fileReplacement of options.fileReplacements) {
+        for (let fileReplacement of options.fileReplacements) {
             if (fileReplacement.replace !== 'src/environments/environment.ts') {
                 continue;
             }

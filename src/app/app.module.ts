@@ -12,9 +12,16 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { HomeModule } from './home/home.module';
-import { DetailModule } from './detail/detail.module';
+
 
 import { AppComponent } from './app.component';
+import { AuthComponent } from './auth/auth.component';
+import { ProductsComponent } from './products/products.component';
+import { BillingRoutingModule } from './billing/billing-routing.module';
+import { BillingComponent } from './billing/billing.component';
+import { ClientsComponent } from './clients/clients.component';
+import { ProvidersComponent } from './providers/providers.component';
+import { ProviderRoutingModule } from './providers/provider-routing.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -22,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AuthComponent, ProductsComponent, BillingComponent, ClientsComponent, ProvidersComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -30,7 +37,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreModule,
     SharedModule,
     HomeModule,
-    DetailModule,
+    BillingRoutingModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {

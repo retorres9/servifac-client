@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Nuevo proveedor
+                </div>
+                <form [formGroup]="new_prov_form">
+                    <div class="card-body">
+
+                        <div class="alert text-center" *ngIf="alert === true">
+                            {{message}}
+                        </div>
+                        <div class="row">
+                            <!-- Ruc -->
+                            <div class="col-4 text-end">
+                                <label for="prov_ruc">RUC:</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <input type="text" class="form-control form-control-sm" id="prov_ruc" formControlName="prov_ruc">
+                            </div>
+                            <!-- Nombre del proveedor -->
+                            <div class="col-4 text-end">
+                                <label for="prov_name">Proveedor:</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <input type="text" class="form-control form-control-sm" id="prov_name" formControlName="prov_name">
+                            </div>
+                            <!-- Telefono proveedor -->
+                            <div class="col-4 text-end">
+                                <label for="prov_phone">Telefono proveedor:</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <input type="text" class="form-control form-control-sm" id="prov_phone" formControlName="prov_phone">
+                            </div>
+                            <!-- Nombre del cuenta -->
+                            <div class="col-4 text-end">
+                                <label for="prov_accountName">Nombre cuenta:</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <input type="text" class="form-control form-control-sm" id="prov_accountName" formControlName="prov_accountName">
+                            </div>
+                            <!-- Número de cuenta -->
+                            <div class="col-4 text-end">
+                                <label for="prov_accountNumber">Número de cuenta:</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <input type="text" class="form-control form-control-sm" id="prov_accountNumber" formControlName="prov_accountNumber">
+                            </div>
+                            <!-- Tipo de cuenta -->
+                            <div class="col-4 text-end">
+                                <label for="prov_accountType">Tipo de cuenta:</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <select class="form-select form-select-sm" name="prov_accountType" id="prov_accountType" formControlName="prov_accountType">
+                                  <option>Ahorros</option>
+                                  <option>Corriente</option>
+                                </select>
+                            </div>
+                            <!-- Deuda con cuenta -->
+                            <div class="col-4 text-end">
+                                <label for="prov_debt">Deuda:</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <input type="number" class="form-control form-select-sm" name="prov_debt" id="prov_debt" formControlName="prov_debt">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-around">
+                        <button class="btn btn-success" (click)="onSaveProv()" [disabled]="!new_prov_form.valid">Guardar</button>
+                        <a class="btn btn-danger" [routerLink]="['../../home']">Atrás</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

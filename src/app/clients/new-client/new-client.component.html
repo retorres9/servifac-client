@@ -1,0 +1,72 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <form [formGroup]="new_client_form">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <strong>Nuevo cliente</strong>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-8 offset-2" *ngIf="alert">
+                            <div class="alert text-center" [ngClass]="type">
+                                {{message}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-9 offset-1">
+                                <div class="row">
+                                    <!-- CI -->
+                                    <div class="col-4 text-end">
+                                        <label for="ci">CI/RUC:</label>
+                                    </div>
+                                    <div class="col-8 mb-3">
+                                        <input type="text" class="form-control form-control-sm" name="ci" id="ci" formControlName="cli_ci">
+                                    </div>
+                                    <!-- Nombres -->
+                                    <div class="col-4 text-end">
+                                        <label for="first_name">Nombres:</label>
+                                    </div>
+                                    <div class="col-8 mb-3">
+                                        <input type="text" class="form-control form-control-sm" name="first_name" id="first_name" formControlName="cli_firstName" />
+                                    </div>
+                                    <!-- Apellidos -->
+                                    <div class="col-4 text-end">
+                                        <label for="last_name">Apellidos:</label>
+                                    </div>
+                                    <div class="col-8 mb-3">
+                                        <input type="text" class="form-control form-control-sm" name="last_name" id="last_name" formControlName="cli_lastName" />
+                                    </div>
+                                    <!-- Correo -->
+                                    <div class="col-4 text-end">
+                                        <label for="email">Correo:</label>
+                                    </div>
+                                    <div class="col-8 mb-3">
+                                        <input type="email" class="form-control form-control-sm" name="email" id="email" formControlName="cli_email" />
+                                    </div>
+                                    <!-- Teléfono -->
+                                    <div class="col-4 text-end">
+                                        <label for="phone">Teléfono:</label>
+                                    </div>
+                                    <div class="col-8 mb-3">
+                                        <input type="tel" class="form-control form-control-sm" name="phone" id="phone" formControlName="cli_phone" />
+                                    </div>
+                                    <!-- Deuda -->
+                                    <div class="col-4 text-end">
+                                        <label for="debt">Deuda:</label>
+                                    </div>
+                                    <div class="col-8 mb-3">
+                                        <input type="number" id="debt" class="form-control form-control-sm" name="debt" id="debt" formControlName="cli_debt" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-around">
+                        <a class="btn btn-success" (click)="onPostClient()">Guardar</a>
+                        <a class="btn btn-warning" [routerLink]="['../../home']">Salir</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
