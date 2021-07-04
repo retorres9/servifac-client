@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
+import jwt_decode from 'jwt-decode';
+
 import { Credentials } from "./credentials.model";
 import { AuthService } from "../auth.service";
 import { CredentialsJwt } from "../jwt-credentials.model";
@@ -20,10 +22,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     const token = localStorage.getItem('token');
-    // const decoded: CredentialsJwt = jwt_decode(token);
-    // let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
-    // const usernameInput = document.querySelector('.username');
-    // usernameInput.setF
+    const decoded: CredentialsJwt = jwt_decode(token);
+    console.log(decoded);
+
+    let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
+    if (!bool) {
+      console.log('no expira');
+
+      this.router.navigate(['home']);
+    }
 
     this.form = new FormGroup({
       username: new FormControl("", {
