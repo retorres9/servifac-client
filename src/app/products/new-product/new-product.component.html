@@ -110,9 +110,7 @@
                     </div>
                     <div class="col-9 mb-3">
                         <select class="form-select form-select-sm" name="ubicacion" id="ubicacion" aria-label="Seleccione una ubicación">
-                    <option>Vit1</option>
-                    <option>Vit2</option>
-                    <option>Vit3</option>
+                    <option *ngFor="let location of locations" [value]="location.loc_id">{{location.loc_name}}</option>
                   </select>
                     </div>
 
@@ -121,9 +119,7 @@
                     </div>
                     <div class="col-9 mb-3">
                         <select class="form-select form-select-sm" name="category" id="category" aria-label="Seleccione una cateogria">
-                    <option>Cat1</option>
-                    <option>Cat2</option>
-                    <option>Cat3</option>
+                    <option *ngFor="let category of categories" [value]="category.cat_id">{{category.cat_name}}</option>
                   </select>
                     </div>
 
@@ -132,9 +128,7 @@
                     </div>
                     <div class="col-9 mb-3">
                         <select class="form-select form-select-sm" name="provider" id="provider" aria-label="Seleccione un proveedor">
-                    <option>Prov1</option>
-                    <option>Prov2</option>
-                    <option>Prov3</option>
+                    <option *ngFor="let provider of providers" [value]="provider.prov_ruc">{{provider.prov_name}}</option>
                   </select>
                     </div>
                 </div>

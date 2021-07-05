@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-new-product',
@@ -7,9 +8,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./new-product.component.scss']
 })
 export class NewProductComponent implements OnInit {
-
   newProductForm: FormGroup;
-  constructor() { }
+  categories: any;
+  locations: any;
+  providers: any;
+  constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
     this.newProductForm = new FormGroup({
@@ -49,7 +52,25 @@ export class NewProductComponent implements OnInit {
         updateOn: 'change',
         validators: [Validators.required, Validators.min(0)]
       })
-    })
+    });
+
+    this.productService.getCategories().subscribe(
+      resp => this.categories = resp
+    );
+    this.productService.getLocations().subscribe(
+      resp => {
+        this.locations = resp
+        console.log(resp);
+
+      }
+    )
+    this.productService.getProviders().subscribe(
+      resp => {
+        this.providers = resp
+        console.log(resp);
+
+      }
+    )
   }
 
   calculatePrice() {
