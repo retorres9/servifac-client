@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
+import { NewProduct } from './new-product.model';
 
+interface Product {
+  prod_name;
+}
 @Component({
   selector: 'app-new-product',
   templateUrl: './new-product.component.html',
@@ -11,7 +15,9 @@ export class NewProductComponent implements OnInit {
   newProductForm: FormGroup;
   categories: any;
   locations: any;
+  pre: string;
   providers: any;
+  product: NewProduct;
   constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
@@ -51,6 +57,18 @@ export class NewProductComponent implements OnInit {
       minQuantity: new FormControl("", {
         updateOn: 'change',
         validators: [Validators.required, Validators.min(0)]
+      }),
+      category: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required]
+      }),
+      prod_provider: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required]
+      }),
+      location: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required]
       })
     });
 
@@ -78,7 +96,29 @@ export class NewProductComponent implements OnInit {
     console.log(Number((this.newProductForm.value.prod_price * 0.27) + this.newProductForm.value.prod_price).toFixed(2));
     this.newProductForm.controls['prod_wholesalePrice'].setValue(Number((this.newProductForm.value.prod_price * 0.27) + this.newProductForm.value.prod_price).toFixed(2));
     this.newProductForm.controls['prod_retailPrice'].setValue(Number((this.newProductForm.value.prod_price * 0.32) + this.newProductForm.value.prod_price).toFixed(2));
-
   }
 
+  setPrice(precio: string) {
+    console.log(precio);
+    this.pre = precio
+  }
+
+  onSaveProduct() {
+    const newProduct = new NewProduct();
+    newProduct.prod_name = this.newProductForm.value.prod_name;
+    newProduct.prod_code = this.newProductForm.value.prod_code;
+    newProduct.prod_price = this.newProductForm.value.prod_price;
+    newProduct.prod_retailPrice = Number(this.newProductForm.value.prod_retailPrice);
+    newProduct.prod_wholesalePrice = Number(this.newProductForm.value.prod_wholesalePrice);
+    newProduct.prod_quantity = this.newProductForm.value.quantity;
+    newProduct.prod_minQuantity = this.newProductForm.value.minQuantity;
+    newProduct.loc_id = Number(this.newProductForm.value.location);
+    newProduct.cat_id = Number(this.newProductForm.value.category);
+    newProduct.ppr_productProvider = this.newProductForm.value.prod_provider;
+    this.productService.postProduct(newProduct).subscribe()
+
+    // console.log(this.newProductForm.value.prod_provider);
+    // this.product.prod_name = this.newProductForm.value.prod_name;
+    // console.log(this.product);
+  }
 }

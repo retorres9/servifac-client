@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { NewProduct } from './new-product/new-product.model';
 
 interface client {
   prod_name: string;
@@ -42,5 +43,23 @@ export class ProductsService {
 
   getProviders() {
     return this.http.get<Provider>('http://127.0.0.1:3000/provider/combo');
+  }
+
+  postProduct(product: NewProduct) {
+    const token = JSON.parse(localStorage.getItem('token'));
+    console.log(token.accessToken);
+    console.log(product);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token.accessToken}`
+      })
+    };
+    // return;
+    // const header = new HttpHeaders().set(
+    //   'Authorization', `Bearer ${token.accessToken}`
+    // )
+    // console.log(header);
+
+    return this.http.post<NewProduct>('http://127.0.0.1:3000/product', product, httpOptions);
   }
 }
