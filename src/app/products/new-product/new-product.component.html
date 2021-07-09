@@ -119,7 +119,6 @@
                     </div>
                     <div class="col-9 mb-3">
                         <select class="form-select form-select-sm" name="category" id="category" aria-label="Seleccione una cateogria" formControlName="category">
-                          <!-- <option>Seleccione una categoria</option> -->
                     <option *ngFor="let category of categories" [value]="category.cat_id">{{category.cat_name}}</option>
                   </select>
                     </div>

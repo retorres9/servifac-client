@@ -33,15 +33,13 @@ export class NewClientComponent implements OnInit {
         updateOn: 'change',
         validators: [Validators.minLength(10)]
       }),
-      cli_debt: new FormControl("", {
+      cli_debt: new FormControl(0, {
         updateOn: 'change',
-        validators: [Validators.min(0)]
+        validators: [Validators.min(0), Validators.required]
       }),
       cli_email: new FormControl("", {
         updateOn: 'change',
-        validators: [Validators.required, Validators.pattern(
-          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )]
+        validators: [Validators.required]
       })
     })
   }

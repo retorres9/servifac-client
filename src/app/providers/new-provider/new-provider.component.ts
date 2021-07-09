@@ -30,7 +30,7 @@ export class NewProviderComponent implements OnInit {
       }),
       prov_phone: new FormControl("", {
         updateOn: "change",
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(10) ],
       }),
       prov_accountName: new FormControl("", {
         updateOn: "change",
@@ -46,7 +46,7 @@ export class NewProviderComponent implements OnInit {
       }),
       prov_debt: new FormControl(0, {
         updateOn: "change",
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.min(0)],
       }),
     });
   }
