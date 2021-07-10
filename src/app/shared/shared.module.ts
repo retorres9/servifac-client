@@ -12,6 +12,6 @@ import { HeaderComponent } from './components/header/header.component';
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, SidedrawComponent, HeaderComponent],
   imports: [CommonModule, TranslateModule, FormsModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule, SidedrawComponent]
+  exports: [TranslateModule, WebviewDirective, FormsModule, SidedrawComponent, HeaderComponent]
 })
 export class SharedModule {}
