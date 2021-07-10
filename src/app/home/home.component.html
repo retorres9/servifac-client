@@ -1,28 +1,7 @@
-<ul class="nav d-flex align-items-center shadow p-2 mb-5">
-    <app-sidedraw class="p-2"></app-sidedraw>&nbsp;&nbsp;
-    <h3 class="title">
-        Menú Principal
-    </h3>
-    <hr class="mb-2">
-    <div class="ms-auto p-2">
-        <div class="btn-group">
-            <button class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">{{user}}</button>
-            <ul class="dropdown-menu">
-                <li><a href="#" class="dropdown-item">Ajustes</a></li>
-                <li><a href="#" class="dropdown-item">Ajustes</a></li>
-                <li><a href="#" class="dropdown-item">Ajustes</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a href="#" class="dropdown-item"> Cerrar sesión</a></li>
-            </ul>
-        </div>
-    </div>
-</ul>
-
+<app-header></app-header>
 <div class="container">
     <div class="row">
-        <div class="col-3">
+        <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow mb-3">
                 <div class="card-header">
                     <h4 class="card-title">Facturación</h4>
@@ -35,56 +14,56 @@
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
                     <h4 class="card-title">Inventario</h4>
 
                 </div>
                 <div class="card-body">
-                    <img src="assets/caja-registradora.png" alt="">
+                    <img class="img-fluid-home" src="assets/caja.png" alt="">
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-success" [routerLink]="['../products/new-product']">Inventario</a>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
                     <h4 class="card-title">Clientes</h4>
 
                 </div>
                 <div class="card-body">
-                    <img src="assets/caja-registradora.png" alt="">
+                    <img class="img-fluid-home" src="assets/objetivo.png" alt="">
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-success" [routerLink]="['../clients/new-client']">Clientes</a>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
                     <h4 class="card-title">Listado clientes</h4>
 
                 </div>
                 <div class="card-body">
-                    <img src="assets/caja-registradora.png" alt="">
+                    <img class="img-fluid-home" src="assets/caja-registradora.png" alt="">
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-success" [routerLink]="['../clients/listing']">Listado</a>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
                     <h4 class="card-title">Nuevo proveedor</h4>
 
                 </div>
                 <div class="card-body">
-                    <img src="assets/caja-registradora.png" alt="">
+                    <img class="img-fluid-home" src="assets/inventario.png" alt="">
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-success" [routerLink]="['../provider/new-provider']">Ir a nuevo proveedor</a>

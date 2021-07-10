@@ -18,7 +18,7 @@ interface Prods {
   styleUrls: ["./billing.component.scss"],
 })
 export class BillingComponent implements OnInit {
-
+  name: string = 'Facturación'
   code: string;
   dataTest: Prods[] = [];
   data2 = [

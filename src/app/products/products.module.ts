@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
     ProductsRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class ProductsModule { }

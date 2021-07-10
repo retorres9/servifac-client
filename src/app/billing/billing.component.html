@@ -1,24 +1,4 @@
-<ul class="nav d-flex align-items-center shadow p-2 mb-5">
-    <app-sidedraw class="p-2"></app-sidedraw>&nbsp;&nbsp;
-    <h3 class="title">Facturación</h3>
-    <hr class="mb-2" />
-    <div class="ms-auto p-2">
-        <div class="btn-group">
-            <button class="btn btn-info dropdown-toggle" tabindex="-1" data-bs-toggle="dropdown" aria-expanded="false">
-        Roberth Torres
-      </button>
-            <ul class="dropdown-menu">
-                <li><a href="#" class="dropdown-item">Ajustes</a></li>
-                <li><a href="#" class="dropdown-item">Ajustes</a></li>
-                <li><a href="#" class="dropdown-item">Ajustes</a></li>
-                <li>
-                    <hr class="dropdown-divider" />
-                </li>
-                <li><a href="#" class="dropdown-item"> Cerrar sesión</a></li>
-            </ul>
-        </div>
-    </div>
-</ul>
+<app-header [tab]="name"></app-header>
 <div class="container">
     <div class="row">
         <label for="client_ci" class="col-1">Cliente:</label>
@@ -39,49 +19,55 @@
             <input type="text" class="form-control form-control-sm" id="code" [(ngModel)]="code" (keyup.enter)="getProductBarcode()" />
         </div>
     </div>
-    <div class="table-wrap">
-        <table class="table table-sm table-bordered table-hover table-inverse table-responsive">
-            <thead class="thead-inverse border border-dark">
-                <tr>
-                    <th>Cant</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Iva 12%</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <tr *ngFor="let product of dataTest; let i = index" (click)="rowClicked(i, product.prod)" (keyup.backspace)="removeProduct(product.prod)" [ngClass]="{'table-active': i === selectedRow}">
-                    <td>
-                        <input type="number" value="1" min="1" [id]="product.prod" [(ngModel)]="dataTest[i].cant" class="cant-input" (input)="addCant(i, $event)" (keyup.enter)="changeFocus()">
-                    </td>
-                    <td>{{ product.prod }}</td>
-                    <td>{{ product.price | currency }}</td>
-                    <td>{{ product.total | currency }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
     <div class="row">
-        <div class="col-4 offset-8">
-            <div class="row row-detail">
-                <div class="col-4 text-end border-end">
-                    <p>Subtotal:</p>
-                </div>
-                <div class="col-8">
-                    {{total | currency}}
-                </div>
+        <div class="col">
+            <div class="table-wrap">
+                <table class="table table-sm table-bordered table-hover table-inverse table-responsive">
+                    <thead class="thead-inverse border border-dark">
+                        <tr>
+                            <th>Cant</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Iva 12%</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <tr *ngFor="let product of dataTest; let i = index" (click)="rowClicked(i, product.prod)" (keyup.backspace)="removeProduct(product.prod)" [ngClass]="{'table-active': i === selectedRow}">
+                            <td>
+                                <input type="number" value="1" min="1" [id]="product.prod" [(ngModel)]="dataTest[i].cant" class="cant-input" (input)="addCant(i, $event)" (keyup.enter)="changeFocus()">
+                            </td>
+                            <td>{{ product.prod }}</td>
+                            <td>{{ product.price | currency }}</td>
+                            <td>{{ product.total | currency }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="row row-detail">
-                <div class="col-4 text-end border-end">
-                    <p>Total:</p>
+        </div>
+
+        <div class="row">
+            <div class="col-4 offset-8">
+                <div class="row row-detail">
+                    <div class="col-4 text-end border-end">
+                        <p>Subtotal:</p>
+                    </div>
+                    <div class="col-8">
+                        {{total | currency}}
+                    </div>
                 </div>
-                <div class="col-8">
-                    {{total | currency}}
+                <div class="row row-detail">
+                    <div class="col-4 text-end border-end">
+                        <p>Total:</p>
+                    </div>
+                    <div class="col-8">
+                        {{total | currency}}
+                    </div>
                 </div>
+                <!-- <p>Total: {{total | currency}}</p> -->
             </div>
-            <!-- <p>Total: {{total | currency}}</p> -->
         </div>
     </div>
+
     <div class="d-flex justify-content-around mt-3">
         <button class="btn btn-primary" (click)="printer()">
       <svg

@@ -21,7 +21,6 @@ import { BillingRoutingModule } from './billing/billing-routing.module';
 import { BillingComponent } from './billing/billing.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ProvidersComponent } from './providers/providers.component';
-import { ProviderRoutingModule } from './providers/provider-routing.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {

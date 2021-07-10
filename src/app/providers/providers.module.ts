@@ -5,6 +5,7 @@ import { ProviderRoutingModule } from './provider-routing.module';
 import { RouterModule } from '@angular/router';
 import { NewProviderComponent } from './new-provider/new-provider.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ProviderRoutingModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class ProvidersModule { }

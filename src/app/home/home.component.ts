@@ -10,14 +10,11 @@ import { CredentialsJwt } from '../auth/jwt-credentials.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  user: string;
-  constructor(private router: Router,
-              private authService: AuthService) { }
+
+  constructor() { }
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    const credentials: CredentialsJwt = jwt_decode(token);
-    this.user = credentials.user_username;
+
   }
 
 }
