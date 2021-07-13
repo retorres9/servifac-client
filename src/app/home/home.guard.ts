@@ -16,6 +16,9 @@ export class HomeGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       let redirect;
       const redirectToken = localStorage.getItem('token');
+      if (!redirectToken) {
+        return;
+      }
       const token: CredentialsJwt = jwt_decode(redirectToken);
       console.log(token);
       if (new Date() > new Date(token.exp * 1000)) {
