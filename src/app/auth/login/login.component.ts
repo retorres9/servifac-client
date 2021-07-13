@@ -21,17 +21,6 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    const decoded: CredentialsJwt = jwt_decode(token);
-    console.log(decoded);
-
-    let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
-    if (!bool) {
-      console.log('no expira');
-
-      this.router.navigate(['home']);
-    }
-
     this.form = new FormGroup({
       username: new FormControl("", {
         updateOn: "change",
@@ -42,6 +31,21 @@ export class LoginComponent implements OnInit {
         validators: [Validators.required],
       }),
     });
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    if (token !== null) {
+
+      console.log(token)
+      const decoded: CredentialsJwt = jwt_decode(token);
+      let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
+
+      if (!bool) {
+        console.log('no expira');
+
+        this.router.navigate(['home']);
+      }
+    }
   }
 
   onLogin() {

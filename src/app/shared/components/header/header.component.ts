@@ -24,4 +24,9 @@ export class HeaderComponent implements OnInit {
     this.user = credentials.user_username;
   }
 
+  onLogout() {
+    localStorage.removeItem('token');
+    this.router.navigateByUrl('auth/login');
+  }
+
 }

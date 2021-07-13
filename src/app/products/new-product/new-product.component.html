@@ -5,134 +5,157 @@
                 <strong>Nuevo Producto</strong> &nbsp; &nbsp;
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Ayuda</label
-          >
-        </div>
-      </div>
-    </div>
-    <div class="card-body">
-      <form id="new-product" [formGroup]="newProductForm">
-        <div class="row">
-          <div class="col-7">
-            <div class="row">
-              <div class="col-3 text-end">
-                <!-- ? Nombre -->
-                <label for="product">Nombre:</label>
-                </div>
-                <div class="col-9 mb-3">
-                    <input type="text" id="product" class="form-control form-control-sm" formControlName="prod_name" />
-                </div>
-                <!-- ? Código -->
-                <div class="col-3 text-end">
-                    <label for="codigo">Código:</label>
-                </div>
-                <div class="col-9 mb-3">
-                    <input type="text" id="codigo" class="form-control form-control-sm" formControlName="prod_code" />
-                </div>
-                <!-- ? Precio de compra -->
-                <div class="col-3 text-end">
-                    <label for="price">Precio de compra:</label>
-                </div>
-                <div class="col-9 mb-3">
-                    <input type="number" id="price" class="form-control form-control-sm" formControlName="prod_price" (input)="calculatePrice()" />
-                </div>
-                <!-- ? Ganancia normal -->
-                <div class="col-3 text-end">
-                    <label for="retailGain">Ganancia</label>
-                </div>
-                <div class="col-3 mb-3">
-                    <input type="number" class="form-control form-control-sm" id="retailGain" formControlName="prod_retailGain">
-                </div>
-                <!-- ? Ganancia por mayor -->
-                <div class="col-3 text-end">
-                    <label for="majorGain">Ganancia x Mayor</label>
-                </div>
-                <div class="col-3 mb-3">
-                    <input type="number" class="form-control form-control-sm" formControlName="prod_wholesaleGain">
-                </div>
-                <!-- ? Precio normal -->
-                <div class="col-3 text-end">
-                    <label for="retailPrice">Precio normal</label>
-                </div>
-                <div class="col-3 mb-3">
-                    <input type="number" class="form-control form-control-sm" name="retailPrice" id="retailPrice" formControlName="prod_retailPrice">
-                </div>
-                <!-- ? Precio por mayor -->
-                <div class="col-3 text-end">
-                    <label for="wholesale_price">Precio x Mayor:</label>
-                </div>
-                <div class="col-3 mb-3">
-                    <input type="number" id="wholesale_price" class="form-control form-control-sm" formControlName="prod_wholesalePrice" />
-                </div>
-                <!-- ? Cantidad -->
-                <div class="col-3 text-end">
-                    <label for="quantity">Cantidad:</label>
-                </div>
-                <div class="col-3 mb-3">
-                    <input type="number" id="quantity" class="form-control form-control-sm" formControlName="quantity" />
-                </div>
-                <!-- ? Cantidad mínima -->
-                <div class="col-3 text-end">
-                    <label for="minQuantity">Cant. Mínima:</label>
-                </div>
-                <div class="col-3 mb-3">
-                    <input type="number" id="minQuantity" class="form-control form-control-sm" formControlName="minQuantity" />
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Ayuda</label>
                 </div>
             </div>
         </div>
-        <div class="col-5">
-            <div class="form-group">
+        <div class="card-body">
+            <form id="new-product" [formGroup]="newProductForm">
+                <div class="alert text-center" [(ngClass)]="type" *ngIf="isAlert" role="alert">{{message}}</div>
                 <div class="row">
-                    <div class="col-3 text-end">
-                        <label for="ubicacion">Ubicación:</label>
+                    <div class="col-7">
+                        <div class="row">
+                            <div class="col-3 text-end">
+                                <!-- ? Nombre -->
+                                <label for="product">Nombre:</label>
+                            </div>
+                            <div class="col-9 mb-3">
+                                <input type="text" id="product" class="form-control form-control-sm" formControlName="prod_name" />
+                            </div>
+                            <!-- ? Código -->
+                            <div class="col-3 text-end">
+                                <label for="codigo">Código:</label>
+                            </div>
+                            <div class="col-9 mb-3">
+                                <input type="text" id="codigo" class="form-control form-control-sm" formControlName="prod_code" />
+                            </div>
+                            <!-- ? Precio de compra -->
+                            <div class="col-3 text-end">
+                                <label for="price">Precio de compra:</label>
+                            </div>
+                            <div class="col-9 mb-3">
+                                <input type="number" id="price" class="form-control form-control-sm" formControlName="prod_price" (input)="calculatePrice()" />
+                            </div>
+                            <!-- ? Ganancia normal -->
+                            <div class="col-3 text-end">
+                                <label for="retailGain">Ganancia</label>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <input type="number" class="form-control form-control-sm" id="retailGain" formControlName="prod_retailGain" />
+                            </div>
+                            <!-- ? Ganancia por mayor -->
+                            <div class="col-3 text-end">
+                                <label for="majorGain">Ganancia x Mayor</label>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <input type="number" class="form-control form-control-sm" formControlName="prod_wholesaleGain" />
+                            </div>
+                            <!-- ? Precio normal -->
+                            <div class="col-3 text-end">
+                                <label for="retailPrice">Precio normal</label>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <input type="number" class="form-control form-control-sm" name="retailPrice" id="retailPrice" formControlName="prod_retailPrice" />
+                            </div>
+                            <!-- ? Precio por mayor -->
+                            <div class="col-3 text-end">
+                                <label for="wholesale_price">Precio x Mayor:</label>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <input type="number" id="wholesale_price" class="form-control form-control-sm" formControlName="prod_wholesalePrice" />
+                            </div>
+                            <!-- ? Cantidad -->
+                            <div class="col-3 text-end">
+                                <label for="quantity">Cantidad:</label>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <input type="number" id="quantity" class="form-control form-control-sm" formControlName="quantity" />
+                            </div>
+                            <!-- ? Cantidad mínima -->
+                            <div class="col-3 text-end">
+                                <label for="minQuantity">Cant. Mínima:</label>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <input type="number" id="minQuantity" class="form-control form-control-sm" formControlName="minQuantity" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-9 mb-3">
-                        <select class="form-select form-select-sm" name="ubicacion" id="ubicacion" aria-label="Seleccione una ubicación" formControlName="location">
-                    <option *ngFor="let location of locations" [value]="location.loc_id">{{location.loc_name}}</option>
+                    <div class="col-5">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-3 text-end">
+                                    <label for="ubicacion">Ubicación:</label>
+                                </div>
+                                <div class="col-9 mb-3">
+                                    <select class="form-select form-select-sm" name="ubicacion" id="ubicacion" aria-label="Seleccione una ubicación" formControlName="location">
+                    <option
+                      *ngFor="let location of locations"
+                      [value]="location.loc_id"
+                    >
+                      {{ location.loc_name }}
+                    </option>
                   </select>
-                    </div>
+                                </div>
 
-                    <div class="col-3 text-end">
-                        <label for="category">Categoria:</label>
-                    </div>
-                    <div class="col-9 mb-3">
-                        <select class="form-select form-select-sm" name="category" id="category" aria-label="Seleccione una cateogria" formControlName="category">
-                    <option *ngFor="let category of categories" [value]="category.cat_id">{{category.cat_name}}</option>
+                                <div class="col-3 text-end">
+                                    <label for="category">Categoria:</label>
+                                </div>
+                                <div class="col-9 mb-3">
+                                    <select class="form-select form-select-sm" name="category" id="category" aria-label="Seleccione una cateogria" formControlName="category">
+                    <option
+                      *ngFor="let category of categories"
+                      [value]="category.cat_id"
+                    >
+                      {{ category.cat_name }}
+                    </option>
                   </select>
-                    </div>
+                                </div>
 
-                    <div class="col-3 text-end">
-                        <label for="provider">Proveedor:</label>
-                    </div>
-                    <div class="col-9 mb-3">
-                        <select class="form-select form-select-sm" name="provider" id="provider" aria-label="Seleccione un proveedor" formControlName="prod_provider">
-                    <option *ngFor="let provider of providers" [value]="provider.prov_ruc">{{provider.prov_name}}</option>
+                                <div class="col-3 text-end">
+                                    <label for="provider">Proveedor:</label>
+                                </div>
+                                <div class="col-9 mb-3">
+                                    <select class="form-select form-select-sm" name="provider" id="provider" aria-label="Seleccione un proveedor" formControlName="prod_provider">
+                    <option
+                      *ngFor="let provider of providers"
+                      [value]="provider.prov_ruc"
+                    >
+                      {{ provider.prov_name }}
+                    </option>
                   </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </div>
-    </form>
-</div>
-<div class="card-footer">
-    <div class="d-flex justify-content-around">
-        <button class="btn btn-success" [disabled]="!this.newProductForm.valid" (click)="onSaveProduct()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+        <div class="card-footer">
+            <div class="d-flex justify-content-around">
+                <button class="btn btn-success" [disabled]="!this.newProductForm.valid" (click)="onSaveProduct()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-save"
+            viewBox="0 0 16 16"
+          >
             <path
               d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"
             />
-          </svg> Guardar
+          </svg>
+          Guardar
         </button>
-        <a class="btn btn-warning btn-block" [routerLink]="['../../home']">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                <a class="btn btn-warning btn-block" [routerLink]="['../../home']">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
             <path
               fill-rule="evenodd"
               d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"
             />
           </svg> Salir
-        </a>
+                </a>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div>

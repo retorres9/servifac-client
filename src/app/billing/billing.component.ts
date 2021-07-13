@@ -193,6 +193,7 @@ export class BillingComponent implements OnInit {
 
   user: string;
   client_ci: string;
+  clientName: string;
   total = 0;
   selectedRow: number;
   options = {
@@ -238,6 +239,8 @@ export class BillingComponent implements OnInit {
     this.clientService
       .getClient(this.client_ci)
       .subscribe((resp) => {
+        console.log(resp);
+        this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
         if (resp === null) {
           (document.querySelector("#openModal") as HTMLElement)?.click();
         }

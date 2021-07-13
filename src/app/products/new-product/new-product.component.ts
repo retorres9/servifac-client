@@ -17,7 +17,10 @@ export class NewProductComponent implements OnInit {
   locations: any;
   pre: string;
   providers: any;
+  message: string;
+  type: string;
   product: NewProduct;
+  isAlert: boolean;
   constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
@@ -115,10 +118,22 @@ export class NewProductComponent implements OnInit {
     newProduct.loc_id = Number(this.newProductForm.value.location);
     newProduct.cat_id = Number(this.newProductForm.value.category);
     newProduct.ppr_productProvider = this.newProductForm.value.prod_provider;
-    this.productService.postProduct(newProduct).subscribe()
+    this.productService.postProduct(newProduct).subscribe(
+      resp => {
+        this.setAlert('Producto creado satisfactoriamente', 'alert-success');
+        this.newProductForm.reset();
+      }, error => {
+        this.setAlert('Hubo un error', 'alert-danger');
+      }
+    )
+  }
 
-    // console.log(this.newProductForm.value.prod_provider);
-    // this.product.prod_name = this.newProductForm.value.prod_name;
-    // console.log(this.product);
+  setAlert(message: string, type: string) {
+    this.isAlert = true;
+    this.message = message;
+    this.type = type;
+    setTimeout(() => {
+      this.isAlert = false;
+    }, 5000);
   }
 }
