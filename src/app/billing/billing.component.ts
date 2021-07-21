@@ -246,13 +246,15 @@ export class BillingComponent implements OnInit {
       }),
       cli_email: new FormControl("", {
         updateOn: 'change',
-        validators: [Validators.required]
+        validators: [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]
       })
 
     })
   }
 
   removeProduct(prodRemoved: string) {
+    console.log('backspace');
+
     this.dataTest = this.dataTest.filter(product => product.prod !== prodRemoved);
     this.getTotalAmount();
   }
@@ -269,6 +271,9 @@ export class BillingComponent implements OnInit {
       .getClient(this.client_ci)
       .subscribe((resp) => {
         if (resp === null) {
+          this.newClientForm.controls.cli_ci.setValue(this.client_ci);
+          this.newClientForm.controls.cli_ci.markAsTouched();
+          this.newClientForm.controls.cli_ci.markAsDirty();
           (document.querySelector("#openModal") as HTMLElement)?.click();
           return;
         }
@@ -401,5 +406,21 @@ export class BillingComponent implements OnInit {
 
   changeFocusModal() {
     (document.querySelector("#closeModalOk") as HTMLElement)?.focus();
+  }
+
+  onPostClient() {
+    this.clientService.createClient(
+      this.newClientForm.value.cli_ci,
+      this.newClientForm.value.cli_firstName,
+      this.newClientForm.value.cli_lastName,
+      this.newClientForm.value.cli_email,
+      this.newClientForm.value.cli_phone,
+    ).subscribe(resp => {
+      console.log(resp);
+      this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
+      this.clientName = resp.cli_phone;
+      this.newClientForm.reset();
+      (document.querySelector('#closeModal') as HTMLElement)?.click();
+    });
   }
 }

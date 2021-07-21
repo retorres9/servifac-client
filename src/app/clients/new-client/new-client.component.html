@@ -62,8 +62,13 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-around">
-                        <button class="btn btn-success" (click)="onPostClient()" [disabled]="!new_client_form.valid">Guardar</button>
-                        <a class="btn btn-warning" [routerLink]="['../../home']">Salir</a>
+                        <button class="btn btn-success" (click)="onPostClient()" [disabled]="!new_client_form.valid">
+                          <i class="bi bi-save-fill"></i>
+                          Guardar
+                        </button>
+                        <a class="btn btn-warning" [routerLink]="['../../home']">
+                            <i class="bi bi-arrow-bar-left"></i> Salir
+                        </a>
                     </div>
                 </div>
             </form>
