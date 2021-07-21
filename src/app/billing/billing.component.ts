@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ClientsService } from "../clients/clients.service";
 import { ProductsService } from "../products/products.service";
 import { tap } from "rxjs/operators";
 import { pipe } from "rxjs";
-import { ClientsService } from "../clients/clients.service";
 
+import autoTable from "jspdf-autotable";
+import { jsPDF } from "jspdf";
 interface Prods {
   prod: string;
   cant: number;
@@ -20,6 +21,15 @@ interface Prods {
 export class BillingComponent implements OnInit {
   name: string = 'Facturación'
   code: string;
+  amountGiven: number;
+  change: number;
+  user: string;
+  client_ci: string;
+  clientName: string;
+  clientPhone: string;
+  total = 0;
+  selectedRow: number;
+  newClientForm: FormGroup;
   dataTest: Prods[] = [];
   data2 = [
     {
@@ -191,11 +201,7 @@ export class BillingComponent implements OnInit {
     },
   ];
 
-  user: string;
-  client_ci: string;
-  clientName: string;
-  total = 0;
-  selectedRow: number;
+
   options = {
     silent: false,
     // printBackground: true,
@@ -220,7 +226,30 @@ export class BillingComponent implements OnInit {
 
   ngOnInit(): void {
     const token = localStorage.getItem("token");
-    // this.user = token.username;
+    // (document.querySelector('#code') as HTMLElement)?.focus();
+    this.newClientForm = new FormGroup({
+      cli_firstName: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required]
+      }),
+      cli_ci: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.minLength(10), Validators.maxLength(13), Validators.required]
+      }),
+      cli_lastName: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required]
+      }),
+      cli_phone: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.minLength(10)]
+      }),
+      cli_email: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required]
+      })
+
+    })
   }
 
   removeProduct(prodRemoved: string) {
@@ -239,11 +268,14 @@ export class BillingComponent implements OnInit {
     this.clientService
       .getClient(this.client_ci)
       .subscribe((resp) => {
-        console.log(resp);
-        this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
         if (resp === null) {
           (document.querySelector("#openModal") as HTMLElement)?.click();
+          return;
         }
+        console.log(resp);
+        this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
+        this.clientPhone = resp.cli_phone;
+        (document.querySelector('#code') as HTMLElement)?.focus();
       });
   }
 
@@ -284,7 +316,6 @@ export class BillingComponent implements OnInit {
       ? (event.target.value = 1)
       : (this.dataTest[idx].cant = event.target.value);
     this.dataTest[idx].cant = event.target.value;
-    console.log(typeof event.target.value);
     this.dataTest[idx].total =
       this.dataTest[idx].cant * this.dataTest[idx].price;
     this.getTotalAmount();
@@ -296,6 +327,8 @@ export class BillingComponent implements OnInit {
 
   printer() {
     // window.print();
+    (document.querySelector("#amountGivenInput") as HTMLElement)?.focus();
+    return;
     const doc = new jsPDF("p", "pt", "a5");
     let pageNumber = 0;
     let total = 0;
@@ -358,5 +391,15 @@ export class BillingComponent implements OnInit {
       },
     });
     doc.save("asd.pdf");
+  }
+
+  calculateChange() {
+    console.log(this.amountGiven);
+    this.change = this.amountGiven - this.total;
+    this.change = Number(this.change.toFixed(2));
+  }
+
+  changeFocusModal() {
+    (document.querySelector("#closeModalOk") as HTMLElement)?.focus();
   }
 }

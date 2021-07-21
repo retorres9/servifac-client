@@ -54,11 +54,6 @@ export class ProductsService {
         Authorization: `Bearer ${token.accessToken}`
       })
     };
-    // return;
-    // const header = new HttpHeaders().set(
-    //   'Authorization', `Bearer ${token.accessToken}`
-    // )
-    // console.log(header);
 
     return this.http.post<NewProduct>('http://127.0.0.1:3000/product', product, httpOptions);
   }

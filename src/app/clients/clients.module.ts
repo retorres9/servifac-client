@@ -18,6 +18,9 @@ import { ListingComponent } from './listing/listing.component';
     ClientsRoutingModule,
     ReactiveFormsModule,
     RouterModule
+  ],
+  exports: [
+    NewClientComponent
   ]
 })
 export class ClientsModule { }
