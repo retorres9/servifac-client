@@ -21,9 +21,13 @@ export class NewProductComponent implements OnInit {
   type: string;
   product: NewProduct;
   isAlert: boolean;
+  tax: number;
+  loading: boolean = false;
   constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
+    let config = JSON.parse(localStorage.getItem('configuration'));
+    this.tax = config.tax;
     this.newProductForm = new FormGroup({
       prod_name: new FormControl("", {
         updateOn: 'change',
@@ -95,10 +99,12 @@ export class NewProductComponent implements OnInit {
   }
 
   calculatePrice() {
-    console.log(Number((this.newProductForm.value.prod_price * 0.32) + this.newProductForm.value.prod_price).toFixed(2));
-    console.log(Number((this.newProductForm.value.prod_price * 0.27) + this.newProductForm.value.prod_price).toFixed(2));
-    this.newProductForm.controls['prod_wholesalePrice'].setValue(Number((this.newProductForm.value.prod_price * 0.27) + this.newProductForm.value.prod_price).toFixed(2));
-    this.newProductForm.controls['prod_retailPrice'].setValue(Number((this.newProductForm.value.prod_price * 0.32) + this.newProductForm.value.prod_price).toFixed(2));
+    let retailPrice: string | number = Number((this.newProductForm.value.prod_price * (0.20 + (this.tax/100))) + this.newProductForm.value.prod_price).toFixed(2);
+    retailPrice = this.roundDecimal(Number(retailPrice));
+    let wholesalePrice: string | number = Number((this.newProductForm.value.prod_price * 0.27) + this.newProductForm.value.prod_price).toFixed(2);
+    wholesalePrice = this.roundDecimal(Number(wholesalePrice));
+    this.newProductForm.controls['prod_wholesalePrice'].setValue(Number(wholesalePrice).toFixed(2));
+    this.newProductForm.controls['prod_retailPrice'].setValue(Number(retailPrice).toFixed(2));
   }
 
   setPrice(precio: string) {
@@ -107,6 +113,7 @@ export class NewProductComponent implements OnInit {
   }
 
   onSaveProduct() {
+    this.loading = true;
     const newProduct = new NewProduct();
     newProduct.prod_name = this.newProductForm.value.prod_name;
     newProduct.prod_code = this.newProductForm.value.prod_code;
@@ -121,8 +128,10 @@ export class NewProductComponent implements OnInit {
     this.productService.postProduct(newProduct).subscribe(
       resp => {
         this.setAlert('Producto creado satisfactoriamente', 'alert-success');
+        this.loading = false;
         this.newProductForm.reset();
       }, error => {
+        this.loading = false;
         this.setAlert('Hubo un error', 'alert-danger');
       }
     )
@@ -135,5 +144,23 @@ export class NewProductComponent implements OnInit {
     setTimeout(() => {
       this.isAlert = false;
     }, 5000);
+  }
+
+  roundDecimal(value: number) {
+    console.log(value);
+
+    let stringNumber = String(value).split('.');
+    if (stringNumber[1]=== undefined) {
+      return value;
+    }
+    if (Number(stringNumber[1]) >= 95) {
+      return Math.round(value);
+    }
+    console.log(stringNumber[1]);
+    let decimal;
+    (Number(stringNumber[1]) % 5 === 0) ? (decimal = Number(stringNumber[1])): (decimal = Number(Math.floor(Number(stringNumber[1])/5) *5) + 5);
+    let newNumber = `${stringNumber[0]}.${decimal}`;
+
+    return newNumber;
   }
 }

@@ -24,11 +24,10 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   onLogin(credential) {
-    return this.http.post('http://127.0.0.1:3000/user/login', credential).pipe(
-      tap(resp => {
-        localStorage.setItem('token', JSON.stringify(resp));
-        // const token: CredentialsJwt = jwt_decode(localStorage.getItem('token'));
-      })
-    );
+    return this.http.post('http://127.0.0.1:3000/user/login', credential);
+  }
+
+  getConfiguration() {
+    return this.http.get('http://127.0.0.1:3000/configuration');
   }
 }

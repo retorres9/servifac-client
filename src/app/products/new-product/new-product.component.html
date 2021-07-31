@@ -132,10 +132,11 @@
         </div>
         <div class="card-footer">
             <div class="d-flex justify-content-around">
-                <button class="btn btn-success" [disabled]="!this.newProductForm.valid" (click)="onSaveProduct()">
-          <i class="bi bi-save"></i>
-          Guardar
-        </button>
+                <button class="btn btn-success" [disabled]="!this.newProductForm.valid || loading" (click)="onSaveProduct()">
+                  <i class="bi bi-save" *ngIf="!loading"></i>
+                  <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span>
+                  Guardar
+                </button>
                 <a class="btn btn-warning btn-block" [routerLink]="['../../home']">
                     <i class="bi bi-arrow-bar-left"></i> Salir
                 </a>

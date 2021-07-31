@@ -21,6 +21,7 @@ import { BillingRoutingModule } from './billing/billing-routing.module';
 import { BillingComponent } from './billing/billing.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ProvidersComponent } from './providers/providers.component';
+import { SpinnersAngularModule } from 'spinners-angular';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -39,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BillingRoutingModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    SpinnersAngularModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -48,6 +50,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -63,7 +63,8 @@
                     </div>
                     <div class="card-footer d-flex justify-content-around">
                         <button class="btn btn-success" (click)="onPostClient()" [disabled]="!new_client_form.valid">
-                          <i class="bi bi-save-fill"></i>
+                          <i class="bi bi-save" *ngIf="!loading"></i>
+                  <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span>
                           Guardar
                         </button>
                         <a class="btn btn-warning" [routerLink]="['../../home']">

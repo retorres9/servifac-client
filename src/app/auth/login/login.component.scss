@@ -55,3 +55,26 @@
     opacity: 1;
     text-decoration: none;
 }
+
+.wrapper {
+    position: relative;
+}
+
+app-loader {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // left: 0px;
+    top: 5%;
+    z-index: 1000;
+    padding: 220px;
+    color: #fff;
+    font-weight: bold;
+    background-color: rgba(87, 87, 87, 0.603);
+}
+
+.loading-wrapper {
+    display: flex;
+    justify-content: center;
+}

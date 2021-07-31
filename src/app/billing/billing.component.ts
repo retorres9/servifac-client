@@ -12,6 +12,7 @@ interface Prods {
   cant: number;
   price: number;
   total: number;
+  isTaxed: boolean;
 }
 @Component({
   selector: "app-detail",
@@ -48,156 +49,182 @@ export class BillingComponent implements OnInit {
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Artesco",
       cant: 2,
       price: 10.25,
       total: 20.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 10.25,
       total: 20.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
     {
       prod: "Lapiz Mongol",
       cant: 2,
       price: 0.25,
       total: 0.5,
+      isTaxed: true
     },
   ];
 
@@ -301,6 +328,7 @@ export class BillingComponent implements OnInit {
             prod: resp.prod_name,
             price: parseFloat(resp.prod_price),
             total: parseFloat(resp.prod_price),
+            isTaxed: resp.prod_isTaxed
           });
         }
         this.getTotalAmount();
@@ -422,5 +450,9 @@ export class BillingComponent implements OnInit {
       this.newClientForm.reset();
       (document.querySelector('#closeModal') as HTMLElement)?.click();
     });
+  }
+
+  resetAmount() {
+    this.amountGiven = 0;
   }
 }

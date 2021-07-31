@@ -6,6 +6,7 @@ import { NewProduct } from './new-product/new-product.model';
 interface client {
   prod_name: string;
   prod_price: string;
+  prod_isTaxed: boolean
 }
 
 interface Location {
