@@ -13,6 +13,7 @@ interface Prods {
   price: number;
   total: number;
   isTaxed: boolean;
+  tax?: number;
 }
 @Component({
   selector: "app-detail",
@@ -32,6 +33,7 @@ export class BillingComponent implements OnInit {
   selectedRow: number;
   newClientForm: FormGroup;
   dataTest: Prods[] = [];
+  tax: number;
   data2 = [
     {
       prod: "Lapiz Mongol",
@@ -252,6 +254,8 @@ export class BillingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const configuration = JSON.parse(localStorage.getItem('configuration'));
+    this.tax = configuration.tax;
     const token = localStorage.getItem("token");
     // (document.querySelector('#code') as HTMLElement)?.focus();
     this.newClientForm = new FormGroup({
@@ -320,20 +324,37 @@ export class BillingComponent implements OnInit {
 
         if (productIdx >= 0) {
           ++this.dataTest[productIdx].cant;
+          let taxCal2;
+          if (resp.prod_isTaxed) {
+            taxCal2 = this.dataTest[productIdx].cant * (parseFloat(resp.prod_price) * (this.tax / 100));
+          } else {
+            taxCal2 = 0;
+          }
           this.dataTest[productIdx].total =
             this.dataTest[productIdx].cant * Number(resp.prod_price);
+            this.dataTest[productIdx].tax = taxCal2;
+
         } else {
+          let taxCal;
+          if (resp.prod_isTaxed) {
+            taxCal = 1 * (parseFloat(resp.prod_price) * (this.tax / 100));
+          } else {
+            taxCal = 0;
+          }
           this.dataTest.push({
             cant: 1,
             prod: resp.prod_name,
             price: parseFloat(resp.prod_price),
             total: parseFloat(resp.prod_price),
-            isTaxed: resp.prod_isTaxed
+            isTaxed: resp.prod_isTaxed,
+            tax: taxCal,
           });
         }
         this.getTotalAmount();
+        console.log(this.dataTest);
       });
     }
+
     this.code = "";
   }
 
@@ -361,19 +382,19 @@ export class BillingComponent implements OnInit {
   printer() {
     // window.print();
     (document.querySelector("#amountGivenInput") as HTMLElement)?.focus();
-    return;
+    // return;
     const doc = new jsPDF("p", "pt", "a5");
     let pageNumber = 0;
     let total = 0;
     let totalIva = 0;
     doc.setFontSize(9);
     const rows = [];
-    this.data.forEach((elements) => {
-      rows.push([elements.cant, elements.prod, elements.price, elements.total]);
+    this.dataTest.forEach((elements) => {
+      rows.push([elements.cant, elements.prod, elements.price.toFixed(2), elements.total.toFixed(2), elements.tax.toFixed(2)]);
     });
 
-    doc.text("Roberth Torres", 25, 46);
-
+    doc.text(this.clientName, 25, 46);
+    doc.text(this.clientPhone, 25, 66);
     autoTable(doc, {
       body: rows,
       useCss: false,
@@ -387,7 +408,8 @@ export class BillingComponent implements OnInit {
       },
       didDrawPage: (data) => {
         data.settings.margin.top = 110;
-        doc.text("Roberth Torres", 25, 46);
+        doc.text(this.clientName, 25, 46);
+        doc.text(this.clientPhone, 25, 66);
         doc.text(totalIva.toFixed(2).toString(), 315, 395);
         doc.text(total.toFixed(2).toString(), 315, 415);
         const cost = totalIva + total;
@@ -396,31 +418,50 @@ export class BillingComponent implements OnInit {
         total = 0;
       },
       didDrawCell: (data) => {
-        if (data.pageCount !== pageNumber) {
+        // if (data.pageCount !== pageNumber) {
+        //   console.log('entra 1');
+        //   console.log(`${data.pageCount} ---- ${pageNumber}`);
+
+        //   if (data.column.index === 3) {
+        //     pageNumber = data.pageNumber;
+        //     total += Number(
+        //       Number.parseFloat(data.row.cells[3].raw.toString()).toFixed(2)
+        //     );
+
+        //     this.dataTest.forEach((dataProds) => {
+        //       console.log(dataProds);
+
+        //       if (dataProds.isTaxed) {
+        //         totalIva += dataProds.price * (this.tax / 100);
+        //       }
+        //     });
+        //   }
+        //   return;
+        // } else {
+          console.log('entra 2');
           if (data.column.index === 3) {
-            pageNumber = data.pageNumber;
+            console.log(`data column index ${data.column.index}`);
+
             total += Number(
               Number.parseFloat(data.row.cells[3].raw.toString()).toFixed(2)
             );
 
-            this.data2.forEach((dataProds) => {
-              if (dataProds.prod === data.row.cells[1].raw.toString()) {
-                totalIva += dataProds.iva;
-              }
-            });
-          }
-        } else {
-          if (data.column.index === 3) {
-            total += Number(
-              Number.parseFloat(data.row.cells[3].raw.toString()).toFixed(2)
+            totalIva += Number(
+              Number.parseFloat(data.row.cells[4].raw.toString()).toFixed(2)
             );
-            this.data2.forEach((dataProds) => {
-              if (dataProds.prod === data.row.cells[1].raw) {
-                totalIva += dataProds.iva;
-              }
-            });
+            // this.dataTest.forEach((dataProds) => {
+              // console.log(this.dataTest[data.row.index]);
+
+              // if (this.dataTest[data.row.index].isTaxed) {
+
+              //   totalIva += this.dataTest[data.row.index].price * (this.tax / 100);
+              //   // console.log(dataProds.price);
+              //   console.log(totalIva);
+
+              // }
+            // });
           }
-        }
+        // }
       },
     });
     doc.save("asd.pdf");

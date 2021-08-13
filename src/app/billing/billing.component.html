@@ -30,14 +30,22 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="row">
-                <div class="col-6">
-                    <label for=""><strong>Cliente:</strong> {{clientName}}</label>
-                </div>
-                <div class="col-6">
-                    <label for=""><strong>Teléfono:</strong> {{clientPhone}}</label>
-                </div>
-            </div>
+            <form>
+                <fieldset>
+                    <legend>Datos del cliente</legend>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for=""><strong>Cliente:</strong> {{clientName}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label for=""><strong>Teléfono:</strong> {{clientPhone}}</label>
+                        </div>
+                        <div class="col-6">
+                            <label for=""><strong>Dirección:</strong> {{clientPhone}}</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -91,7 +99,7 @@
     </div>
 
     <div class="d-flex justify-content-around mt-3">
-        <button class="btn btn-primary" (click)="printer()" data-bs-toggle="modal" data-bs-target="#modalChange" [disabled]="total===0">
+        <button class="btn btn-primary" (click)="printer()" data-bs-toggle="modal" data-bs-target="#modalChange" [disabled]="total===0 || !clientName">
       <i class="bi bi-gear-fill"></i>
       Procesar
     </button>
