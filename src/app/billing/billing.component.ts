@@ -113,6 +113,8 @@ export class BillingComponent implements OnInit {
   }
 
   getProductBarcode() {
+    console.log(this.productBarcode);
+
     if (this.productBarcode !== "") {
       this.productService
         .getProductBarcode(this.productBarcode)

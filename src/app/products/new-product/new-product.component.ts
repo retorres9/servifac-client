@@ -41,21 +41,19 @@ export class NewProductComponent implements OnInit {
         updateOn: 'change',
         validators: [Validators.required, Validators.min(0)]
       }),
-      prod_retailGain: new FormControl(20, {
+      prod_normalProfit: new FormControl(20, {
         updateOn: 'change',
         validators: [Validators.required]
       }),
-      prod_wholesaleGain: new FormControl(15 , {
+      prod_wholesalePrice: new FormControl('', {
+        updateOn: 'change',
+      }),
+      prod_retailPrice: new FormControl('',{
+        updateOn: 'change'
+      }),
+      prod_wholesaleProfit: new FormControl(15 , {
         updateOn: 'change',
         validators: [Validators.required]
-      }),
-      prod_retailPrice: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.required, Validators.min(0.05)]
-      }),
-      prod_wholesalePrice: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.required, Validators.min(0)]
       }),
       quantity: new FormControl("", {
         updateOn: 'change',
@@ -118,8 +116,8 @@ export class NewProductComponent implements OnInit {
     newProduct.prod_name = this.newProductForm.value.prod_name;
     newProduct.prod_code = this.newProductForm.value.prod_code;
     newProduct.prod_price = this.newProductForm.value.prod_price;
-    newProduct.prod_retailPrice = Number(this.newProductForm.value.prod_retailPrice);
-    newProduct.prod_wholesalePrice = Number(this.newProductForm.value.prod_wholesalePrice);
+    newProduct.prod_normalProfit = Number(this.newProductForm.value.prod_normalProfit);
+    newProduct.prod_wholesaleProfit = Number(this.newProductForm.value.prod_wholesaleProfit);
     newProduct.prod_quantity = this.newProductForm.value.quantity;
     newProduct.prod_minQuantity = this.newProductForm.value.minQuantity;
     newProduct.loc_id = Number(this.newProductForm.value.location);
