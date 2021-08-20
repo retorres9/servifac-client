@@ -29,6 +29,10 @@ export class NewClientComponent implements OnInit {
         updateOn: 'change',
         validators: [Validators.required]
       }),
+      cli_address: new FormControl("", {
+        updateOn: 'change',
+        validators: [Validators.required]
+      }),
       cli_phone: new FormControl("", {
         updateOn: 'change',
         validators: [Validators.minLength(10)]
@@ -54,6 +58,7 @@ export class NewClientComponent implements OnInit {
       this.new_client_form.value.cli_lastName,
       this.new_client_form.value.cli_email,
       this.new_client_form.value.cli_phone,
+      this.new_client_form.value.cli_address,
       this.new_client_form.value.cli_debt
     ).subscribe(
       resp => {

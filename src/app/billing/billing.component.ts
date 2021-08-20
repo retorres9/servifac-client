@@ -29,11 +29,12 @@ class validator {
 export class BillingComponent implements OnInit {
   section: string = "Facturación";
   productBarcode: string;
-  amountGiven: number;
+  amountGiven: number = 0;
   change: number;
   client_ci: string;
   clientName: string;
   clientPhone: string;
+  clientAddress: string;
   totalRetail = 0;
   selectedRow: number;
   newClientForm: FormGroup;
@@ -43,7 +44,7 @@ export class BillingComponent implements OnInit {
   productArrayHelper: validator[] = [];
 
   @ViewChild("#code", { static: false }) barcodeInput: ElementRef;
-
+  @ViewChild('#modalChange', {static: false}) modal: ElementRef;
   constructor(
     private productService: ProductsService,
     private clientService: ClientsService
@@ -78,9 +79,12 @@ export class BillingComponent implements OnInit {
         updateOn: "change",
         validators: [
           Validators.required,
-          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"),
         ],
       }),
+      cli_address : new FormControl('', {
+        updateOn: 'change',
+        validators: [Validators.required]
+      })
     });
   }
 
@@ -108,6 +112,7 @@ export class BillingComponent implements OnInit {
       }
       this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
       this.clientPhone = resp.cli_phone;
+      this.clientAddress = resp.cli_address;
       (document.querySelector("#code") as HTMLElement)?.focus();
     });
   }
@@ -204,7 +209,6 @@ export class BillingComponent implements OnInit {
 
   printer() {
     (document.querySelector("#amountGivenInput") as HTMLElement)?.focus();
-
     const doc = new jsPDF("p", "pt", "a5");
     let pageNumber = 0;
     let total = 0;
@@ -309,18 +313,38 @@ export class BillingComponent implements OnInit {
         this.newClientForm.value.cli_firstName,
         this.newClientForm.value.cli_lastName,
         this.newClientForm.value.cli_email,
-        this.newClientForm.value.cli_phone
+        this.newClientForm.value.cli_phone,
+        this.newClientForm.value.cli_address
       )
       .subscribe((resp) => {
         console.log(resp);
         this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
-        this.clientName = resp.cli_phone;
+        this.clientPhone = resp.cli_phone;
+        this.clientAddress = resp.cli_address
+        this.client_ci = resp.cli_ci;
         this.newClientForm.reset();
         (document.querySelector("#closeModal") as HTMLElement)?.click();
-      });
+      }, (error) => {
+          // ! Handle error
+      }
+      );
   }
 
-  private resetAmount() {
+  closeModal() {
+    console.log('click');
+
+    this.resetFields();
+
+  }
+
+  private resetFields() {
     this.amountGiven = 0;
+    this.products = [];
+    this.totalRetail = 0;
+    this.productArrayHelper = [];
+    this.client_ci = '';
+    this.clientName = '';
+    this.clientPhone = '';
+    this.clientAddress = '';
   }
 }

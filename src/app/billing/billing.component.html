@@ -10,9 +10,9 @@
                     <input type="text" class="form-control form-control-sm mb-3" id="client_ci" [(ngModel)]="client_ci" (keyup.enter)="getClient()" spellcheck="true" autocomplete="off" />
                 </div>
                 <div class="col-1">
-                    <button class="btn btn-info btn-sm">
-              <i class="bi bi-search"></i>
-            </button>
+                    <button class="btn btn-info btn-sm" tabindex="-2" id="openModal" data-bs-toggle="modal" data-bs-target="#modalSearch" title="Agregar nuevo cliente">
+                      <i class="bi bi-search"></i>
+                    </button>
                 </div>
                 <div class="col-1">
                     <button class="btn btn-success btn-sm" tabindex="-2" id="openModal" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Agregar nuevo cliente">
@@ -35,13 +35,13 @@
                     <legend>Datos del cliente</legend>
                     <div class="row">
                         <div class="col-6">
-                            <label for=""><strong>Cliente:</strong> {{clientName}}</label>
+                            <label for=""><strong>Cliente:</strong> {{clientName | titlecase}}</label>
                         </div>
                         <div class="col-6">
                             <label for=""><strong>Teléfono:</strong> {{clientPhone}}</label>
                         </div>
                         <div class="col-6">
-                            <label for=""><strong>Dirección:</strong> {{clientPhone}}</label>
+                            <label for=""><strong>Dirección:</strong> {{clientAddress | titlecase}}</label>
                         </div>
                     </div>
                 </fieldset>
@@ -79,18 +79,18 @@
         <div class="row">
             <div class="col-4 offset-8">
                 <div class="row row-detail">
-                    <div class="col-4 text-end border-end">
+                    <div class="col-6 text-end border-end">
                         <p><strong>Subtotal:</strong></p>
                     </div>
-                    <div class="col-8">
+                    <div class="col-6 d-flex justify-content-end" style="padding-right: 25px; font-size: 25px;">
                         {{totalRetail | currency}}
                     </div>
                 </div>
                 <div class="row row-detail">
-                    <div class="col-4 text-end border-end">
+                    <div class="col-6 text-end border-end">
                         <p><strong>Total:</strong></p>
                     </div>
-                    <div class="col-8">
+                    <div class="col-6 d-flex justify-content-end" style="padding-right: 25px; font-size: 25px;">
                         {{totalRetail | currency}}
                     </div>
                 </div>
@@ -99,7 +99,7 @@
     </div>
 
     <div class="d-flex justify-content-around mt-3">
-        <button class="btn btn-primary" (click)="printer()" data-bs-toggle="modal" data-bs-target="#modalChange" [disabled]="total===0 || !clientName">
+        <button class="btn btn-primary" (click)="printer()" data-bs-toggle="modal" data-bs-target="#change" [disabled]="total===0 || !clientName">
       <i class="bi bi-gear-fill"></i>
       Procesar
     </button>
@@ -120,6 +120,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="alert alert-danger" *ngIf="error">
+                    No se pudo ingresar el nuevo cliente
+                </div>
                 <form [formGroup]="newClientForm">
                     <div class="row">
                         <div class="col-4 text-end mb-3">
@@ -156,7 +159,7 @@
                             <label for="cli_address">Dirección:</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="cli_address">
+                            <input type="text" class="form-control form-control-sm" id="cli_address" formControlName="cli_address">
                         </div>
                     </div>
                 </form>
@@ -171,7 +174,7 @@
 <!-- Fin Modal nuevo Cliente -->
 
 <!-- Modal cambio -->
-<div class="modal fade" id="modalChange" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="change" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -184,7 +187,7 @@
                         <label for="sale_total">Total:</label>
                     </div>
                     <div class="col-8 text-end mb-3">
-                        <input type="text" class="form-control" id="sale_total" disabled [value]="total | currency">
+                        <input type="text" class="form-control" id="sale_total" disabled [value]="totalRetail | currency">
                     </div>
                     <div class="col-4 text-end mb-3">
                         <label for="amount">Monto recibido:</label>
@@ -196,15 +199,62 @@
                         <label for="change">Cambio:</label>
                     </div>
                     <div class="col-8 text-end">
-                        <input type="text" class="form-control" disabled [(ngModel)]="change" style="background-color: #d1e6dd;">
+                        <label class="change" style="background-color: #d1e6dd;">{{change | currency}}</label>
                     </div>
 
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="resetAmount()" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="closeModalOk">Procesar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="closeModalOk" data-bs-dismiss="modal" [disabled]="!amountGiven" (click)="closeModal()">Procesar</button>
             </div>
         </div>
     </div>
 </div>
+<!-- Fin Modal cambio -->
+
+<!-- Modal busqueda cliente -->
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Buscar cliente</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control form-control-sm">
+                    </div>
+
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sebastian</td>
+                            <td>Vettel</td>
+                            <td>Vettel</td>
+                        </tr>
+                        <tr>
+                            <td>Sebastian</td>
+                            <td>Vettel</td>
+                            <td>Vettel</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modalChange">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin modal busqueda cliente -->
