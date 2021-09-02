@@ -8,19 +8,6 @@ import  jwt_decode from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-
-  private _user: CredentialsJwt = {
-    iat: 0,
-    exp: 0,
-    user_userRole: '',
-    user_username: ''
-  };
-
-  public get user(): CredentialsJwt {
-
-    return {...this._user};
-  }
-
   constructor(private http: HttpClient) {}
 
   onLogin(credential) {

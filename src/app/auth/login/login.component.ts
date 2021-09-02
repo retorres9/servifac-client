@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import jwt_decode from "jwt-decode";
@@ -33,16 +33,11 @@ export class LoginComponent implements OnInit {
       }),
     });
     const token = localStorage.getItem("token");
-    console.log(token);
-
     if (token !== null) {
-      console.log(token);
       const decoded: CredentialsJwt = jwt_decode(token);
       let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
 
       if (!bool) {
-        console.log("no expira");
-
         this.router.navigate(["home"]);
       }
     }
@@ -53,12 +48,9 @@ export class LoginComponent implements OnInit {
     const credentials = new Credentials();
     credentials.user_username = this.form.value.username;
     credentials.user_password = this.form.value.password;
-    console.log(this.form);
     this.authService.onLogin(credentials).subscribe(
       (resp) => {
         this.authService.getConfiguration().subscribe((resp) => {
-          console.log(resp);
-
           localStorage.setItem("configuration", JSON.stringify(resp));
         });
         localStorage.setItem("token", JSON.stringify(resp));

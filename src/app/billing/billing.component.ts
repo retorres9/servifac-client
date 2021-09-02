@@ -7,7 +7,9 @@ import { pipe } from "rxjs";
 
 import autoTable from "jspdf-autotable";
 import { jsPDF } from "jspdf";
-interface Prods {
+import { BillingService } from './billing.service';
+import { Sale } from './models/sale.model';
+export interface Prods {
   prod: string;
   cant: number;
   price: number;
@@ -31,9 +33,9 @@ export class BillingComponent implements OnInit {
   productBarcode: string;
   amountGiven: number = 0;
   change: number;
-  client_ci: string;
-  clientName: string;
-  clientPhone: string;
+  client_ci: string = '1111111111';
+  clientName: string = 'CONSUMIDOR FINAL';
+  clientPhone: string = '0000000000';
   clientAddress: string;
   totalRetail = 0;
   selectedRow: number;
@@ -47,7 +49,8 @@ export class BillingComponent implements OnInit {
   @ViewChild('#modalChange', {static: false}) modal: ElementRef;
   constructor(
     private productService: ProductsService,
-    private clientService: ClientsService
+    private clientService: ClientsService,
+    private billingService: BillingService
   ) {}
 
   ngOnInit(): void {
@@ -89,7 +92,6 @@ export class BillingComponent implements OnInit {
   }
 
   removeProduct(prodRemoved: string) {
-    console.log("backspace");
     this.products = this.products.filter(
       (product) => product.prod !== prodRemoved
     );
@@ -118,8 +120,6 @@ export class BillingComponent implements OnInit {
   }
 
   getProductBarcode() {
-    console.log(this.productBarcode);
-
     if (this.productBarcode !== "") {
       this.productService
         .getProductBarcode(this.productBarcode)
@@ -176,7 +176,6 @@ export class BillingComponent implements OnInit {
   }
 
   private setValidationObject(code: string, price: number, isTaxed: boolean) {
-    console.log(code, price, isTaxed);
     const nuevo = new validator();
     nuevo.name = code;
     nuevo.price = price;
@@ -249,29 +248,7 @@ export class BillingComponent implements OnInit {
         total = 0;
       },
       didDrawCell: (data) => {
-        // if (data.pageCount !== pageNumber) {
-        //   console.log('entra 1');
-        //   console.log(`${data.pageCount} ---- ${pageNumber}`);
-
-        //   if (data.column.index === 3) {
-        //     pageNumber = data.pageNumber;
-        //     total += Number(
-        //       Number.parseFloat(data.row.cells[3].raw.toString()).toFixed(2)
-        //     );
-
-        //     this.dataTest.forEach((dataProds) => {
-        //       console.log(dataProds);
-
-        //       if (dataProds.isTaxed) {
-        //         totalIva += dataProds.price * (this.tax / 100);
-        //       }
-        //     });
-        //   }
-        //   return;
-        // } else {
-        console.log("entra 2");
         if (data.column.index === 3) {
-          console.log(`data column index ${data.column.index}`);
 
           total += Number(
             Number.parseFloat(data.row.cells[3].raw.toString()).toFixed(2)
@@ -282,19 +259,25 @@ export class BillingComponent implements OnInit {
                 Number(data.row.cells[0].raw) *
                 (this.productArrayHelper[data.row.index].price *
                   (this.tax / 100));
-              console.log(item.name, data.row.cells[1].raw);
-              console.log(this.productArrayHelper[data.row.index].price);
-              console.log(this.tax / 100);
-              console.log(
-                this.productArrayHelper[data.row.index].price * (this.tax / 100)
-              );
-              console.log(`El IVA ${totalIva}`);
             }
           });
         }
       },
     });
     doc.save("asd.pdf");
+    this.createSale();
+    this.resetFields();
+  }
+
+  private createSale() {
+    const sale = new Sale();
+    sale.sale = this.products;
+    sale.sale_client = this.client_ci;
+    sale.sale_date = new Date();
+    sale.sale_totalRetail= this.totalRetail;
+    sale.sale_totalPayment = this.totalRetail;
+    sale.sale_user = this.client_ci;
+    this.billingService.onNewSale(sale).subscribe();
   }
 
   private calculateChange() {
@@ -317,7 +300,6 @@ export class BillingComponent implements OnInit {
         this.newClientForm.value.cli_address
       )
       .subscribe((resp) => {
-        console.log(resp);
         this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
         this.clientPhone = resp.cli_phone;
         this.clientAddress = resp.cli_address
@@ -331,8 +313,6 @@ export class BillingComponent implements OnInit {
   }
 
   closeModal() {
-    console.log('click');
-
     this.resetFields();
 
   }
@@ -342,9 +322,9 @@ export class BillingComponent implements OnInit {
     this.products = [];
     this.totalRetail = 0;
     this.productArrayHelper = [];
-    this.client_ci = '';
-    this.clientName = '';
-    this.clientPhone = '';
+    this.client_ci = '1111111111';
+    this.clientName = 'CONSUMIDOR FINAL';
+    this.clientPhone = '0000000000';
     this.clientAddress = '';
   }
 }

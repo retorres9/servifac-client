@@ -27,7 +27,6 @@ export class ClientsService {
     client.cli_debt = cli_debt;
     client.cli_isActive = cli_isActive;
     client.cli_address = cli_address;
-
     return this.http.post<Client>("http://127.0.0.1:3000/client/", client);
   }
 
