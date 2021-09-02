@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '../clients.service';
 import { Client } from './../client.model';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listing',
@@ -16,11 +15,7 @@ export class ListingComponent implements OnInit {
   ngOnInit(): void {
     this.clientsService.getClientDebtors().subscribe(
       resp => {
-        console.log(resp);
-
-        this.client = resp
-        console.log(this.client);
-
+        this.client = resp;
       }
 
     );

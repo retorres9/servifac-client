@@ -1,28 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { FormGroup, FormControl, Validators, Validator } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+
 import { ClientsService } from "../clients/clients.service";
 import { ProductsService } from "../products/products.service";
-import { tap } from "rxjs/operators";
-import { pipe } from "rxjs";
+import { BillingService } from './billing.service';
+import { Sale } from './models/sale.model';
+import { RetailProducts } from './models/retail-products.model';
+import { TaxArrayHelper } from './models/tax-array-helper.model';
 
 import autoTable from "jspdf-autotable";
 import { jsPDF } from "jspdf";
-import { BillingService } from './billing.service';
-import { Sale } from './models/sale.model';
-export interface Prods {
-  prod: string;
-  cant: number;
-  price: number;
-  total: number;
-  isTaxed: boolean;
-  tax?: number;
-}
 
-class validator {
-  name: string;
-  price: number;
-  isTaxed: boolean;
-}
 @Component({
   selector: "app-detail",
   templateUrl: "./billing.component.html",
@@ -30,20 +18,23 @@ class validator {
 })
 export class BillingComponent implements OnInit {
   section: string = "Facturación";
+
   productBarcode: string;
   amountGiven: number = 0;
   change: number;
+  totalRetail = 0;
+  selectedRow: number;
+  products: RetailProducts[] = [];
+  tax: number;
+  newClientForm: FormGroup;
+  productArrayHelper: TaxArrayHelper[] = [];
+
   client_ci: string = '1111111111';
   clientName: string = 'CONSUMIDOR FINAL';
   clientPhone: string = '0000000000';
   clientAddress: string;
-  totalRetail = 0;
-  selectedRow: number;
-  newClientForm: FormGroup;
-  products: Prods[] = [];
-  tax: number;
+
   // ? Helps to calculate the total tax
-  productArrayHelper: validator[] = [];
 
   @ViewChild("#code", { static: false }) barcodeInput: ElementRef;
   @ViewChild('#modalChange', {static: false}) modal: ElementRef;
@@ -176,7 +167,7 @@ export class BillingComponent implements OnInit {
   }
 
   private setValidationObject(code: string, price: number, isTaxed: boolean) {
-    const nuevo = new validator();
+    const nuevo = new TaxArrayHelper();
     nuevo.name = code;
     nuevo.price = price;
     nuevo.isTaxed = isTaxed;
@@ -290,14 +281,15 @@ export class BillingComponent implements OnInit {
   }
 
   onPostClient() {
+    const formValue = this.newClientForm.value;
     this.clientService
       .createClient(
-        this.newClientForm.value.cli_ci,
-        this.newClientForm.value.cli_firstName,
-        this.newClientForm.value.cli_lastName,
-        this.newClientForm.value.cli_email,
-        this.newClientForm.value.cli_phone,
-        this.newClientForm.value.cli_address
+        formValue.cli_ci,
+        formValue.cli_firstName,
+        formValue.cli_lastName,
+        formValue.cli_email,
+        formValue.cli_phone,
+        formValue.cli_address
       )
       .subscribe((resp) => {
         this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
@@ -314,7 +306,6 @@ export class BillingComponent implements OnInit {
 
   closeModal() {
     this.resetFields();
-
   }
 
   private resetFields() {

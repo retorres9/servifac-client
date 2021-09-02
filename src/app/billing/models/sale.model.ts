@@ -1,7 +1,7 @@
-import { Prods } from "../billing.component";
+import { RetailProducts } from "./retail-products.model";
 
 export class Sale {
-  sale: Prods[];
+  sale: RetailProducts[];
   sale_totalRetail: number;
   sale_totalPayment: number;
   sale_date: Date;

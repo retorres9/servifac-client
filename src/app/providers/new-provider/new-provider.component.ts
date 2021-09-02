@@ -8,14 +8,15 @@ import { ProvidersService } from "../providers.service";
   styleUrls: ["./new-provider.component.scss"],
 })
 export class NewProviderComponent implements OnInit {
-  new_prov_form: FormGroup;
-  alert: boolean = false;
-  message: string;
-  type: string;
+  newProvForm: FormGroup;
+
+  isAlertShowing: boolean = false;
+  alertMessage: string;
+  alertType: string;
   constructor(private providerService: ProvidersService) {}
 
   ngOnInit(): void {
-    this.new_prov_form = new FormGroup({
+    this.newProvForm = new FormGroup({
       prov_ruc: new FormControl("", {
         updateOn: "change",
         validators: [
@@ -52,37 +53,36 @@ export class NewProviderComponent implements OnInit {
   }
 
   onSaveProv() {
-    if (this.new_prov_form.invalid) {
+    if (this.newProvForm.invalid) {
       return;
     }
+    const provForm = this.newProvForm.value;
     this.providerService
       .createProvider(
-        this.new_prov_form.value.prov_ruc,
-        this.new_prov_form.value.prov_name,
-        this.new_prov_form.value.prov_phone,
-        this.new_prov_form.value.prov_accountName,
-        this.new_prov_form.value.prov_accountNumber,
-        this.new_prov_form.value.prov_accountType,
-        this.new_prov_form.value.prov_debt
+        provForm.prov_ruc,
+        provForm.prov_name,
+        provForm.prov_phone,
+        provForm.prov_accountName,
+        provForm.prov_accountNumber,
+        provForm.prov_accountType,
+        provForm.prov_debt
       )
       .subscribe(
         (resp) => {
-          console.log(resp);
-
-          this.message = 'Proveedor creado satisfactoriamente';
-          this.alert = true;
-          this.type = "alert-success";
-          this.new_prov_form.reset();
+          this.alertMessage = 'Proveedor creado satisfactoriamente';
+          this.isAlertShowing = true;
+          this.alertType = "alert-success";
+          this.newProvForm.reset();
           setTimeout(() => {
-            this.alert = false;
+            this.isAlertShowing = false;
           }, 5000);
         },
         (error) => {
-          this.message = error.error.message;
-          this.alert = true;
-          this.type = "alert-danger";
+          this.alertMessage = error.error.message;
+          this.isAlertShowing = true;
+          this.alertType = "alert-danger";
           setTimeout(() => {
-            this.alert = false;
+            this.isAlertShowing = false;
           }, 5000);
         }
       );

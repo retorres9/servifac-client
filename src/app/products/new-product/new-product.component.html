@@ -90,8 +90,7 @@
                                     <select class="form-select form-select-sm" name="ubicacion" id="ubicacion" aria-label="Seleccione una ubicación" formControlName="location">
                                       <option
                                       *ngFor="let location of locations"
-                                      [value]="location.loc_id"
-                                      >
+                                      [value]="location.loc_id">
                                         {{ location.loc_name }}
                                       </option>
                                     </select>
@@ -104,8 +103,7 @@
                                     <select class="form-select form-select-sm" name="category" id="category" aria-label="Seleccione una cateogria" formControlName="category">
                                       <option
                                         *ngFor="let category of categories"
-                                        [value]="category.cat_id"
-                                      >
+                                        [value]="category.cat_id">
                                         {{ category.cat_name }}
                                       </option>
                                     </select>
@@ -118,9 +116,8 @@
                                     <select class="form-select form-select-sm" name="provider" id="provider" aria-label="Seleccione un proveedor" formControlName="prod_provider">
                                       <option
                                         *ngFor="let provider of providers"
-                                        [value]="provider.prov_ruc"
-                                      >
-                                        {{ provider.prov_name }}
+                                        [value]="provider.prov_ruc">
+                                          {{ provider.prov_name }}
                                       </option>
                                     </select>
                                 </div>

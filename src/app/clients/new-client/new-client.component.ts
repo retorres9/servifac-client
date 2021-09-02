@@ -1,86 +1,92 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Client } from './../client.model';
-import { ClientsService } from '../clients.service';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { ClientsService } from "../clients.service";
 
 @Component({
-  selector: 'app-new-client',
-  templateUrl: './new-client.component.html',
-  styleUrls: ['./new-client.component.scss']
+  selector: "app-new-client",
+  templateUrl: "./new-client.component.html",
+  styleUrls: ["./new-client.component.scss"],
 })
 export class NewClientComponent implements OnInit {
-  new_client_form: FormGroup;
+  newClientForm: FormGroup;
+
   message: string;
   alert: boolean = false;
-  type: string;
-  constructor(private clientsService: ClientsService) { }
+  alertType: string;
+  constructor(private clientsService: ClientsService) {}
 
   ngOnInit(): void {
-    this.new_client_form = new FormGroup({
+    this.newClientForm = new FormGroup({
       cli_firstName: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.required]
+        updateOn: "change",
+        validators: [Validators.required],
       }),
       cli_ci: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.minLength(10), Validators.maxLength(13), Validators.required]
+        updateOn: "change",
+        validators: [
+          Validators.minLength(10),
+          Validators.maxLength(13),
+          Validators.required,
+        ],
       }),
       cli_lastName: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.required]
+        updateOn: "change",
+        validators: [Validators.required],
       }),
       cli_address: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.required]
+        updateOn: "change",
+        validators: [Validators.required],
       }),
       cli_phone: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.minLength(10)]
+        updateOn: "change",
+        validators: [Validators.minLength(10)],
       }),
       cli_debt: new FormControl(0, {
-        updateOn: 'change',
-        validators: [Validators.min(0), Validators.required]
+        updateOn: "change",
+        validators: [Validators.min(0), Validators.required],
       }),
       cli_email: new FormControl("", {
-        updateOn: 'change',
-        validators: [Validators.required]
-      })
-    })
+        updateOn: "change",
+        validators: [Validators.required],
+      }),
+    });
   }
 
   onPostClient() {
-    if (this.new_client_form.invalid) {
+    if (this.newClientForm.invalid) {
       return;
     }
-    return this.clientsService.createClient(
-      this.new_client_form.value.cli_ci,
-      this.new_client_form.value.cli_firstName,
-      this.new_client_form.value.cli_lastName,
-      this.new_client_form.value.cli_email,
-      this.new_client_form.value.cli_phone,
-      this.new_client_form.value.cli_address,
-      this.new_client_form.value.cli_debt
-    ).subscribe(
-      resp => {
-        this.alert = true;
-        this.message = 'Cliente creado satisfactoriamente';
-        this.type = 'alert-success'
-        this.new_client_form.reset();
-        (document.querySelector('#ci') as HTMLElement)?.focus();
-        setTimeout(() => {
-          this.alert = false;
-        }, 5000)
-      }, error => {
-        console.log(error);
-        this.alert = true;
-        this.message = error.error.message;
-        this.type = 'alert-danger';
-        setTimeout(() => {
-          this.alert = false;
-        }, 5000)
-      }
-    );
+    const clientForm = this.newClientForm.value;
+    return this.clientsService
+      .createClient(
+        clientForm.cli_ci,
+        clientForm.cli_firstName,
+        clientForm.cli_lastName,
+        clientForm.cli_email,
+        clientForm.cli_phone,
+        clientForm.cli_address,
+        clientForm.cli_debt
+      )
+      .subscribe(
+        (resp) => {
+          this.alert = true;
+          this.message = "Cliente creado satisfactoriamente";
+          this.alertType = "alert-success";
+          this.newClientForm.reset();
 
+          (document.querySelector("#ci") as HTMLElement)?.focus();
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        },
+        (error) => {
+          this.alert = true;
+          this.message = error.error.message;
+          this.alertType = "alert-danger";
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        }
+      );
   }
-
 }

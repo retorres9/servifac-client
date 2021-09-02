@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-8 offset-2">
-            <form [formGroup]="new_client_form">
+            <form [formGroup]="newClientForm">
                 <div class="card">
                     <div class="card-header text-center">
                         <strong>Nuevo cliente</strong>
@@ -71,7 +71,7 @@
                     <div class="card-footer d-flex justify-content-around">
                         <button class="btn btn-success" (click)="onPostClient()" [disabled]="!new_client_form.valid">
                           <i class="bi bi-save" *ngIf="!loading"></i>
-                  <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span>
+                          <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span>
                           Guardar
                         </button>
                         <a class="btn btn-warning" [routerLink]="['../../home']">
