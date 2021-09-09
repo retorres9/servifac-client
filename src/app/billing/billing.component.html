@@ -224,7 +224,7 @@
                 <div class="row">
                     <div class="col d-flex justify-content-center">
                         <label for="">Nombre</label>
-                        <input type="text" class="form-control form-control-sm">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="searchTerm" (keyup.enter)="searchClient()">
                     </div>
 
                 </div>
@@ -237,15 +237,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Sebastian</td>
-                            <td>Vettel</td>
-                            <td>Vettel</td>
-                        </tr>
-                        <tr>
-                            <td>Sebastian</td>
-                            <td>Vettel</td>
-                            <td>Vettel</td>
+                        <tr *ngFor="let client of clientsList">
+                            <td>{{client.cli_firstName}}</td>
+                            <td>{{client.cli_lastName}}</td>
+                            <td>{{client.cli_phone}}</td>
                         </tr>
                     </tbody>
                 </table>

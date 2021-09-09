@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Client } from "./client.model";
 
 @Injectable({
@@ -36,5 +36,12 @@ export class ClientsService {
 
   getClientDebtors() {
     return this.http.get<Client[]>('http://127.0.0.1:3000/client/debtors');
+  }
+
+  getClientByQuery(query: string) {
+    const params = new HttpParams().set('name', query);
+    console.log(params);
+
+    return this.http.get<Client>(`http://127.0.0.1:3000/client`,{params});
   }
 }

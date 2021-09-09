@@ -10,6 +10,7 @@ import { TaxArrayHelper } from './models/tax-array-helper.model';
 
 import autoTable from "jspdf-autotable";
 import { jsPDF } from "jspdf";
+import { Client } from "../clients/client.model";
 
 @Component({
   selector: "app-detail",
@@ -33,6 +34,10 @@ export class BillingComponent implements OnInit {
   clientName: string = 'CONSUMIDOR FINAL';
   clientPhone: string = '0000000000';
   clientAddress: string;
+
+  searchTerm: string;
+
+  clientsList: Client;
 
   // ? Helps to calculate the total tax
 
@@ -306,6 +311,14 @@ export class BillingComponent implements OnInit {
 
   closeModal() {
     this.resetFields();
+  }
+
+  searchClient() {
+    console.log(this.searchTerm);
+
+    this.clientService.getClientByQuery(this.searchTerm).subscribe(
+      resp => this.clientsList = resp
+    );
   }
 
   private resetFields() {
