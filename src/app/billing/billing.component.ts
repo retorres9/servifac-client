@@ -53,38 +53,7 @@ export class BillingComponent implements OnInit {
     const configuration = JSON.parse(localStorage.getItem("configuration"));
     this.tax = configuration.tax;
     const token = localStorage.getItem("token");
-    this.newClientForm = new FormGroup({
-      cli_firstName: new FormControl("", {
-        updateOn: "change",
-        validators: [Validators.required],
-      }),
-      cli_ci: new FormControl("", {
-        updateOn: "change",
-        validators: [
-          Validators.minLength(10),
-          Validators.maxLength(13),
-          Validators.required,
-        ],
-      }),
-      cli_lastName: new FormControl("", {
-        updateOn: "change",
-        validators: [Validators.required],
-      }),
-      cli_phone: new FormControl("", {
-        updateOn: "change",
-        validators: [Validators.minLength(10)],
-      }),
-      cli_email: new FormControl("", {
-        updateOn: "change",
-        validators: [
-          Validators.required,
-        ],
-      }),
-      cli_address : new FormControl('', {
-        updateOn: 'change',
-        validators: [Validators.required]
-      })
-    });
+
   }
 
   removeProduct(prodRemoved: string) {
@@ -276,15 +245,6 @@ export class BillingComponent implements OnInit {
     this.billingService.onNewSale(sale).subscribe();
   }
 
-  private calculateChange() {
-    this.change = this.amountGiven - this.totalRetail;
-    this.change = Number(this.change.toFixed(2));
-  }
-
-  changeFocusModal() {
-    (document.querySelector("#closeModalOk") as HTMLElement)?.focus();
-  }
-
   onPostClient() {
     const formValue = this.newClientForm.value;
     this.clientService
@@ -313,12 +273,17 @@ export class BillingComponent implements OnInit {
     this.resetFields();
   }
 
-  searchClient() {
-    console.log(this.searchTerm);
+  // searchClient() {
+  //   console.log(this.searchTerm);
 
-    this.clientService.getClientByQuery(this.searchTerm).subscribe(
-      resp => this.clientsList = resp
-    );
+  //   this.clientService.getClientByQuery(this.searchTerm).subscribe(
+  //     resp => this.clientsList = resp
+  //   );
+  // }
+
+  updateClient(e) {
+    console.log(e);
+
   }
 
   private resetFields() {

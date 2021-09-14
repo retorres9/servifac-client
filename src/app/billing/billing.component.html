@@ -114,61 +114,7 @@
 
 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Ingresar nuevo cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-danger" *ngIf="error">
-                    No se pudo ingresar el nuevo cliente
-                </div>
-                <form [formGroup]="newClientForm">
-                    <div class="row">
-                        <div class="col-4 text-end mb-3">
-                            <label for="cli_ci">CI/RUC:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="cli_ci" formControlName="cli_ci">
-                        </div>
-                        <div class="col-4 text-end mb-3">
-                            <label for="cli_firstName">Nombres:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="cli_firstName" formControlName="cli_firstName">
-                        </div>
-                        <div class="col-4 text-end mb-3">
-                            <label for="cli_lastName">Apellidos:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="cli_lastName" formControlName="cli_lastName">
-                        </div>
-                        <div class="col-4 text-end mb-3">
-                            <label for="cli_phone">Telefono:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="phone" class="form-control form-control-sm" id="cli_phone" autocomplete="off" formControlName="cli_phone">
-                        </div>
-                        <div class="col-4 text-end mb-3">
-                            <label for="cli_email">Correo:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="email" class="form-control form-control-sm" id="cli_email" autocomplete="off" formControlName="cli_email">
-                        </div>
-                        <div class="col-4 text-end mb-3">
-                            <label for="cli_address">Dirección:</label>
-                        </div>
-                        <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="cli_address" formControlName="cli_address">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="closeModal" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" [disabled]="!newClientForm.valid" (click)="onPostClient()">Guardar</button>
-            </div>
-        </div>
+        <app-new-client-modal></app-new-client-modal>
     </div>
 </div>
 <!-- Fin Modal nuevo Cliente -->
@@ -177,33 +123,7 @@
 <div class="modal fade" id="change" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Ingresar monto recibido</h5>
-                <button type="button" class="btn-close" tabindex="-1" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-4 text-end mb-3">
-                        <label for="sale_total">Total:</label>
-                    </div>
-                    <div class="col-8 text-end mb-3">
-                        <input type="text" class="form-control" id="sale_total" disabled [value]="totalRetail | currency">
-                    </div>
-                    <div class="col-4 text-end mb-3">
-                        <label for="amount">Monto recibido:</label>
-                    </div>
-                    <div class="col-8 text-end mb-3">
-                        <input type="number" class="form-control" id="amountGivenInput" (keyup)="calculateChange()" (keyup.enter)="changeFocusModal()" [(ngModel)]="amountGiven">
-                    </div>
-                    <div class="col-4 text-end">
-                        <label for="change">Cambio:</label>
-                    </div>
-                    <div class="col-8 text-end">
-                        <label class="change" style="background-color: #d1e6dd;">{{change | currency}}</label>
-                    </div>
-
-                </div>
-            </div>
+            <app-amount-given-modal></app-amount-given-modal>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" id="closeModalOk" data-bs-dismiss="modal" [disabled]="!amountGiven" (click)="closeModal()">Procesar</button>
@@ -216,40 +136,7 @@
 <!-- Modal busqueda cliente -->
 <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Buscar cliente</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <label for="">Nombre</label>
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="searchTerm" (keyup.enter)="searchClient()">
-                    </div>
-
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Apellido</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let client of clientsList">
-                            <td>{{client.cli_firstName}}</td>
-                            <td>{{client.cli_lastName}}</td>
-                            <td>{{client.cli_phone}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modalChange">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
+        <app-search-client-modal (selectedClient)="updateClient($event)"></app-search-client-modal>
     </div>
 </div>
 <!-- Fin modal busqueda cliente -->

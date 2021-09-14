@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Ingresar monto recibido</h5>
+    <button type="button" class="btn-close" tabindex="-1" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row d-flex justify-content-center">
+        <div class="col-4 text-end mb-3">
+            <label for="sale_total">Total:</label>
+        </div>
+        <div class="col-8 text-end mb-3">
+            <input type="text" class="form-control" id="sale_total" disabled [value]="totalRetail | currency">
+        </div>
+        <div class="col-4 text-end mb-3">
+            <label for="amount">Monto recibido:</label>
+        </div>
+        <div class="col-8 text-end mb-3">
+            <input type="number" class="form-control" id="amountGivenInput" (keyup)="calculateChange()" (keyup.enter)="changeFocusModal()" [(ngModel)]="amountGiven">
+        </div>
+        <div class="col-4 text-end">
+            <label for="change">Cambio:</label>
+        </div>
+        <div class="col-8 text-end">
+            <label class="change" style="background-color: #d1e6dd;">{{change | currency}}</label>
+        </div>
+
+    </div>
+</div>
