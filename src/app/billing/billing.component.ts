@@ -238,11 +238,15 @@ export class BillingComponent implements OnInit {
     const sale = new Sale();
     sale.sale = this.products;
     sale.sale_client = this.client_ci;
-    sale.sale_date = new Date();
     sale.sale_totalRetail= this.totalRetail;
     sale.sale_totalPayment = this.totalRetail;
     sale.sale_user = this.client_ci;
-    this.billingService.onNewSale(sale).subscribe();
+    sale.sale_date = new Date();
+    console.log(sale);
+
+    this.billingService.onNewSale(sale).subscribe(
+      resp => console.log(resp)
+    );
   }
 
   closeModal() {
