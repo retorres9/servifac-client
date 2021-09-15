@@ -158,7 +158,6 @@ export class BillingComponent implements OnInit {
   }
 
   addCant(idx: number, event) {
-    1 ===1 ? console.log('verdad') : console.log('false');
     event.target.value === ""
       ? (event.target.value = 1)
       : (this.products[idx].cant = event.target.value);
@@ -230,7 +229,7 @@ export class BillingComponent implements OnInit {
         }
       },
     });
-    doc.save("asd.pdf");
+    doc.save("Factura.pdf");
     this.createSale();
     this.resetFields();
   }
@@ -249,14 +248,6 @@ export class BillingComponent implements OnInit {
   closeModal() {
     this.resetFields();
   }
-
-  // searchClient() {
-  //   console.log(this.searchTerm);
-
-  //   this.clientService.getClientByQuery(this.searchTerm).subscribe(
-  //     resp => this.clientsList = resp
-  //   );
-  // }
 
   updateClient(client: Client) {
     this.client_ci = client.cli_ci;
