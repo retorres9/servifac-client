@@ -158,6 +158,7 @@ export class BillingComponent implements OnInit {
   }
 
   addCant(idx: number, event) {
+    1 ===1 ? console.log('verdad') : console.log('false');
     event.target.value === ""
       ? (event.target.value = 1)
       : (this.products[idx].cant = event.target.value);
@@ -245,30 +246,6 @@ export class BillingComponent implements OnInit {
     this.billingService.onNewSale(sale).subscribe();
   }
 
-  onPostClient() {
-    const formValue = this.newClientForm.value;
-    this.clientService
-      .createClient(
-        formValue.cli_ci,
-        formValue.cli_firstName,
-        formValue.cli_lastName,
-        formValue.cli_email,
-        formValue.cli_phone,
-        formValue.cli_address
-      )
-      .subscribe((resp) => {
-        this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
-        this.clientPhone = resp.cli_phone;
-        this.clientAddress = resp.cli_address
-        this.client_ci = resp.cli_ci;
-        this.newClientForm.reset();
-        (document.querySelector("#closeModal") as HTMLElement)?.click();
-      }, (error) => {
-          // ! Handle error
-      }
-      );
-  }
-
   closeModal() {
     this.resetFields();
   }
@@ -281,9 +258,11 @@ export class BillingComponent implements OnInit {
   //   );
   // }
 
-  updateClient(e) {
-    console.log(e);
-
+  updateClient(client: Client) {
+    this.client_ci = client.cli_ci;
+    this.clientName = `${client.cli_firstName} ${client.cli_lastName}`;
+    this.clientPhone = client.cli_phone;
+    this.clientAddress = client.cli_address;
   }
 
   private resetFields() {

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { Client } from '../../clients/client.model';
+import { ClientsService } from '../../clients/clients.service';
 
 @Component({
   selector: 'app-new-client-modal',
@@ -9,7 +11,8 @@ import { Validators } from '@angular/forms';
 })
 export class NewClientModalComponent implements OnInit {
   newClientForm: FormGroup;
-  constructor() { }
+  @Output()client = new EventEmitter<Client>();
+  constructor(private clientService: ClientsService) { }
 
   ngOnInit(): void {
     this.newClientForm = new FormGroup({
@@ -44,6 +47,33 @@ export class NewClientModalComponent implements OnInit {
         validators: [Validators.required]
       })
     });
+  }
+
+  onPostClient() {
+    const formValue = this.newClientForm.value;
+    this.clientService
+      .createClient(
+        formValue.cli_ci,
+        formValue.cli_firstName,
+        formValue.cli_lastName,
+        formValue.cli_email,
+        formValue.cli_phone,
+        formValue.cli_address
+      )
+      .subscribe((resp) => {
+        let client = new Client();
+        client.cli_firstName = `${resp.cli_firstName}`;
+        client.cli_lastName = resp.cli_lastName;
+        client.cli_phone = resp.cli_phone;
+        client.cli_address = resp.cli_address;
+        client.cli_ci = resp.cli_ci;
+        this.client.emit({...client});
+        this.newClientForm.reset();
+        (document.querySelector("#closeModal") as HTMLElement)?.click();
+      }, (error) => {
+          // ! Handle error
+      }
+      );
   }
 
 }

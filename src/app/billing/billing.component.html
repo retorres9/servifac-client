@@ -114,7 +114,7 @@
 
 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <app-new-client-modal></app-new-client-modal>
+        <app-new-client-modal (client)="updateClient($event)"></app-new-client-modal>
     </div>
 </div>
 <!-- Fin Modal nuevo Cliente -->

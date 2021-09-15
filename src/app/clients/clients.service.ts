@@ -40,8 +40,6 @@ export class ClientsService {
 
   getClientByQuery(query: string) {
     const params = new HttpParams().set('name', query);
-    console.log(params);
-
     return this.http.get<Client>(`http://127.0.0.1:3000/client`,{params});
   }
 }
