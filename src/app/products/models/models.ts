@@ -1,4 +1,4 @@
-export interface Client {
+export class ProductBill {
   prod_name: string;
   prod_price: string;
   prod_isTaxed: boolean

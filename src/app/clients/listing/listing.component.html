@@ -18,6 +18,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Teléfono</th>
                 <th scope="col">Deuda</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +27,24 @@
                 <td>{{clients.cli_firstName}} {{clients.cli_lastName}}</td>
                 <td>{{clients.cli_phone}}</td>
                 <td>{{clients.cli_debt | currency}}</td>
+                <td>
+                    <button class="btn btn-info" title="Ver cliente">
+                    <i class="bi bi-eye-fill"></i>
+                  </button>&nbsp;
+                    <button class="btn btn-success" title="Ingresar pago">
+                    <i class="bi bi-cash"></i>
+                  </button>&nbsp;
+                    <button class="btn btn-warning" title="Generar reporte">
+                    <i class="bi bi-download"></i>
+                  </button>
+                </td>
             </tr>
         </tbody>
     </table>
+    <div class="buttons-actions d-flex justify-content-end">
+        <!-- <button class="btn btn-danger"></button> -->
+        <a class="btn btn-danger" [routerLink]="['../../home']">
+            <i class="bi bi-backspace-fill"></i> Atrás
+        </a>
+    </div>
 </div>

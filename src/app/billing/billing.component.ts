@@ -1,16 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 
 import { ClientsService } from "../clients/clients.service";
 import { ProductsService } from "../products/products.service";
-import { BillingService } from './billing.service';
-import { Sale } from './models/sale.model';
-import { RetailProducts } from './models/retail-products.model';
-import { TaxArrayHelper } from './models/tax-array-helper.model';
+import { BillingService } from "./billing.service";
+import { Sale } from "./models/sale.model";
+import { RetailProducts } from "./models/retail-products.model";
+import { TaxArrayHelper } from "./models/tax-array-helper.model";
+import { NewProduct } from '../products/new-product/new-product.model';
+import { Client } from "../clients/client.model";
 
 import autoTable from "jspdf-autotable";
 import { jsPDF } from "jspdf";
-import { Client } from "../clients/client.model";
+import { ProductBill } from '../products/models/models';
 
 @Component({
   selector: "app-detail",
@@ -30,19 +32,21 @@ export class BillingComponent implements OnInit {
   newClientForm: FormGroup;
   productArrayHelper: TaxArrayHelper[] = [];
 
-  client_ci: string = '1111111111';
-  clientName: string = 'CONSUMIDOR FINAL';
-  clientPhone: string = '0000000000';
+  client_ci: string = "1111111111";
+  clientName: string = "CONSUMIDOR FINAL";
+  clientPhone: string = "0000000000";
   clientAddress: string;
 
+  // ?Component
   searchTerm: string;
+  matchingProducts: NewProduct[];
 
   clientsList: Client;
 
   // ? Helps to calculate the total tax
 
   @ViewChild("#code", { static: false }) barcodeInput: ElementRef;
-  @ViewChild('#modalChange', {static: false}) modal: ElementRef;
+  @ViewChild("#modalChange", { static: false }) modal: ElementRef;
   constructor(
     private productService: ProductsService,
     private clientService: ClientsService,
@@ -53,12 +57,11 @@ export class BillingComponent implements OnInit {
     const configuration = JSON.parse(localStorage.getItem("configuration"));
     this.tax = configuration.tax;
     const token = localStorage.getItem("token");
-
   }
 
-  removeProduct(prodRemoved: string) {
+  removeProductFromTable(prodRemoved: string) {
     this.products = this.products.filter(
-      (product) => product.prod !== prodRemoved
+      (product) => product.prod_name !== prodRemoved
     );
     this.getTotalAmount();
   }
@@ -68,12 +71,9 @@ export class BillingComponent implements OnInit {
     (document.querySelector(`#${prod}`) as HTMLElement)?.focus();
   }
 
-  getClient() {
+  getClientData() {
     this.clientService.getClient(this.client_ci).subscribe((resp) => {
-      if (resp === null) {
-        this.newClientForm.controls.cli_ci.setValue(this.client_ci);
-        this.newClientForm.controls.cli_ci.markAsTouched();
-        this.newClientForm.controls.cli_ci.markAsDirty();
+      if (!resp) {
         (document.querySelector("#openModal") as HTMLElement)?.click();
         return;
       }
@@ -85,75 +85,22 @@ export class BillingComponent implements OnInit {
   }
 
   getProductBarcode() {
-    if (this.productBarcode !== "") {
+    let productTax;
+    if (this.productBarcode) {
       this.productService
         .getProductBarcode(this.productBarcode)
         .subscribe((resp) => {
-          const productIdx = this.products.findIndex(
-            (producto) => producto.prod === resp.prod_name
-          );
-
-          if (productIdx >= 0) {
-            ++this.products[productIdx].cant;
-            let productTax;
-            if (resp.prod_isTaxed) {
-              productTax =
-                this.products[productIdx].cant *
-                (parseFloat(resp.prod_price) * (this.tax / 100));
-            } else {
-              productTax = 0;
-            }
-            this.products[productIdx].total =
-              this.products[productIdx].cant * Number(resp.prod_price);
-            this.products[productIdx].tax = productTax;
-            this.setValidationObject(
-              resp.prod_name,
-              parseFloat(resp.prod_price),
-              resp.prod_isTaxed
-            );
-          } else {
-            let taxCal;
-            if (resp.prod_isTaxed) {
-              taxCal = 1 * (parseFloat(resp.prod_price) * (this.tax / 100));
-            } else {
-              taxCal = 0;
-            }
-            this.products.push({
-              cant: 1,
-              prod: resp.prod_name,
-              price: parseFloat(resp.prod_price),
-              total: parseFloat(resp.prod_price),
-              isTaxed: resp.prod_isTaxed,
-              tax: taxCal,
-            });
-
-            this.setValidationObject(
-              resp.prod_name,
-              parseFloat(resp.prod_price),
-              resp.prod_isTaxed
-            );
-          }
-          this.getTotalAmount();
+          this.processProduct(resp);
         });
     }
 
     this.productBarcode = "";
   }
 
-  private setValidationObject(code: string, price: number, isTaxed: boolean) {
-    const nuevo = new TaxArrayHelper();
-    nuevo.name = code;
-    nuevo.price = price;
-    nuevo.isTaxed = isTaxed;
-    let isIncluded = this.productArrayHelper.some(
-      (product) => product.name === code
-    );
-    isIncluded ? true : this.productArrayHelper.push({ ...nuevo });
-  }
-
   getTotalAmount() {
     this.totalRetail = this.products.reduce(
-      (total, product) => total + product.total, 0
+      (total, product) => total + product.total,
+      0
     );
   }
 
@@ -174,7 +121,6 @@ export class BillingComponent implements OnInit {
   printer() {
     (document.querySelector("#amountGivenInput") as HTMLElement)?.focus();
     const doc = new jsPDF("p", "pt", "a5");
-    let pageNumber = 0;
     let total = 0;
     let totalIva = 0;
     doc.setFontSize(9);
@@ -182,7 +128,7 @@ export class BillingComponent implements OnInit {
     this.products.forEach((elements) => {
       rows.push([
         elements.cant,
-        elements.prod,
+        elements.prod_name,
         elements.price.toFixed(2),
         elements.total.toFixed(2),
       ]);
@@ -214,7 +160,6 @@ export class BillingComponent implements OnInit {
       },
       didDrawCell: (data) => {
         if (data.column.index === 3) {
-
           total += Number(
             Number.parseFloat(data.row.cells[3].raw.toString()).toFixed(2)
           );
@@ -234,23 +179,25 @@ export class BillingComponent implements OnInit {
     this.resetFields();
   }
 
-  private createSale() {
-    const sale = new Sale();
-    sale.sale = this.products;
-    sale.sale_client = this.client_ci;
-    sale.sale_totalRetail= this.totalRetail;
-    sale.sale_totalPayment = this.totalRetail;
-    sale.sale_user = this.client_ci;
-    sale.sale_date = new Date();
-    console.log(sale);
-
-    this.billingService.onNewSale(sale).subscribe(
-      resp => console.log(resp)
-    );
-  }
-
   closeModal() {
     this.resetFields();
+  }
+
+  searchProduct(productSearched: string) {
+    console.log(productSearched);
+    this.productService.queryProduct(productSearched).subscribe((resp) => {
+      this.matchingProducts = resp;
+    });
+  }
+
+  selectProduct(product: ProductBill) {
+    console.log(product.prod_isTaxed);
+    let asd = new ProductBill();
+
+    asd.prod_isTaxed = product.prod_isTaxed;
+    asd.prod_name = product.prod_name;
+    asd.prod_price = product.prod_price;
+    this.processProduct({...asd});
   }
 
   updateClient(client: Client) {
@@ -260,14 +207,89 @@ export class BillingComponent implements OnInit {
     this.clientAddress = client.cli_address;
   }
 
+  // ? Help to calculate taxes
+  private setValidationObject(code: string, price: number, isTaxed: boolean) {
+    const nuevo = new TaxArrayHelper();
+    nuevo.name = code;
+    nuevo.price = price;
+    nuevo.isTaxed = isTaxed;
+    let isIncluded = this.productArrayHelper.some(
+      (product) => product.name === code
+    );
+    isIncluded ? true : this.productArrayHelper.push({ ...nuevo });
+  }
+
+  private createSale() {
+    const sale = new Sale();
+    sale.sale = this.products;
+    sale.sale_client = this.client_ci;
+    sale.sale_totalRetail = this.totalRetail;
+    sale.sale_totalPayment = this.totalRetail;
+    sale.sale_user = this.client_ci;
+    sale.sale_date = new Date();
+
+    this.billingService.onNewSale(sale).subscribe((resp) => console.log(resp));
+  }
+
   private resetFields() {
     this.amountGiven = 0;
     this.products = [];
     this.totalRetail = 0;
     this.productArrayHelper = [];
-    this.client_ci = '1111111111';
-    this.clientName = 'CONSUMIDOR FINAL';
-    this.clientPhone = '0000000000';
-    this.clientAddress = '';
+    this.client_ci = "1111111111";
+    this.clientName = "CONSUMIDOR FINAL";
+    this.clientPhone = "0000000000";
+    this.clientAddress = "";
+  }
+
+  private calculateTax(cant: number, price: number, isTaxed: boolean) {
+    let tax = isTaxed ? cant * (price * (this.tax / 100)) : 0;
+    return tax;
+  }
+
+  private processProduct(product: ProductBill) {
+    let productTax;
+    const productIdx = this.products.findIndex(
+      (producto) => producto.prod_name === product.prod_name
+    );
+
+    if (productIdx >= 0) {
+      ++this.products[productIdx].cant;
+      productTax = this.calculateTax(
+        this.products[productIdx].cant,
+        Number(this.products[productIdx].price),
+        product.prod_isTaxed
+      );
+      this.products[productIdx].total =
+        this.products[productIdx].cant * Number(product.prod_price);
+      this.products[productIdx].tax = productTax;
+      this.setValidationObject(
+        product.prod_name,
+        parseFloat(product.prod_price),
+        product.prod_isTaxed
+      );
+    } else {
+      let productTax;
+      productTax = this.calculateTax(
+        1,
+        Number(product.prod_price),
+        product.prod_isTaxed
+      );
+      this.products.push({
+        cant: 1,
+        prod_name: product.prod_name,
+        price: parseFloat(product.prod_price),
+        total: parseFloat(product.prod_price),
+        isTaxed: product.prod_isTaxed,
+        tax: productTax,
+      });
+
+      this.setValidationObject(
+        product.prod_name,
+        parseFloat(product.prod_price),
+        product.prod_isTaxed
+      );
+    }
+    this.getTotalAmount();
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NewProduct } from './new-product/new-product.model';
-import { Client, Category, Provider, Location } from './models/models';
+import { ProductBill, Category, Provider, Location } from './models/models';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +10,7 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   getProductBarcode(code: string) {
-    return this.http.get<Client>(`http://127.0.0.1:3000/product/${code}`);
+    return this.http.get<ProductBill>(`http://127.0.0.1:3000/product/${code}`);
   }
 
   getCategories() {
@@ -33,5 +33,10 @@ export class ProductsService {
       })
     };
     return this.http.post<NewProduct>('http://127.0.0.1:3000/product', product, httpOptions);
+  }
+
+  queryProduct(param: string) {
+    const params = new HttpParams().set('param', param);
+    return this.http.get<NewProduct[]>('http://127.0.0.1:3000/product', {params});
   }
 }
