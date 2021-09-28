@@ -28,7 +28,7 @@
                 <td>{{clients.cli_phone}}</td>
                 <td>{{clients.cli_debt | currency}}</td>
                 <td>
-                    <button class="btn btn-info" title="Ver cliente">
+                    <button class="btn btn-info" title="Ver cliente" (click)="goToClient(clients.cli_ci)">
                     <i class="bi bi-eye-fill"></i>
                   </button>&nbsp;
                     <button class="btn btn-success" title="Ingresar pago">

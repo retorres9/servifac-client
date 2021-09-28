@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Client } from "./client.model";
+import { ClientSummary } from "./view-client/view-client.component";
 
 @Injectable({
   providedIn: "root",
@@ -32,6 +33,10 @@ export class ClientsService {
 
   getClient(clientId) {
     return this.http.get<Client>(`http://127.0.0.1:3000/client/${clientId}`);
+  }
+
+  getClientSummary(clientId: string) {
+    return this.http.get<ClientSummary>(`http://127.0.0.1:3000/client/summary/${clientId}`);
   }
 
   getClientDebtors() {

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ClientsComponent } from './clients.component';
 import { NewClientComponent } from './new-client/new-client.component';
 import { ListingComponent } from './listing/listing.component';
+import { ViewClientComponent } from './view-client/view-client.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'listing',
         component: ListingComponent
+      },
+      {
+        path: 'view-client/:ci',
+        component: ViewClientComponent
       }
     ]
   }

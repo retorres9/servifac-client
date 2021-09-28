@@ -5,13 +5,15 @@ import { ClientsRoutingModule } from './clients-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ListingComponent } from './listing/listing.component';
+import { ViewClientComponent } from './view-client/view-client.component';
 
 
 
 @NgModule({
   declarations: [
     NewClientComponent,
-    ListingComponent
+    ListingComponent,
+    ViewClientComponent
   ],
   imports: [
     CommonModule,

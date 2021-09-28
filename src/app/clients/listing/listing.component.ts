@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '../clients.service';
 import { Client } from './../client.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listing',
@@ -10,7 +11,7 @@ import { Client } from './../client.model';
 export class ListingComponent implements OnInit {
 
   client: Client[] = [];
-  constructor(private clientsService: ClientsService) { }
+  constructor(private clientsService: ClientsService, private router: Router) { }
 
   ngOnInit(): void {
     this.clientsService.getClientDebtors().subscribe(
@@ -19,6 +20,11 @@ export class ListingComponent implements OnInit {
       }
 
     );
+  }
+
+  goToClient(ci: string) {
+
+    this.router.navigateByUrl(`/clients/view-client/${ci}`);
   }
 
 }
