@@ -1,9 +1,21 @@
 <div class="container" *ngIf="summary">
-    <div class="row">
-        <div class="col">
-            Nombre: {{summary.cli_firstName}}<br> Email: {{summary.cli_email}}<br> Phone: {{summary.cli_phone}}<br> Dirección: {{summary.cli_address}}<br> Dauda: {{summary.cli_debt | currency}}<br>
-        </div>
-    </div>
+    <a class="btn btn-dark" (click)="goBack()">Atrás</a>
+    <form>
+        <fieldset>
+            <legend>Datos del cliente</legend>
+            <div class="row">
+                <div class="col-6">
+                    <strong>Nombre:</strong> {{ summary.cli_firstName }} {{ summary.cli_lastName }}<br />
+                    <strong>Phone:</strong> {{ summary.cli_phone }}<br />
+                    <strong>Deuda:</strong> {{ summary.cli_debt | currency }}<br />
+                </div>
+                <div class="col-6">
+                    <strong>Email:</strong> {{ summary.cli_email }}<br />
+                    <strong>Dirección:</strong> {{ summary.cli_address }}<br />
+                </div>
+            </div>
+        </fieldset>
+    </form>
     <div class="row">
         <div class="col">
             <table class="table table-hover">
@@ -16,9 +28,9 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let sale of summary.sale">
-                        <td>{{sale.sale_id}}</td>
-                        <td>{{sale.sale_totalRetail | currency}}</td>
-                        <td>{{sale.sale_date | date}}</td>
+                        <td>{{ sale.sale_id }}</td>
+                        <td>{{ sale.sale_totalRetail | currency }}</td>
+                        <td>{{ sale.sale_date | date }}</td>
                     </tr>
                 </tbody>
             </table>

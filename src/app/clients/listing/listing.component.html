@@ -2,49 +2,53 @@
     <div class="row mb-3 mt-5">
         <div class="col-6">
             <div class="row">
-                <div class="col-1">
+                <div class="col-2">
                     <label for="search">Buscar:</label>
                 </div>
                 <div class="col-4">
-                    <input type="text" class="form-control form-control-sm" name="search" id="search">
+                    <input type="text" class="form-control form-control-sm" id="search" #searchCriteria (keyup.enter)="searchClient(searchCriteria.value)">
                 </div>
             </div>
         </div>
     </div>
-    <table class="table table-bordered table-hover mt-2">
+    <table class=" table table-bordered table-hover mt-2 ">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col">Deuda</th>
+                <th scope="col ">#</th>
+                <th scope="col ">Nombre</th>
+                <th scope="col ">Teléfono</th>
+                <th scope="col ">Deuda</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let clients of client; let i = index">
+            <tr *ngFor="let clients of client; let i=index ">
                 <td>{{i + 1}}</td>
                 <td>{{clients.cli_firstName}} {{clients.cli_lastName}}</td>
                 <td>{{clients.cli_phone}}</td>
                 <td>{{clients.cli_debt | currency}}</td>
                 <td>
-                    <button class="btn btn-info" title="Ver cliente" (click)="goToClient(clients.cli_ci)">
-                    <i class="bi bi-eye-fill"></i>
+                    <button class="btn btn-info " title="Ver cliente " (click)="goToClient(clients.cli_ci) ">
+                    <i class="bi bi-eye-fill "></i>
                   </button>&nbsp;
-                    <button class="btn btn-success" title="Ingresar pago">
-                    <i class="bi bi-cash"></i>
+                    <button class="btn btn-success " title="Ingresar pago ">
+                    <i class="bi bi-cash "></i>
                   </button>&nbsp;
-                    <button class="btn btn-warning" title="Generar reporte">
-                    <i class="bi bi-download"></i>
+                    <button class="btn btn-warning " title="Generar reporte ">
+                    <i class="bi bi-download "></i>
                   </button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class="buttons-actions d-flex justify-content-end">
-        <!-- <button class="btn btn-danger"></button> -->
-        <a class="btn btn-danger" [routerLink]="['../../home']">
-            <i class="bi bi-backspace-fill"></i> Atrás
+    <div *ngIf="!client.length === 0" style="text-align: center;">
+        <label>No ha ingresado ningún criterio de busqueda</label>
+
+    </div>
+    <div class="buttons-actions d-flex justify-content-end ">
+        <!-- <button class="btn btn-danger "></button> -->
+        <a class="btn btn-danger " [routerLink]="[ '../../home'] ">
+            <i class="bi bi-backspace-fill "></i> Atrás
         </a>
     </div>
 </div>

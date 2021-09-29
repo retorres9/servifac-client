@@ -9,7 +9,7 @@ import { ClientsService } from '../../clients/clients.service';
 })
 export class SearchClientModalComponent implements OnInit {
   searchTerm: string;
-  clientsList: Client;
+  clientsList: Client[];
 
   @Output() selectedClient = new EventEmitter<Client>();
 

@@ -11,20 +11,23 @@ import { Router } from '@angular/router';
 export class ListingComponent implements OnInit {
 
   client: Client[] = [];
+  searchCriteria: string;
   constructor(private clientsService: ClientsService, private router: Router) { }
 
   ngOnInit(): void {
-    this.clientsService.getClientDebtors().subscribe(
-      resp => {
-        this.client = resp;
-      }
-
-    );
   }
 
   goToClient(ci: string) {
-
     this.router.navigateByUrl(`/clients/view-client/${ci}`);
+  }
+
+  searchClient(criteria: string) {
+    this.clientsService.getClientByQuery(criteria).subscribe(
+      resp => {
+        this.client = resp
+      }
+    );
+
   }
 
 }

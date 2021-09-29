@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NewProduct } from './new-product/new-product.model';
 import { ProductBill, Category, Provider, Location } from './models/models';
+import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,9 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   getProductBarcode(code: string) {
-    return this.http.get<ProductBill>(`http://127.0.0.1:3000/product/${code}`);
+    return this.http.get<ProductBill>(`http://127.0.0.1:3000/product/${code}`).pipe(
+      tap(resp => console.log(resp))
+    );
   }
 
   getCategories() {
