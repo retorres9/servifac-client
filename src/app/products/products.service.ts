@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NewProduct } from './new-product/new-product.model';
-import { ProductBill, Category, Provider, Location } from './models/models';
+import { ProductBill, Category, Provider, Location, Product } from './models/models';
 import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
@@ -41,5 +41,14 @@ export class ProductsService {
   queryProduct(param: string) {
     const params = new HttpParams().set('param', param);
     return this.http.get<NewProduct[]>('http://127.0.0.1:3000/product', {params});
+  }
+
+  getProductsInventory(criteria: string) {
+    // const params = new HttpParams().set('criteria', criteria);
+    return this.http.get<Product[]>(`http://127.0.0.1:3000/product/inventory/${criteria}`);
+  }
+
+  getProductWarning() {
+    return this.http.get<boolean>('http://127.0.0.1:3000/product/warning');
   }
 }

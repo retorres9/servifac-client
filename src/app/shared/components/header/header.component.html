@@ -5,6 +5,9 @@
     </h3>
     <hr class="mb-2">
     <div class="ms-auto p-2">
+        <button class="btn btn-danger" *ngIf="alert">
+          <i class="bi bi-exclamation-circle"></i>
+        </button>
         <div class="btn-group">
             <button class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">{{user}}</button>
             <ul class="dropdown-menu">

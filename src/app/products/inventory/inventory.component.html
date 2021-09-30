@@ -1,0 +1,33 @@
+<div class="container">
+
+    <div class="row">
+        <label for="search">Buscar:</label>
+        <div class="col-3">
+            <input type="text" class="form-control form-control-sm" name="search" id="search" #searchCriteria (keyup.enter)="searchProduct(searchCriteria.value)">
+        </div>
+    </div>
+    <!-- <div class="col-4">
+        <input type="date" placeholder="dd-mm-yy" min="2020-01-01" class="form-control form-control-sm">
+    </div> -->
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Ubicación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of inventory; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{product.prod_code}}</td>
+                <td>{{product.prod_name}}</td>
+                <td>{{product.prod_quantity}}</td>
+                <td>{{product.location.loc_name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

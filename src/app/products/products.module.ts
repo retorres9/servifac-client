@@ -6,12 +6,14 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { InventoryComponent } from './inventory/inventory.component';
 
 
 
 @NgModule({
   declarations: [
-    NewProductComponent
+    NewProductComponent,
+    InventoryComponent
   ],
   imports: [
     CommonModule,
