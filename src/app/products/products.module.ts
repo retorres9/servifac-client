@@ -7,13 +7,15 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { InventoryComponent } from './inventory/inventory.component';
+import { MinimumsComponent } from './minimums/minimums.component';
 
 
 
 @NgModule({
   declarations: [
     NewProductComponent,
-    InventoryComponent
+    InventoryComponent,
+    MinimumsComponent
   ],
   imports: [
     CommonModule,

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductsComponent } from './products.component';
 import { NewProductComponent } from './new-product/new-product.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { MinimumsComponent } from './minimums/minimums.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: "inventory",
         component: InventoryComponent
+      },
+      {
+        path: "minimums",
+        component: MinimumsComponent
       }
     ]
   }

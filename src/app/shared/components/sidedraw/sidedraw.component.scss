@@ -1,9 +1,10 @@
 .offcanvas-header {
-    background-color: #FFA62E;
+    background-color: #1976D2;
+    color: #fff;
 }
 
 .offcanvas-body {
-    background: #FFA62E;
+    background: #1976D2;
     // background: linear-gradient(0deg, rgba(189, 28, 53, 1) 0%, rgba(194, 21, 56, 1) 100%);
 }
 
@@ -17,13 +18,14 @@
 }
 
 .list-group-item.active {
-    background-color: #eee;
-    color: #e09228;
+    background-color: #fff;
+    color: #0d47a1;
     border-color: transparent;
 }
 
 .list-group-item {
-    background-color: #FFA62E;
+    background-color: #1976D2;
+    color: #fff
 }
 
 .offcanvas-start {

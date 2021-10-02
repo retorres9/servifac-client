@@ -51,4 +51,8 @@ export class ProductsService {
   getProductWarning() {
     return this.http.get<boolean>('http://127.0.0.1:3000/product/warning');
   }
+
+  getProductMinimums() {
+    return this.http.get<Product[]>('http://127.0.0.1:3000/product/minimums');
+  }
 }

@@ -24,7 +24,7 @@
             <tr *ngFor="let product of inventory; let i = index">
                 <td>{{i + 1}}</td>
                 <td>{{product.prod_code}}</td>
-                <td>{{product.prod_name}}</td>
+                <td>{{product.prod_name | titlecase}}</td>
                 <td>{{product.prod_quantity}}</td>
                 <td>{{product.location.loc_name}}</td>
             </tr>

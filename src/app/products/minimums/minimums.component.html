@@ -1,0 +1,31 @@
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Cant. Actual</th>
+                <th>Cant. Mínima</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{product.prod_code}}</td>
+                <td>{{product.prod_name}}</td>
+                <td>{{product.prod_quantity}}</td>
+                <td>{{product.prod_minQuantity}}</td>
+                <td>
+                    <button class="btn btn-success"><i class="bi bi-plus-circle"></i></button>&nbsp;
+                    <button class="btn btn-warning" title="Dar de baja"><i class="bi bi-dash-circle"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="buttons">
+        <button class="btn btn-primary">Imprimir</button>
+        <button class="btn btn-danger" onclick="history.back()">Atrás</button>
+    </div>
+</div>

@@ -5,7 +5,7 @@
     </h3>
     <hr class="mb-2">
     <div class="ms-auto p-2">
-        <button class="btn btn-danger" *ngIf="alert">
+        <button class="btn btn-danger" (click)="goToMinimums()" *ngIf="alert">
           <i class="bi bi-exclamation-circle"></i>
         </button>
         <div class="btn-group">

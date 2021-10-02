@@ -21,7 +21,13 @@ export class HeaderComponent implements OnInit {
     this.user = credentials.user_username;
     this.productService.getProductWarning().subscribe(
       resp => this.alert = resp
-    )
+    );
+    console.log('asd');
+
+  }
+
+  goToMinimums() {
+    this.router.navigateByUrl('products/minimums');
   }
 
   onLogout() {
