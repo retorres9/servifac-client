@@ -9,6 +9,8 @@ import { NewProduct } from "./new-product.model";
   styleUrls: ["./new-product.component.scss"],
 })
 export class NewProductComponent implements OnInit {
+  section: string = "Ingreso de Productos"
+
   newProductForm: FormGroup;
   categories: any;
   locations: any;

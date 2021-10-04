@@ -1,3 +1,4 @@
+<app-header [tab]="section"></app-header>
 <div class="container">
 
     <div class="row">
@@ -18,6 +19,7 @@
                 <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Ubicación</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +29,17 @@
                 <td>{{product.prod_name | titlecase}}</td>
                 <td>{{product.prod_quantity}}</td>
                 <td>{{product.location.loc_name}}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm">
+                      <i class="bi bi-eye-fill"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-success btn-sm">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-warning btn-sm">
+                      <i class="bi bi-dash-circle-fill"></i>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>

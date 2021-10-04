@@ -8,6 +8,8 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./minimums.component.scss']
 })
 export class MinimumsComponent implements OnInit {
+  section: string = "Productos por debajo del mínimo"
+
   products: Product[];
   constructor(private productService: ProductsService) { }
 
