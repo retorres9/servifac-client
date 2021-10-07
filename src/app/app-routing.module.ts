@@ -35,6 +35,10 @@ const routes: Routes = [
     component: BillingComponent
   },
   {
+    path: 'sales',
+    loadChildren: () => import('./sales/sales.module').then(m => m.SalesModule)
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }

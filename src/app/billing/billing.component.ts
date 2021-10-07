@@ -13,6 +13,8 @@ import { Client } from "../clients/client.model";
 import autoTable from "jspdf-autotable";
 import { jsPDF } from "jspdf";
 import { ProductBill } from '../products/models/models';
+import { CredentialsJwt } from '../auth/jwt-credentials.model';
+import jwtDecode from "jwt-decode";
 
 @Component({
   selector: "app-detail",
@@ -220,13 +222,17 @@ export class BillingComponent implements OnInit {
   }
 
   private createSale() {
+    const token = localStorage.getItem('token');
+    const credentials: CredentialsJwt = jwtDecode(token);
+
     const sale = new Sale();
     sale.sale = this.products;
     sale.sale_client = this.client_ci;
     sale.sale_totalRetail = this.totalRetail;
     sale.sale_totalPayment = this.totalRetail;
-    sale.sale_user = this.client_ci;
+    sale.sale_user = credentials.user_username;
     sale.sale_date = new Date();
+    console.log(sale);
 
     this.billingService.onNewSale(sale).subscribe((resp) => console.log(resp));
   }
