@@ -6,4 +6,5 @@ export class Provider {
   prov_accountNumber: string;
   prov_accountType: string;
   prov_debt: string;
+  prov_isActive?: boolean;
 }

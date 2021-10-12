@@ -2,11 +2,9 @@
 <div class="container" *ngIf="sale">
     <div class="row">
         <div class="col-8 offset-2">
-            <label>{{sale.sale_totalRetail}}</label><br>
-            <label>{{sale.sale_date}}</label><br>
-            <label>{{sale.sale[0].sdt_id}}</label><br>
-            <label>{{sale.sale[0].product.prod_name}}</label><br>
-            <!-- <table class="table">
+            <label><strong>Fecha:</strong> {{sale.sale_date | date}}</label><br>
+            <label><strong>Total:</strong> {{sale.sale_totalRetail}}</label><br>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Cant</th>
@@ -15,17 +13,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let saleInfo of sale.sale">
-                        <td>{{infoSale.sdt_quantity}}</td>
-                        <td>{{infoSale.product.prod_name}}</td>
-                        <td>{{sale.sale_totalRetail}}</td>
+                    <tr *ngFor="let saleInfo of sale.sale; let i = index">
+                        <td>{{saleInfo.sdt_quantity}}</td>
+                        <td>{{saleInfo.product.prod_name}}</td>
+                        <td>{{saleInfo.sdt_salePrice}}</td>
                     </tr>
                 </tbody>
-            </table> -->
-            <!-- <div class="form-group">
-        <h5>Cliente</h5>
+            </table>
+            <!-- <div class="form-group"> -->
+            <!-- <h5>Cliente</h5> -->
 
-      </div> -->
+            <!-- </div> -->
         </div>
     </div>
 </div>

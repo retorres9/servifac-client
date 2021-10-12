@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>RUC</th>
+                <th>Nombre comercial</th>
+                <th>Nombre de cuenta</th>
+                <th>Número de cuenta</th>
+                <th>Tipo de de cuenta</th>
+                <th>Deuda</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let provider of providers">
+                <td>{{provider.prov_ruc}}</td>
+                <td>{{provider.prov_name}}</td>
+                <td>{{provider.prov_accountName}}</td>
+                <td>{{provider.prov_accountNumber}}</td>
+                <td>{{provider.prov_accountType}}</td>
+                <td>{{provider.prov_debt}}</td>
+                <td>{{provider.prov_phone}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

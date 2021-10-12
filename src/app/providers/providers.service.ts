@@ -28,4 +28,8 @@ export class ProvidersService {
     provider.prov_debt = prov_debt;
     return this.http.post<Provider>('http://127.0.0.1:3000/provider/', provider);
   }
+
+  getProviders() {
+    return this.http.get<Provider[]>('http://127.0.0.1:3000/provider/');
+  }
 }

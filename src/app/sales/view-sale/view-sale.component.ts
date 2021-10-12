@@ -15,12 +15,8 @@ export class ViewSaleComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       ({id}) => {
-        console.log(id);
-
         this.saleService.getSaleById(id).subscribe(
           resp => {
-            console.log(resp);
-
             this.sale = resp
           }
         )

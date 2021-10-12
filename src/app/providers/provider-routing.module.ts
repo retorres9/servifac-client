@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ProvidersComponent } from './providers.component';
 import { NewProviderComponent } from './new-provider/new-provider.component';
+import { ListingProvidersComponent } from './listing-providers/listing-providers.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: 'new-provider',
         component: NewProviderComponent
+      },
+      {
+        path: 'listing',
+        component: ListingProvidersComponent
       }
     ]
   }
