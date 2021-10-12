@@ -231,9 +231,7 @@ export class BillingComponent implements OnInit {
     sale.sale_totalRetail = this.totalRetail;
     sale.sale_totalPayment = this.totalRetail;
     sale.sale_user = credentials.user_username;
-    sale.sale_date = new Date();
-    console.log(sale);
-
+    sale.sale_date = new Date().toISOString().split('T')[0];
     this.billingService.onNewSale(sale).subscribe((resp) => console.log(resp));
   }
 

@@ -1,0 +1,35 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="prefixId">Fecha</span>
+                <input type="date" name="name" id="name" class="form-control" [(ngModel)]="date" min="12/10/2021" placeholder="placeholder" aria-describedby="prefixId">
+                <button class="btn btn-success" (click)="getSales()">Buscar</button>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Vendedor</th>
+                <th>Total</th>
+                <th>Abono</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sale of sales">
+                <td>{{sale.sale_id}}</td>
+                <td>{{sale.sale_client.cli_firstName}}</td>
+                <td>{{sale.sale_date | date}}</td>
+                <td>Benito</td>
+                <td>{{sale.sale_totalRetail | currency}}</td>
+                <td>{{sale.sale_totalPayment | currency}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

@@ -31,5 +31,20 @@ label.ng-valid {
 }
 
 table {
-    outline: 1px solid #444;
+    margin-top: 10px;
+    outline: 1px solid #555;
+    background: #fff;
+}
+
+thead {
+    background: #eee;
+}
+
+tbody {
+    cursor: pointer;
+}
+
+td {
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
