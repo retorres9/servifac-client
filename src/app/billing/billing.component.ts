@@ -15,6 +15,8 @@ import { jsPDF } from "jspdf";
 import { ProductBill } from '../products/models/models';
 import { CredentialsJwt } from '../auth/jwt-credentials.model';
 import jwtDecode from "jwt-decode";
+import { SaleState } from "./enums/sale-state.enum";
+import { SaleType } from "./enums/sale-type.enum";
 
 @Component({
   selector: "app-detail",
@@ -176,9 +178,16 @@ export class BillingComponent implements OnInit {
         }
       },
     });
+    (document.querySelector('#amountGivenInput') as HTMLElement)?.click();
     doc.save("Factura.pdf");
+    return;
     this.createSale();
     this.resetFields();
+  }
+
+  validateForm(e) {
+    this.amountGiven = e;
+
   }
 
   closeModal() {
@@ -231,6 +240,8 @@ export class BillingComponent implements OnInit {
     sale.sale_totalRetail = this.totalRetail;
     sale.sale_totalPayment = this.totalRetail;
     sale.sale_user = credentials.user_username;
+    sale.sale_saleState = SaleState.DELIVERED;
+    sale.sale_paymentType = SaleType.EFECTIVO;
     sale.sale_date = new Date().toISOString().split('T')[0];
     this.billingService.onNewSale(sale).subscribe((resp) => console.log(resp));
   }

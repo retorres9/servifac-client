@@ -1,0 +1,13 @@
+.table {
+    margin: 0;
+}
+
+.table-wrap {
+    height: 340px;
+    overflow-y: auto;
+    border: 1px solid #333;
+}
+
+thead {
+    position: sticky;
+}

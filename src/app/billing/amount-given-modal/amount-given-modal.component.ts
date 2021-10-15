@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-amount-given-modal',
@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AmountGivenModalComponent implements OnInit {
   change: number;
   amountGiven: number;
-  totalRetail: number;
+  @Output() amountGivenChecker = new EventEmitter<number>();
+  @Input() totalRetail: number;
+
 
   constructor() { }
   ngOnInit(): void {
@@ -17,6 +19,7 @@ export class AmountGivenModalComponent implements OnInit {
   private calculateChange() {
     this.change = this.amountGiven - this.totalRetail;
     this.change = Number(this.change.toFixed(2));
+    this.amountGivenChecker.emit(this.amountGiven);
   }
 
   changeFocusModal() {

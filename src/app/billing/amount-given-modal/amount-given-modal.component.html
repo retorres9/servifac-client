@@ -20,7 +20,7 @@
             <label for="change">Cambio:</label>
         </div>
         <div class="col-8 text-end">
-            <label class="change" style="background-color: #d1e6dd;">{{change | currency}}</label>
+            <input class="form-control change" disabled style="background-color: #d1e6dd;" [value]="change | currency">
         </div>
 
     </div>

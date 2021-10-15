@@ -9,7 +9,7 @@
             </div>
         </div>
     </div>
-    <table class="table">
+    <table class="table table-sm table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -23,7 +23,7 @@
         <tbody>
             <tr *ngFor="let sale of sales">
                 <td>{{sale.sale_id}}</td>
-                <td>{{sale.sale_client.cli_firstName}}</td>
+                <td>{{sale.sale_client.cli_firstName}} {{sale.sale_client.cli_lastName}}</td>
                 <td>{{sale.sale_date | date}}</td>
                 <td>Benito</td>
                 <td>{{sale.sale_totalRetail | currency}}</td>

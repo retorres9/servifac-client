@@ -128,7 +128,7 @@
 <div class="modal fade" id="change" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <app-amount-given-modal></app-amount-given-modal>
+            <app-amount-given-modal (amountGivenChecker)="validateForm($event)" [totalRetail]="totalRetail"></app-amount-given-modal>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" id="closeModalOk" data-bs-dismiss="modal" [disabled]="!amountGiven" (click)="closeModal()">Procesar</button>
