@@ -14,7 +14,7 @@
             <label for="amount">Monto recibido:</label>
         </div>
         <div class="col-8 text-end mb-3">
-            <input type="number" class="form-control" id="amountGivenInput" (keyup)="calculateChange()" (keyup.enter)="changeFocusModal()" [(ngModel)]="amountGiven">
+            <input type="number" class="form-control" id="amountGivenInput" (keyup)="calculateChange()" (keyup.enter)="changeFocusModal()" [(ngModel)]="amountGiven" [autofocus]="isFocused">
         </div>
         <div class="col-4 text-end">
             <label for="change">Cambio:</label>

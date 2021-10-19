@@ -56,8 +56,8 @@
     <div class="row">
         <div class="col">
             <div class="table-wrap">
-                <table class="table table-sm table-bordered table-hover table-inverse table-responsive">
-                    <thead class="thead-inverse border border-dark">
+                <table class="table table-sm table-hover  table-responsive">
+                    <thead class="thead-inverse">
                         <tr>
                             <th id="cant" scope="col">Cant</th>
                             <th scope="col">Product</th>
@@ -104,7 +104,7 @@
     </div>
 
     <div class="d-flex justify-content-around mt-3">
-        <button class="btn btn-primary" (click)="printer()" data-bs-toggle="modal" data-bs-target="#change" [disabled]="total===0 || !clientName">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#change" [disabled]="total===0 || !clientName">
       <i class="bi bi-gear-fill"></i>
       Procesar
     </button>
@@ -128,10 +128,10 @@
 <div class="modal fade" id="change" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <app-amount-given-modal (amountGivenChecker)="validateForm($event)" [totalRetail]="totalRetail"></app-amount-given-modal>
+            <app-amount-given-modal (amountGivenChecker)="setAmountGiven($event)" [totalRetail]="totalRetail" [isFocused]="focused"></app-amount-given-modal>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="closeModalOk" data-bs-dismiss="modal" [disabled]="!amountGiven" (click)="closeModal()">Procesar</button>
+                <button type="button" class="btn btn-primary" id="closeModalOk" data-bs-dismiss="modal" [disabled]="!amountGiven" (click)="validateForm()">Procesar</button>
             </div>
         </div>
     </div>

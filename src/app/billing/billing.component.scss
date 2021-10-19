@@ -10,7 +10,7 @@
 .thead-inverse {
     position: sticky;
     top: 0;
-    background-color: white;
+    // background-color: white;
 }
 
 td {
@@ -18,13 +18,12 @@ td {
     padding-bottom: 0px;
 }
 
-.row-detail {
-    border-style: solid;
-    border-color: #ebecee;
-    border-width: 1px;
-    background-color: white;
-}
-
+// .row-detail {
+//     border-style: solid;
+//     border-color: #ebecee;
+//     border-width: 1px;
+//     background-color: white;
+// }
 .cant-input {
     width: 50px;
 }

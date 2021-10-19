@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { ClientsService } from "../clients/clients.service";
@@ -24,6 +24,7 @@ import { SaleType } from "./enums/sale-type.enum";
   styleUrls: ["./billing.component.scss"],
 })
 export class BillingComponent implements OnInit {
+  focused: boolean = false;
   section: string = "Facturación";
 
   productBarcode: string;
@@ -46,11 +47,8 @@ export class BillingComponent implements OnInit {
   matchingProducts: NewProduct[];
 
   clientsList: Client;
-
+  // @ViewChild('#client_ci', {static: false}) input: ElementRef
   // ? Helps to calculate the total tax
-
-  @ViewChild("#code", { static: false }) barcodeInput: ElementRef;
-  @ViewChild("#modalChange", { static: false }) modal: ElementRef;
   constructor(
     private productService: ProductsService,
     private clientService: ClientsService,
@@ -84,7 +82,6 @@ export class BillingComponent implements OnInit {
       this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
       this.clientPhone = resp.cli_phone;
       this.clientAddress = resp.cli_address;
-      (document.querySelector("#code") as HTMLElement)?.focus();
     });
   }
 
@@ -118,12 +115,8 @@ export class BillingComponent implements OnInit {
     this.getTotalAmount();
   }
 
-  changeFocus() {
-    (document.querySelector("#code") as HTMLElement)?.focus();
-  }
-
   printer() {
-    (document.querySelector("#amountGivenInput") as HTMLElement)?.focus();
+    this.focused = true;
     const doc = new jsPDF("p", "pt", "a5");
     let total = 0;
     let totalIva = 0;
@@ -178,18 +171,22 @@ export class BillingComponent implements OnInit {
         }
       },
     });
-    (document.querySelector('#amountGivenInput') as HTMLElement)?.click();
     doc.save("Factura.pdf");
+
+    this.resetFields();
     return;
     this.createSale();
-    this.resetFields();
   }
 
-  validateForm(e) {
+  validateForm() {
+    this.printer();
+    // this.resetFields();
+  }
+
+  setAmountGiven(e) {
     this.amountGiven = e;
 
   }
-
   closeModal() {
     this.resetFields();
   }

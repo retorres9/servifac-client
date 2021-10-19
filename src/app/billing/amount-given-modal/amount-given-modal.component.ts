@@ -7,13 +7,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AmountGivenModalComponent implements OnInit {
   change: number;
-  amountGiven: number;
+  @Input() amountGiven: number;
   @Output() amountGivenChecker = new EventEmitter<number>();
   @Input() totalRetail: number;
-
+  @Input()isFocused: boolean = false;
 
   constructor() { }
   ngOnInit(): void {
+
   }
 
   private calculateChange() {
