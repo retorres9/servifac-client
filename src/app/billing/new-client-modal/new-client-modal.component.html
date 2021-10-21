@@ -49,7 +49,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="closeModal" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" id="closeModal" data-bs-dismiss="modal" (click)="closeModal()">Cerrar</button>
         <button type="button" class="btn btn-primary" [disabled]="!newClientForm.valid" (click)="onPostClient()">Guardar</button>
     </div>
 </div>

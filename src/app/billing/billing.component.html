@@ -10,10 +10,10 @@
                     <input type="text" class="form-control form-control-sm mb-3" id="client_ci" [(ngModel)]="client_ci" (keyup.enter)="getClientData()" spellcheck="true" autocomplete="off" />
                 </div>
                 <div class="col-5">
-                    <button class="btn btn-info btn-sm" tabindex="-2" id="openModalSearch" data-bs-toggle="modal" data-bs-target="#modalSearch" title="Agregar nuevo cliente">
+                    <button class="btn btn-info btn-sm" tabindex="-2" id="openModalSearch" data-bs-toggle="modal" data-bs-target="#modalSearch" title="Agregar nuevo cliente" (click)="setFocusOnModal()">
                       <i class="bi bi-search"></i>
                     </button>
-                    <button class="btn btn-success btn-sm" tabindex="-2" id="openModal" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Agregar nuevo cliente">
+                    <button class="btn btn-success btn-sm" tabindex="-2" id="openModal" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Agregar nuevo cliente" (click)="setFocusNew()">
                       <i class="bi bi-plus-circle"></i>
                     </button>
                 </div>
@@ -104,7 +104,7 @@
     </div>
 
     <div class="d-flex justify-content-around mt-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#change" [disabled]="total===0 || !clientName">
+        <button class="btn btn-primary" tabindex="-1" data-bs-toggle="modal" data-bs-target="#change" (click)="setFocusChange()" [disabled]="total===0 || !clientName">
       <i class="bi bi-gear-fill"></i>
       Procesar
     </button>
@@ -119,7 +119,7 @@
 
 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <app-new-client-modal (client)="updateClient($event)"></app-new-client-modal>
+        <app-new-client-modal (client)="updateClient($event)" (close)="setFocusOnCode()"></app-new-client-modal>
     </div>
 </div>
 <!-- Fin Modal nuevo Cliente -->
@@ -128,11 +128,8 @@
 <div class="modal fade" id="change" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <app-amount-given-modal (amountGivenChecker)="setAmountGiven($event)" [totalRetail]="totalRetail" [isFocused]="focused"></app-amount-given-modal>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="closeModalOk" data-bs-dismiss="modal" [disabled]="!amountGiven" (click)="validateForm()">Procesar</button>
-            </div>
+            <app-amount-given-modal (amountGivenChecker)="setAmountGiven($event)" (print)="validateForm($event)" [totalRetail]="totalRetail" [amountGiven]="amountGiven" [change]="change"></app-amount-given-modal>
+
         </div>
     </div>
 </div>
@@ -141,7 +138,7 @@
 <!-- Modal busqueda cliente -->
 <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-search-client-modal (selectedClient)="updateClient($event)"></app-search-client-modal>
+        <app-search-client-modal (selectedClient)="updateClient($event)" (close)="setFocusOnCode()"></app-search-client-modal>
     </div>
 </div>
 <!-- Fin modal busqueda cliente -->
@@ -167,7 +164,7 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-hover">
+                <table class="table table-hover mt-3">
                     <thead>
                         <tr>
                             <th>Cantidad</th>

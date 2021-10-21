@@ -11,7 +11,8 @@ import { ClientsService } from '../../clients/clients.service';
 })
 export class NewClientModalComponent implements OnInit {
   newClientForm: FormGroup;
-  @Output()client = new EventEmitter<Client>();
+  @Output() close = new EventEmitter<boolean>();
+  @Output() client = new EventEmitter<Client>();
   constructor(private clientService: ClientsService) { }
 
   ngOnInit(): void {
@@ -76,4 +77,7 @@ export class NewClientModalComponent implements OnInit {
       );
   }
 
+  closeModal() {
+    this.close.emit(true);
+  }
 }

@@ -10,7 +10,7 @@ import { ClientsService } from '../../clients/clients.service';
 export class SearchClientModalComponent implements OnInit {
   searchTerm: string;
   clientsList: Client[];
-
+  @Output() close = new EventEmitter<boolean>();
   @Output() selectedClient = new EventEmitter<Client>();
 
   constructor(private clientService: ClientsService) { }
@@ -32,6 +32,10 @@ export class SearchClientModalComponent implements OnInit {
     client.cli_lastName = selectedClient.cli_lastName;
     client.cli_phone = selectedClient.cli_phone;
     this.selectedClient.emit({...client});
+  }
+
+  closeModal() {
+    this.close.emit(true);
   }
 
 }

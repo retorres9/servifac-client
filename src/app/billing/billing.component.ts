@@ -28,7 +28,7 @@ export class BillingComponent implements OnInit {
   section: string = "Facturación";
 
   productBarcode: string;
-  amountGiven: number = 0;
+  amountGiven = null;
   change: number;
   totalRetail = 0;
   selectedRow: number;
@@ -180,7 +180,6 @@ export class BillingComponent implements OnInit {
 
   validateForm() {
     this.printer();
-    // this.resetFields();
   }
 
   setAmountGiven(e) {
@@ -192,14 +191,12 @@ export class BillingComponent implements OnInit {
   }
 
   searchProduct(productSearched: string) {
-    console.log(productSearched);
     this.productService.queryProduct(productSearched).subscribe((resp) => {
       this.matchingProducts = resp;
     });
   }
 
   selectProduct(product: ProductBill) {
-    console.log(product.prod_isTaxed);
     let asd = new ProductBill();
 
     asd.prod_isTaxed = product.prod_isTaxed;
@@ -213,6 +210,7 @@ export class BillingComponent implements OnInit {
     this.clientName = `${client.cli_firstName} ${client.cli_lastName}`;
     this.clientPhone = client.cli_phone;
     this.clientAddress = client.cli_address;
+    this.setFocusOnCode();
   }
 
   // ? Help to calculate taxes
@@ -244,7 +242,6 @@ export class BillingComponent implements OnInit {
   }
 
   private resetFields() {
-    this.amountGiven = 0;
     this.products = [];
     this.totalRetail = 0;
     this.productArrayHelper = [];
@@ -252,6 +249,35 @@ export class BillingComponent implements OnInit {
     this.clientName = "CONSUMIDOR FINAL";
     this.clientPhone = "0000000000";
     this.clientAddress = "";
+    this.amountGiven = null;
+    this.setFocusOnCode();
+  }
+
+  setFocusOnCode() {
+    setTimeout(() => {
+      (document.querySelector("#code") as HTMLElement)?.focus();
+
+    }, 500);
+  }
+
+  setFocusChange() {
+    setTimeout(() => {
+      (document.querySelector("#amountGivenInput") as HTMLElement).focus();
+    }, 500);
+  }
+
+  setFocusNew() {
+    setTimeout(() => {
+      (document.querySelector('#cli_ci') as HTMLElement).focus();
+      console.log('executed');
+
+    }, 500);
+  }
+
+  setFocusOnModal() {
+    setTimeout(() => {
+      (document.querySelector("#searchInput") as HTMLElement).focus();
+    }, 500);
   }
 
   private calculateTax(cant: number, price: number, isTaxed: boolean) {

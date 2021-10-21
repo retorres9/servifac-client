@@ -22,6 +22,9 @@
         <div class="col-8 text-end">
             <input class="form-control change" disabled style="background-color: #d1e6dd;" [value]="change | currency">
         </div>
-
     </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+    <button type="button" class="btn btn-primary" id="closeModalOk" data-bs-dismiss="modal" [disabled]="!amountGiven" (click)="resetChange()">Procesar</button>
 </div>
