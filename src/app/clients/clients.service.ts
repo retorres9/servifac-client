@@ -16,6 +16,7 @@ export class ClientsService {
     cli_email: string,
     cli_phone: string,
     cli_address: string,
+    cli_credit?: number,
     cli_debt?: string,
     cli_isActive?: boolean
   ) {
@@ -26,6 +27,7 @@ export class ClientsService {
     client.cli_email = cli_email;
     client.cli_phone = cli_phone;
     client.cli_debt = cli_debt;
+    client.cli_credit = cli_credit;
     client.cli_isActive = cli_isActive;
     client.cli_address = cli_address;
     return this.http.post<Client>("http://127.0.0.1:3000/client/", client);

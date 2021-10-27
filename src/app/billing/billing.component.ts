@@ -59,6 +59,7 @@ export class BillingComponent implements OnInit {
     const configuration = JSON.parse(localStorage.getItem("configuration"));
     this.tax = configuration.tax;
     const token = localStorage.getItem("token");
+    this.credit(0);
   }
 
   removeProductFromTable(prodRemoved: string) {
@@ -82,6 +83,7 @@ export class BillingComponent implements OnInit {
       this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
       this.clientPhone = resp.cli_phone;
       this.clientAddress = resp.cli_address;
+      this.credit(+resp.cli_debt);
     });
   }
 
@@ -210,7 +212,22 @@ export class BillingComponent implements OnInit {
     this.clientName = `${client.cli_firstName} ${client.cli_lastName}`;
     this.clientPhone = client.cli_phone;
     this.clientAddress = client.cli_address;
+    this.credit(+client.cli_credit);
     this.setFocusOnCode();
+  }
+
+  setCredit: boolean = false;
+  credit(amount: number) {
+    if (!amount) {
+      console.log('approved');
+      console.log(amount);
+
+      return this.setCredit = true;
+    } else {
+      console.log(amount);
+      console.log('denied');
+      return this.setCredit = false;
+    }
   }
 
   // ? Help to calculate taxes

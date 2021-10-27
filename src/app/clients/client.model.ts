@@ -7,4 +7,5 @@ export class Client {
   cli_debt: string;
   cli_isActive: boolean;
   cli_address: string;
+  cli_credit: number;
 }

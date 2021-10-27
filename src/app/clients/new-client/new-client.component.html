@@ -38,7 +38,7 @@
                                     </div>
                                     <!-- Dirección -->
                                     <div class="col-4 text-end">
-                                        <label for="address">Dirección</label>
+                                        <label for="address">Dirección:</label>
                                     </div>
                                     <div class="col-8 mb-3">
                                         <input type="text" class="form-control form-control-sm" name="address" id="address" formControlName="cli_address">
@@ -59,10 +59,17 @@
                                     </div>
                                     <!-- Deuda -->
                                     <div class="col-4 text-end">
-                                        <label for="debt">Deuda:</label>
+                                        <i class="bi bi-info-circle" title="Agregar solo si el cliente posee una deuda pre existente"></i><label for="debt">Deuda:</label>
                                     </div>
                                     <div class="col-8 mb-3">
                                         <input type="number" id="debt" class="form-control form-control-sm" name="debt" id="debt" formControlName="cli_debt" />
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [checked]="!enableCredit" (click)="enableCheckbox()">
+                                        <label for="credit">Crédito</label>
+                                    </div>
+                                    <div class="col-8 mb-3">
+                                        <input type="number" name="creditAmount" id="creditAmount" class="form-control form-control-sm" formControlName="cli_credit">
                                     </div>
                                 </div>
                             </div>

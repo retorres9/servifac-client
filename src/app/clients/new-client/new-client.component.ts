@@ -9,6 +9,7 @@ import { ClientsService } from "../clients.service";
 })
 export class NewClientComponent implements OnInit {
   newClientForm: FormGroup;
+  enableCredit: boolean = true;
 
   message: string;
   alert: boolean = false;
@@ -49,7 +50,22 @@ export class NewClientComponent implements OnInit {
         updateOn: "change",
         validators: [Validators.required],
       }),
+      cli_credit: new FormControl({value: false, disabled: this.enableCredit}, {
+        updateOn: 'change'
+      })
     });
+  }
+
+  enableCheckbox() {
+    console.log(this.enableCredit);
+
+    if (this.enableCredit) {
+      this.newClientForm.controls['cli_credit'].enable();
+      this.enableCredit = false
+    } else {
+      this.newClientForm.controls['cli_credit'].disable();
+      this.enableCredit = true
+    }
   }
 
   onPostClient() {
@@ -57,6 +73,13 @@ export class NewClientComponent implements OnInit {
       return;
     }
     const clientForm = this.newClientForm.value;
+    let credit;
+
+    if (clientForm.cli_credit) {
+      credit = clientForm.cli_credit;
+    } else {
+      credit = null;
+    }
     return this.clientsService
       .createClient(
         clientForm.cli_ci,
@@ -65,6 +88,7 @@ export class NewClientComponent implements OnInit {
         clientForm.cli_email,
         clientForm.cli_phone,
         clientForm.cli_address,
+        credit,
         clientForm.cli_debt
       )
       .subscribe(

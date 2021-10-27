@@ -48,6 +48,16 @@
                         <div class="col-6">
                             <label for=""><strong>Dirección:</strong> {{clientAddress | titlecase}}</label>
                         </div>
+                        <div class="col-6 d-flex">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                              <input type="checkbox" [disabled]="setCredit" class="form-check-input" name="" id="" value="false" >
+                              Crédito
+                            </label>
+                            </div> &nbsp;
+                            <button type="button" class="btn btn-success btn-sm" title="Generar crédito" data-bs-toggle="modal" data-bs-target="#modalCredit"><i class="bi bi-bullseye"></i></button>
+
+                        </div>
                     </div>
                 </fieldset>
             </form>
@@ -189,6 +199,35 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <!-- <button type="button" class="btn btn-primary">Save</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Crédito -->
+
+
+<!-- Modal Credit -->
+<div class="modal modalCredit fade" id="modalCredit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="creditAmount">Monto del crédito:</label>
+                    <input type="number" id="creditAmount" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="creditDate">Fecha:</label>
+                    <input type="date" id="creditDate" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>

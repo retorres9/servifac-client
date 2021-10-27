@@ -31,6 +31,9 @@ export class SearchClientModalComponent implements OnInit {
     client.cli_firstName = selectedClient.cli_firstName;
     client.cli_lastName = selectedClient.cli_lastName;
     client.cli_phone = selectedClient.cli_phone;
+    client.cli_debt = selectedClient.cli_debt;
+    client.cli_credit = selectedClient.cli_credit;
+
     this.selectedClient.emit({...client});
   }
 
