@@ -7,7 +7,7 @@
                     <label for="client_ci" class="col-1"><strong>CI/RUC:</strong></label>
                 </div>
                 <div class="col-4">
-                    <input type="text" class="form-control form-control-sm mb-3" id="client_ci" [(ngModel)]="client_ci" (keyup.enter)="getClientData()" spellcheck="true" autocomplete="off" />
+                    <input type="text" class="form-control form-control-sm mb-3" id="client_ci" [(ngModel)]="client_ci" (keyup.enter)="getClientData(client_ci)" spellcheck="true" autocomplete="off" />
                 </div>
                 <div class="col-5">
                     <button class="btn btn-info btn-sm" tabindex="-2" id="openModalSearch" data-bs-toggle="modal" data-bs-target="#modalSearch" title="Agregar nuevo cliente" (click)="setFocusOnModal()">
@@ -25,7 +25,7 @@
                     <label for="code" class="col-1"><strong>Código:</strong></label>
                 </div>
                 <div class="col-4">
-                    <input type="text" class="form-control form-control-sm" id="code" [(ngModel)]="productBarcode" (keyup.enter)="getProductBarcode()" autofocus autocomplete="off" />
+                    <input type="text" class="form-control form-control-sm" id="code" [(ngModel)]="productBarcode" (keyup.enter)="getProductBarcode()" autofocus autocomplete="off" [disabled]="isRequesting === true" />
                 </div>
                 <div class="col-1">
                     <button class="btn btn-primary btn-sm" tabindex="-3" id="openModalSearchProd" data-bs-toggle="modal" data-bs-target="#modalSearchProd">
@@ -48,14 +48,14 @@
                         <div class="col-6">
                             <label for=""><strong>Dirección:</strong> {{clientAddress | titlecase}}</label>
                         </div>
-                        <div class="col-6 d-flex">
+                        <div class="col-6 d-flex" [ngClass]="{'item-hidden': showBtn()}">
                             <div class="form-check">
                                 <label class="form-check-label">
-                              <input type="checkbox" [disabled]="setCredit" class="form-check-input" name="" id="" value="false" >
+                              <input type="checkbox" [disabled]="setCredit === false" class="form-check-input" name="" id="">
                               Crédito
                             </label>
                             </div> &nbsp;
-                            <button type="button" class="btn btn-success btn-sm" title="Generar crédito" data-bs-toggle="modal" data-bs-target="#modalCredit"><i class="bi bi-bullseye"></i></button>
+                            <button type="button" class="btn btn-success btn-sm" title="Generar crédito" data-bs-toggle="modal" [disabled]="hasCredit === false" data-bs-target="#modalCredit"><i class="bi bi-bullseye"></i></button>
 
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                     <tbody id="table-body">
                         <tr *ngFor="let product of products; let i = index" (click)="rowClicked(i, product.prod)" (keyup.backspace)="removeProductFromTable(product.prod_name)" [ngClass]="{'table-active': i === selectedRow}">
                             <td>
-                                <input type="number" value="1" min="1" [id]="product.prod" [(ngModel)]="products[i].cant" class="cant-input" (input)="addCant(i, $event)" (keyup.enter)="changeFocus()">
+                                <input type="number" value="1" min="1" [id]="product.prod" [(ngModel)]="products[i].cant" class="cant-input" (input)="addCant(i, $event)" (keyup.enter)="setFocusOnCode()">
                             </td>
                             <td>{{ product.prod_name }}</td>
                             <td>$0.00</td>
@@ -148,7 +148,7 @@
 <!-- Modal busqueda cliente -->
 <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <app-search-client-modal (selectedClient)="updateClient($event)" (close)="setFocusOnCode()"></app-search-client-modal>
+        <app-search-client-modal (selectedClient)="getClientData($event)" (close)="setFocusOnCode()"></app-search-client-modal>
     </div>
 </div>
 <!-- Fin modal busqueda cliente -->

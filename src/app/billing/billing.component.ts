@@ -37,6 +37,10 @@ export class BillingComponent implements OnInit {
   newClientForm: FormGroup;
   productArrayHelper: TaxArrayHelper[] = [];
 
+  creditAmount: number = 0;
+  creditUsed: number = 0;
+  hasCredit: boolean = false;
+
   client_ci: string = "1111111111";
   clientName: string = "CONSUMIDOR FINAL";
   clientPhone: string = "0000000000";
@@ -47,7 +51,6 @@ export class BillingComponent implements OnInit {
   matchingProducts: NewProduct[];
 
   clientsList: Client;
-  // @ViewChild('#client_ci', {static: false}) input: ElementRef
   // ? Helps to calculate the total tax
   constructor(
     private productService: ProductsService,
@@ -62,6 +65,14 @@ export class BillingComponent implements OnInit {
     this.credit(0);
   }
 
+  showBtn() {
+    if (this.clientName === 'CONSUMIDOR FINAL') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   removeProductFromTable(prodRemoved: string) {
     this.products = this.products.filter(
       (product) => product.prod_name !== prodRemoved
@@ -74,26 +85,36 @@ export class BillingComponent implements OnInit {
     (document.querySelector(`#${prod}`) as HTMLElement)?.focus();
   }
 
-  getClientData() {
-    this.clientService.getClient(this.client_ci).subscribe((resp) => {
+  getClientData(clientCi) {
+    this.clientService.getClient(clientCi).subscribe((resp) => {
       if (!resp) {
         (document.querySelector("#openModal") as HTMLElement)?.click();
         return;
       }
-      this.clientName = `${resp.cli_firstName} ${resp.cli_lastName}`;
-      this.clientPhone = resp.cli_phone;
-      this.clientAddress = resp.cli_address;
-      this.credit(+resp.cli_debt);
+      this.clientName = `${resp.client.cli_firstName} ${resp.client.cli_lastName}`;
+      this.clientPhone = resp.client.cli_phone;
+      this.clientAddress = resp.client.cli_address;
+      this.creditAmount = resp.credit;
+      this.creditUsed = resp.debt;
+      let amount = this.creditAmount - this.creditUsed;
+      this.credit(amount);
+      this.setFocusOnCode();
     });
   }
-
+  isRequesting: boolean = false;
   getProductBarcode() {
     let productTax;
+    this.isRequesting = true;
     if (this.productBarcode) {
       this.productService
         .getProductBarcode(this.productBarcode)
         .subscribe((resp) => {
           this.processProduct(resp);
+          this.isRequesting = false;
+          this.setFocusOnCode();
+        }, err => {
+          this.isRequesting = false;
+          this.setFocusOnCode();
         });
     }
 
@@ -117,7 +138,7 @@ export class BillingComponent implements OnInit {
     this.getTotalAmount();
   }
 
-  printer() {
+  printer(change: number) {
     this.focused = true;
     const doc = new jsPDF("p", "pt", "a5");
     let total = 0;
@@ -174,18 +195,18 @@ export class BillingComponent implements OnInit {
       },
     });
     doc.save("Factura.pdf");
-
+    this.createSale(change);
     this.resetFields();
     return;
-    this.createSale();
   }
 
-  validateForm() {
-    this.printer();
+  validateForm(change: number) {
+    this.printer(change);
   }
 
   setAmountGiven(e) {
     this.amountGiven = e;
+    console.log(this.amountGiven);
 
   }
   closeModal() {
@@ -207,25 +228,13 @@ export class BillingComponent implements OnInit {
     this.processProduct({...asd});
   }
 
-  updateClient(client: Client) {
-    this.client_ci = client.cli_ci;
-    this.clientName = `${client.cli_firstName} ${client.cli_lastName}`;
-    this.clientPhone = client.cli_phone;
-    this.clientAddress = client.cli_address;
-    this.credit(+client.cli_credit);
-    this.setFocusOnCode();
-  }
-
-  setCredit: boolean = false;
+  setCredit: boolean = true;
   credit(amount: number) {
-    if (!amount) {
-      console.log('approved');
-      console.log(amount);
-
+    if (amount > 0) {
+      this.hasCredit = false;
       return this.setCredit = true;
     } else {
-      console.log(amount);
-      console.log('denied');
+      this.hasCredit = true;
       return this.setCredit = false;
     }
   }
@@ -242,15 +251,15 @@ export class BillingComponent implements OnInit {
     isIncluded ? true : this.productArrayHelper.push({ ...nuevo });
   }
 
-  private createSale() {
+  private createSale(change: number) {
     const token = localStorage.getItem('token');
     const credentials: CredentialsJwt = jwtDecode(token);
-
+    let payment = change > 0 ? this.totalRetail : (this.totalRetail - Math.abs(change));
     const sale = new Sale();
     sale.sale = this.products;
     sale.sale_client = this.client_ci;
     sale.sale_totalRetail = this.totalRetail;
-    sale.sale_totalPayment = this.totalRetail;
+    sale.sale_totalPayment = (+payment.toFixed(2));
     sale.sale_user = credentials.user_username;
     sale.sale_saleState = SaleState.DELIVERED;
     sale.sale_paymentType = SaleType.EFECTIVO;
@@ -286,8 +295,6 @@ export class BillingComponent implements OnInit {
   setFocusNew() {
     setTimeout(() => {
       (document.querySelector('#cli_ci') as HTMLElement).focus();
-      console.log('executed');
-
     }, 500);
   }
 

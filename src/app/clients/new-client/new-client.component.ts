@@ -14,6 +14,7 @@ export class NewClientComponent implements OnInit {
   message: string;
   alert: boolean = false;
   alertType: string;
+  loading = false;
   constructor(private clientsService: ClientsService) {}
 
   ngOnInit(): void {
@@ -80,6 +81,7 @@ export class NewClientComponent implements OnInit {
     } else {
       credit = null;
     }
+    this.loading = true;
     return this.clientsService
       .createClient(
         clientForm.cli_ci,
@@ -97,7 +99,7 @@ export class NewClientComponent implements OnInit {
           this.message = "Cliente creado satisfactoriamente";
           this.alertType = "alert-success";
           this.newClientForm.reset();
-
+          this.loading = false;
           (document.querySelector("#ci") as HTMLElement)?.focus();
           setTimeout(() => {
             this.alert = false;
@@ -107,6 +109,7 @@ export class NewClientComponent implements OnInit {
           this.alert = true;
           this.message = error.error.message;
           this.alertType = "alert-danger";
+          this.loading = false;
           setTimeout(() => {
             this.alert = false;
           }, 5000);

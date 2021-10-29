@@ -18,18 +18,20 @@
     </form>
     <div class="row">
         <div class="col">
-            <table class="table table-hover">
+            <table class="table table-hover mt-3">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Total</th>
+                        <th>Pagado</th>
                         <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let sale of summary.sale">
+                    <tr *ngFor="let sale of summary.sale" [ngClass]="sale.sale_totalPayment < sale.sale_totalRetail ? 'table-danger' : 'table-success'">
                         <td>{{ sale.sale_id }}</td>
                         <td>{{ sale.sale_totalRetail | currency }}</td>
+                        <td>{{ sale.sale_totalPayment | currency }}</td>
                         <td>{{ sale.sale_date | date }}</td>
                     </tr>
                 </tbody>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Client } from '../../clients/client.model';
+import { Client, ClientInfo } from '../../clients/client.model';
 import { ClientsService } from '../../clients/clients.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class SearchClientModalComponent implements OnInit {
   searchTerm: string;
   clientsList: Client[];
   @Output() close = new EventEmitter<boolean>();
-  @Output() selectedClient = new EventEmitter<Client>();
+  @Output() selectedClient = new EventEmitter<string>();
 
   constructor(private clientService: ClientsService) { }
 
@@ -27,14 +27,7 @@ export class SearchClientModalComponent implements OnInit {
   doubleClick(selectedClient: Client) {
     const client = new Client();
     client.cli_ci = selectedClient.cli_ci;
-    client.cli_address = selectedClient.cli_address;
-    client.cli_firstName = selectedClient.cli_firstName;
-    client.cli_lastName = selectedClient.cli_lastName;
-    client.cli_phone = selectedClient.cli_phone;
-    client.cli_debt = selectedClient.cli_debt;
-    client.cli_credit = selectedClient.cli_credit;
-
-    this.selectedClient.emit({...client});
+    this.selectedClient.emit(selectedClient.cli_ci);
   }
 
   closeModal() {

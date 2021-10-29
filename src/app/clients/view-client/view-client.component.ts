@@ -44,5 +44,6 @@ export interface ClientSummary {
 export interface Sale {
   sale_id: number;
   sale_totalRetail: string;
+  sale_totalPayment: string;
   sale_date: Date;
 }
