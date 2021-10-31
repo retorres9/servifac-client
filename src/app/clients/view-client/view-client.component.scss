@@ -12,3 +12,17 @@ legend {
     background-color: rgb(245, 245, 245);
     width: auto;
 }
+
+.square {
+    width: 15px;
+    height: 15px;
+    outline: 1px solid #888;
+}
+
+.square-paid {
+    background-color: #d1e6dd;
+}
+
+.square-pending {
+    background-color: #fff3cd;
+}

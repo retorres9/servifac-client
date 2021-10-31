@@ -6,7 +6,7 @@
                     <label for="search">Buscar:</label>
                 </div>
                 <div class="col-4">
-                    <input type="text" class="form-control form-control-sm" id="search" #searchCriteria (keyup.enter)="searchClient(searchCriteria.value)">
+                    <input type="text" class="form-control form-control-sm" id="search" #searchCriteria autofocus (keyup.enter)="searchClient(searchCriteria.value)">
                 </div>
             </div>
         </div>

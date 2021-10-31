@@ -12,4 +12,5 @@ export class Sale {
   sale_paymentType: SaleType;
   sale_saleState: SaleState;
   sale_store: number;
+  sale_toDate: Date;
 }

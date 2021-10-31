@@ -51,7 +51,7 @@
                         <div class="col-6 d-flex" [ngClass]="{'item-hidden': showBtn()}">
                             <div class="form-check">
                                 <label class="form-check-label">
-                              <input type="checkbox" [disabled]="setCredit === false" class="form-check-input" title="El cliente no tiene crédito aprobado o alcanzó el limite de su crédito">
+                              <input type="checkbox" [disabled]="setCredit === false" class="form-check-input" title="El cliente no tiene crédito aprobado o alcanzó el limite de su crédito" [(ngModel)]="isCreditRequested" name="isCreditRequested">
                               Crédito
                             </label>
                             </div> &nbsp;

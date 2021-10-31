@@ -99,6 +99,7 @@ export class BillingComponent implements OnInit {
         return;
       }
       this.clientName = `${resp.client.cli_firstName} ${resp.client.cli_lastName}`;
+      this.client_ci = resp.client.cli_ci;
       this.clientPhone = resp.client.cli_phone;
       this.clientAddress = resp.client.cli_address;
       this.creditAmount = resp.credit;
@@ -274,13 +275,16 @@ export class BillingComponent implements OnInit {
     );
     isIncluded ? true : this.productArrayHelper.push({ ...nuevo });
   }
-
+  isCreditRequested: boolean = false;
   private createSale(change: number) {
+    console.log(this.isCreditRequested);
+
     const token = localStorage.getItem('token');
     const credentials: CredentialsJwt = jwtDecode(token);
     let payment = change > 0 ? this.totalRetail : (this.totalRetail - Math.abs(change));
     const sale = new Sale();
     sale.sale = this.products;
+    console.log(this.client_ci);
     sale.sale_client = this.client_ci;
     sale.sale_totalRetail = this.totalRetail;
     sale.sale_totalPayment = (+payment.toFixed(2));
@@ -288,6 +292,9 @@ export class BillingComponent implements OnInit {
     sale.sale_saleState = SaleState.DELIVERED;
     sale.sale_paymentType = SaleType.EFECTIVO;
     sale.sale_date = new Date().toISOString().split('T')[0];
+    sale.sale_toDate = this.isCreditRequested ? new Date() : null;
+    console.log(sale.sale_toDate);
+
     this.billingService.onNewSale(sale).subscribe((resp) => console.log(resp));
   }
 
@@ -302,6 +309,7 @@ export class BillingComponent implements OnInit {
     this.amountGiven = null;
     this.creditAmount = 0;
     this.creditUsed = 0;
+    this.isCreditRequested = false;
     this.setFocusOnCode();
   }
 

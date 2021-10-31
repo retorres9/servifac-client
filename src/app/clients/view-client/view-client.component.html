@@ -17,9 +17,15 @@
             </div>
         </fieldset>
     </form>
-    <div class="row">
+    <div class="row ">
         <div class="col">
-            <table class="table table-hover mt-3">
+            <div class="info d-flex align-items-center justify-content-end mt-3">
+                <div class="square square-paid"></div> &nbsp;
+                <label>Pagado</label> &nbsp; &nbsp;
+                <div class="square square-pending"></div>&nbsp;
+                <label>Pendiente</label>
+            </div>
+            <table class="table table-hover mt-1">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -29,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let sale of summary.sale" [ngClass]="sale.sale_totalPayment < sale.sale_totalRetail ? 'table-danger' : 'table-success'">
+                    <tr *ngFor="let sale of summary.sale" [ngClass]="sale.sale_totalPayment < sale.sale_totalRetail ? 'table-warning' : 'table-success'">
                         <td>{{ sale.sale_id }}</td>
                         <td>{{ sale.sale_totalRetail | currency }}</td>
                         <td>{{ sale.sale_totalPayment | currency }}</td>
