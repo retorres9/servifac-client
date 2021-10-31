@@ -12,6 +12,7 @@
                 <div class="col-6">
                     <strong>Email:</strong> {{ summary.cli_email }}<br />
                     <strong>Dirección:</strong> {{ summary.cli_address }}<br />
+                    <button type="button" class="btn btn-success btn-sm" [disabled]="hasCredit === true" data-bs-toggle="modal" data-bs-target="#creditAuthModal">Aprobar crédito</button>
                 </div>
             </div>
         </fieldset>
@@ -38,4 +39,8 @@
             </table>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="creditAuthModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <app-auth-credit [client_ci]="summary?.cli_ci" (amountOutput)="updateClientCredit()"></app-auth-credit>
 </div>

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Client, ClientInfo } from './client.model';
 import { ClientSummary } from "./view-client/view-client.component";
+import { CreditData } from './view-client/auth-credit/model/credit-data.model';
 
 @Injectable({
   providedIn: "root",
@@ -48,5 +49,9 @@ export class ClientsService {
   getClientByQuery(query: string) {
     const params = new HttpParams().set('name', query);
     return this.http.get<Client[]>(`http://127.0.0.1:3000/client`,{params});
+  }
+
+  postCreditAuthorization(creditData: CreditData) {
+    return this.http.post<boolean>('http://127.0.0.1:3000/credit', creditData);
   }
 }

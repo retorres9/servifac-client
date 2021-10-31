@@ -26,6 +26,7 @@ import { SaleType } from "./enums/sale-type.enum";
 export class BillingComponent implements OnInit {
   focused: boolean = false;
   section: string = "Facturación";
+  isRequesting: boolean = false;
 
   productBarcode: string;
   amountGiven = null;
@@ -40,6 +41,8 @@ export class BillingComponent implements OnInit {
   creditAmount: number = 0;
   creditUsed: number = 0;
   hasCredit: boolean = false;
+  setCredit: boolean = true;
+
 
   client_ci: string = "1111111111";
   clientName: string = "CONSUMIDOR FINAL";
@@ -65,24 +68,28 @@ export class BillingComponent implements OnInit {
     this.credit(0);
   }
 
-  showBtn() {
-    if (this.clientName === 'CONSUMIDOR FINAL') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  removeProductFromTable(prodRemoved: string) {
-    this.products = this.products.filter(
-      (product) => product.prod_name !== prodRemoved
-    );
+  addCant(idx: number, event) {
+    event.target.value === ""
+      ? (event.target.value = 1)
+      : (this.products[idx].cant = event.target.value);
+    this.products[idx].cant = event.target.value;
+    this.products[idx].total =
+      this.products[idx].cant * this.products[idx].price;
     this.getTotalAmount();
   }
 
-  rowClicked(idx: number, prod: string) {
-    this.selectedRow = idx;
-    (document.querySelector(`#${prod}`) as HTMLElement)?.focus();
+  closeModal() {
+    this.resetFields();
+  }
+
+  credit(amount: number) {
+    if (amount > 0) {
+      this.hasCredit = false;
+      return this.setCredit = true;
+    } else {
+      this.hasCredit = true;
+      return this.setCredit = false;
+    }
   }
 
   getClientData(clientCi) {
@@ -101,9 +108,8 @@ export class BillingComponent implements OnInit {
       this.setFocusOnCode();
     });
   }
-  isRequesting: boolean = false;
+
   getProductBarcode() {
-    let productTax;
     this.isRequesting = true;
     if (this.productBarcode) {
       this.productService
@@ -117,7 +123,6 @@ export class BillingComponent implements OnInit {
           this.setFocusOnCode();
         });
     }
-
     this.productBarcode = "";
   }
 
@@ -126,16 +131,6 @@ export class BillingComponent implements OnInit {
       (total, product) => total + product.total,
       0
     );
-  }
-
-  addCant(idx: number, event) {
-    event.target.value === ""
-      ? (event.target.value = 1)
-      : (this.products[idx].cant = event.target.value);
-    this.products[idx].cant = event.target.value;
-    this.products[idx].total =
-      this.products[idx].cant * this.products[idx].price;
-    this.getTotalAmount();
   }
 
   printer(change: number) {
@@ -200,17 +195,16 @@ export class BillingComponent implements OnInit {
     return;
   }
 
-  validateForm(change: number) {
-    this.printer(change);
+  removeProductFromTable(prodRemoved: string) {
+    this.products = this.products.filter(
+      (product) => product.prod_name !== prodRemoved
+    );
+    this.getTotalAmount();
   }
 
-  setAmountGiven(e) {
-    this.amountGiven = e;
-    console.log(this.amountGiven);
-
-  }
-  closeModal() {
-    this.resetFields();
+  rowClicked(idx: number, prod: string) {
+    this.selectedRow = idx;
+    (document.querySelector(`#${prod}`) as HTMLElement)?.focus();
   }
 
   searchProduct(productSearched: string) {
@@ -228,15 +222,45 @@ export class BillingComponent implements OnInit {
     this.processProduct({...asd});
   }
 
-  setCredit: boolean = true;
-  credit(amount: number) {
-    if (amount > 0) {
-      this.hasCredit = false;
-      return this.setCredit = true;
+  setAmountGiven(e) {
+    this.amountGiven = e;
+    console.log(this.amountGiven);
+  }
+
+  setFocusOnCode() {
+    setTimeout(() => {
+      (document.querySelector("#code") as HTMLElement)?.focus();
+    }, 500);
+  }
+
+  setFocusChange() {
+    setTimeout(() => {
+      (document.querySelector("#amountGivenInput") as HTMLElement).focus();
+    }, 500);
+  }
+
+  setFocusNew() {
+    setTimeout(() => {
+      (document.querySelector('#cli_ci') as HTMLElement).focus();
+    }, 500);
+  }
+
+  setFocusOnModal() {
+    setTimeout(() => {
+      (document.querySelector("#searchInput") as HTMLElement).focus();
+    }, 500);
+  }
+
+  showBtn() {
+    if (this.clientName === 'CONSUMIDOR FINAL') {
+      return true;
     } else {
-      this.hasCredit = true;
-      return this.setCredit = false;
+      return false;
     }
+  }
+
+  validateForm(change: number) {
+    this.printer(change);
   }
 
   // ? Help to calculate taxes
@@ -276,32 +300,9 @@ export class BillingComponent implements OnInit {
     this.clientPhone = "0000000000";
     this.clientAddress = "";
     this.amountGiven = null;
+    this.creditAmount = 0;
+    this.creditUsed = 0;
     this.setFocusOnCode();
-  }
-
-  setFocusOnCode() {
-    setTimeout(() => {
-      (document.querySelector("#code") as HTMLElement)?.focus();
-
-    }, 500);
-  }
-
-  setFocusChange() {
-    setTimeout(() => {
-      (document.querySelector("#amountGivenInput") as HTMLElement).focus();
-    }, 500);
-  }
-
-  setFocusNew() {
-    setTimeout(() => {
-      (document.querySelector('#cli_ci') as HTMLElement).focus();
-    }, 500);
-  }
-
-  setFocusOnModal() {
-    setTimeout(() => {
-      (document.querySelector("#searchInput") as HTMLElement).focus();
-    }, 500);
   }
 
   private calculateTax(cant: number, price: number, isTaxed: boolean) {

@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewClientComponent } from './new-client/new-client.component';
 import { ClientsRoutingModule } from './clients-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ListingComponent } from './listing/listing.component';
 import { ViewClientComponent } from './view-client/view-client.component';
+import { AuthCreditComponent } from './view-client/auth-credit/auth-credit.component';
 
 
 
@@ -13,10 +14,12 @@ import { ViewClientComponent } from './view-client/view-client.component';
   declarations: [
     NewClientComponent,
     ListingComponent,
-    ViewClientComponent
+    ViewClientComponent,
+    AuthCreditComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ClientsRoutingModule,
     ReactiveFormsModule,
     RouterModule

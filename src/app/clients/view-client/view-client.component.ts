@@ -9,6 +9,7 @@ import { ClientsService } from "../clients.service";
 })
 export class ViewClientComponent implements OnInit {
   summary: ClientSummary;
+  hasCredit: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clientService: ClientsService,
@@ -19,13 +20,23 @@ export class ViewClientComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ ci }) => {
       this.clientService.getClientSummary(ci).subscribe((resp) => {
         this.summary = resp;
-        console.log(resp);
+        if(Object.entries( this.summary.credit).length > 0) {
+          this.hasCredit = true;
+        } else {
+          this.hasCredit = false;
+        }
+
       });
     });
   }
 
   goBack() {
     this.router.navigateByUrl('clients/listing');
+  }
+
+  private updateClientCredit(amount: number) {
+    this.summary.credit.cre_amount = amount;
+    this.hasCredit = true;
   }
 }
 
@@ -39,6 +50,7 @@ export interface ClientSummary {
   cli_debt: string;
   cli_isActive: boolean;
   sale: Sale[];
+  credit: Credit;
 }
 
 export interface Sale {
@@ -46,4 +58,10 @@ export interface Sale {
   sale_totalRetail: string;
   sale_totalPayment: string;
   sale_date: Date;
+}
+
+export interface Credit {
+  cre_id: number,
+  cre_amount: number,
+  cre_used: number
 }

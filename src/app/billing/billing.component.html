@@ -51,7 +51,7 @@
                         <div class="col-6 d-flex" [ngClass]="{'item-hidden': showBtn()}">
                             <div class="form-check">
                                 <label class="form-check-label">
-                              <input type="checkbox" [disabled]="setCredit === false" class="form-check-input" name="" id="">
+                              <input type="checkbox" [disabled]="setCredit === false" class="form-check-input" title="El cliente no tiene crédito aprobado o alcanzó el limite de su crédito">
                               Crédito
                             </label>
                             </div> &nbsp;
@@ -219,10 +219,6 @@
                 <div class="form-group">
                     <label for="creditAmount">Monto del crédito:</label>
                     <input type="number" id="creditAmount" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="creditDate">Fecha:</label>
-                    <input type="date" id="creditDate" class="form-control">
                 </div>
             </div>
             <div class="modal-footer">
