@@ -10,6 +10,7 @@ import { ClientsService } from "../clients.service";
 export class ViewClientComponent implements OnInit {
   summary: ClientSummary;
   hasCredit: boolean = false;
+  hasDebt: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private clientService: ClientsService,
@@ -20,12 +21,16 @@ export class ViewClientComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ ci }) => {
       this.clientService.getClientSummary(ci).subscribe((resp) => {
         this.summary = resp;
+
         if(Object.entries( this.summary.credit).length > 0) {
           this.hasCredit = true;
         } else {
           this.hasCredit = false;
         }
 
+        this.hasDebt = this.summary.sale.some(sales => {
+          return +sales.sale_totalPayment < +sales.sale_totalRetail;
+        })
       });
     });
   }

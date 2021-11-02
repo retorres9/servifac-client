@@ -13,6 +13,7 @@
                     <strong>Email:</strong> {{ summary.cli_email }}<br />
                     <strong>Dirección:</strong> {{ summary.cli_address }}<br />
                     <button type="button" class="btn btn-success btn-sm" [disabled]="hasCredit === true" data-bs-toggle="modal" data-bs-target="#creditAuthModal">Aprobar crédito</button>
+                    <button class="btn btn-primary btn-sm" type="button" [disabled]="!hasDebt">Registrar pago</button>
                 </div>
             </div>
         </fieldset>
@@ -25,7 +26,7 @@
                 <div class="square square-pending"></div>&nbsp;
                 <label>Pendiente</label>
             </div>
-            <table class="table table-hover mt-1">
+            <table class="table table-hover table-sm mt-1">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -35,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let sale of summary.sale" [ngClass]="sale.sale_totalPayment < sale.sale_totalRetail ? 'table-warning' : 'table-success'">
+                    <tr *ngFor="let sale of summary.sale" [ngClass]="+sale.sale_totalPayment === +sale.sale_totalRetail ? 'table-success' : 'table-warning'">
                         <td>{{ sale.sale_id }}</td>
                         <td>{{ sale.sale_totalRetail | currency }}</td>
                         <td>{{ sale.sale_totalPayment | currency }}</td>
