@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Client, ClientInfo } from './client.model';
 import { ClientSummary } from "./view-client/view-client.component";
 import { CreditData } from './view-client/auth-credit/model/credit-data.model';
+import { ClientMovement } from './client-movement.model';
 
 @Injectable({
   providedIn: "root",
@@ -53,5 +54,9 @@ export class ClientsService {
 
   postCreditAuthorization(creditData: CreditData) {
     return this.http.post<boolean>('http://127.0.0.1:3000/credit', creditData);
+  }
+
+  postClientMovement(clientMovement: ClientMovement) {
+    return this.http.post<ClientMovement>('http://127.0.0.1:3000/client-movement', clientMovement);
   }
 }

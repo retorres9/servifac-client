@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ListingComponent } from './listing/listing.component';
 import { ViewClientComponent } from './view-client/view-client.component';
 import { AuthCreditComponent } from './view-client/auth-credit/auth-credit.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -22,7 +23,8 @@ import { AuthCreditComponent } from './view-client/auth-credit/auth-credit.compo
     FormsModule,
     ClientsRoutingModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   exports: [
     NewClientComponent

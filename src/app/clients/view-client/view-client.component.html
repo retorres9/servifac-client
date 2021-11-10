@@ -8,12 +8,13 @@
                     <strong>Nombre:</strong> {{ summary.cli_firstName }} {{ summary.cli_lastName }}<br />
                     <strong>Phone:</strong> {{ summary.cli_phone }}<br />
                     <strong>Deuda:</strong> {{ summary.cli_debt | currency }}<br />
+                    <button *ngIf="summary.cli_debt > 0" class="btn btn-success btn-sm">Realiza pago</button>
                 </div>
                 <div class="col-6">
                     <strong>Email:</strong> {{ summary.cli_email }}<br />
                     <strong>Dirección:</strong> {{ summary.cli_address }}<br />
                     <button type="button" class="btn btn-success btn-sm" [disabled]="hasCredit === true" data-bs-toggle="modal" data-bs-target="#creditAuthModal">Aprobar crédito</button>
-                    <button class="btn btn-primary btn-sm" type="button" [disabled]="!hasDebt">Registrar pago</button>
+                    <button class="btn btn-primary btn-sm" type="button" [disabled]="!hasDebt" data-bs-toggle="modal" data-bs-target="#amountModal" (click)="setFocusModal()">Registrar pago</button>
                 </div>
             </div>
         </fieldset>
@@ -50,4 +51,8 @@
 
 <div class="modal fade" id="creditAuthModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <app-auth-credit [client_ci]="summary?.cli_ci" (amountOutput)="updateClientCredit()"></app-auth-credit>
+</div>
+
+<div class="modal fade" id="amountModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <app-amount [user]="{ci: summary?.cli_ci, firstName: summary?.cli_firstName,lastName: summary?.cli_lastName}"></app-amount>
 </div>

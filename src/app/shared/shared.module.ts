@@ -1,18 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from "@ngx-translate/core";
 
-import { PageNotFoundComponent } from './components/';
-import { WebviewDirective } from './directives/';
-import { FormsModule } from '@angular/forms';
-import { SidedrawComponent } from './components/sidedraw/sidedraw.component';
-import { HeaderComponent } from './components/header/header.component';
-import { LoaderComponent } from './components/loader/loader.component';
+import { PageNotFoundComponent } from "./components/";
+import { WebviewDirective } from "./directives/";
+import { FormsModule } from "@angular/forms";
+import { SidedrawComponent } from "./components/sidedraw/sidedraw.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { LoaderComponent } from "./components/loader/loader.component";
+import { AmountComponent } from "./components/amount/amount.component";
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, SidedrawComponent, HeaderComponent, LoaderComponent],
+  declarations: [
+    PageNotFoundComponent,
+    WebviewDirective,
+    SidedrawComponent,
+    HeaderComponent,
+    LoaderComponent,
+    AmountComponent,
+  ],
   imports: [CommonModule, TranslateModule, FormsModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule, SidedrawComponent, HeaderComponent, LoaderComponent]
+  exports: [
+    TranslateModule,
+    WebviewDirective,
+    FormsModule,
+    SidedrawComponent,
+    HeaderComponent,
+    LoaderComponent,
+    AmountComponent
+  ],
 })
 export class SharedModule {}

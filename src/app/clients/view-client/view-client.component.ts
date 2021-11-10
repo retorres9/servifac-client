@@ -21,7 +21,6 @@ export class ViewClientComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ ci }) => {
       this.clientService.getClientSummary(ci).subscribe((resp) => {
         this.summary = resp;
-
         if(Object.entries( this.summary.credit).length > 0) {
           this.hasCredit = true;
         } else {
@@ -33,6 +32,12 @@ export class ViewClientComponent implements OnInit {
         })
       });
     });
+  }
+
+  setFocusModal() {
+    setTimeout(() => {
+      (document.querySelector("#amount") as HTMLElement)?.focus();
+    }, 500);
   }
 
   goBack() {

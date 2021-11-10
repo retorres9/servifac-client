@@ -27,7 +27,6 @@ export class ListingComponent implements OnInit {
         this.client = resp
       }
     );
-
   }
 
 }

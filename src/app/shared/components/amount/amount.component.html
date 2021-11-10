@@ -1,0 +1,54 @@
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modelId">
+  Launch
+</button> -->
+
+<!-- Modal -->
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Ingrese el monto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-success alert-dismissible" role="alert" *ngIf="isAlert">
+                <strong>El pago se ha procesado correctamente</strong>
+            </div>
+
+            <div class="form-group">
+                <div class="radio-buttons">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="transactionType" id="" [(ngModel)]="transaction" value="money" [checked]="transaction === money">
+                    Efectivo
+                  </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="transactionType" id="" [(ngModel)]="transaction" value="transfer">
+                    Transferencia
+                  </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="transactionType" id="" [(ngModel)]="transaction" value="check">
+                  Cheque
+                </label>
+                    </div>
+                </div>
+                <label for="amount">Monto:</label>
+                <input class="form-control" type="number" id="amount" [(ngModel)]="amount">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetFields()">Close</button>
+            <button type="button" class="btn btn-primary" [disabled]="isProcessing || amount <= 0 || !transaction" (click)="processTransaction()" *ngIf="!isTransactionOk">
+              <div class="spinner-border spinner-border-sm" role="status" *ngIf="isProcessing">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              Procesar
+            </button>
+        </div>
+    </div>
+</div>
