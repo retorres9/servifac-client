@@ -26,3 +26,9 @@ legend {
 .square-pending {
     background-color: #fff3cd;
 }
+
+.table-wrapper {
+    height: 350px;
+    overflow-y: auto;
+    border: 1px solid black;
+}

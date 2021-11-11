@@ -17,8 +17,16 @@ export class ListingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewChecked(): void {
+    (document.querySelector('#search')as HTMLElement)?.focus();
+  }
+
   goToClient(ci: string) {
     this.router.navigateByUrl(`/clients/view-client/${ci}`);
+  }
+
+  toEditClient(client) {
+    this.router.navigateByUrl(`/clients/new-client/${client}`);
   }
 
   searchClient(criteria: string) {

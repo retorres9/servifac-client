@@ -13,7 +13,7 @@ const routes: Routes = [
         component: ListingSalesComponent
       },
       {
-        path: 'view/:id',
+        path: 'view/:id/:client',
         component: ViewSaleComponent
       },
       // {

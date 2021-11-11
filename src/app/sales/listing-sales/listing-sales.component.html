@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let sale of sales">
+            <tr *ngFor="let sale of sales" (click)="goToViewSale(sale.sale_id, sale.sale_client.cli_firstName, sale.sale_client.cli_lastName)">
                 <td>{{sale.sale_id}}</td>
                 <td>{{sale.sale_client.cli_firstName}} {{sale.sale_client.cli_lastName}}</td>
                 <td>{{sale.sale_date | date}}</td>

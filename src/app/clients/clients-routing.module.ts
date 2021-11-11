@@ -22,7 +22,11 @@ const routes: Routes = [
       {
         path: 'view-client/:ci',
         component: ViewClientComponent
-      }
+      },
+      {
+        path: 'new-client/:ci',
+        component: NewClientComponent
+      },
     ]
   }
 ]

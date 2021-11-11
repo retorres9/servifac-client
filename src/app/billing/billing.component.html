@@ -10,7 +10,7 @@
                     <input type="text" class="form-control form-control-sm mb-3" id="client_ci" [(ngModel)]="client_ci" (keyup.enter)="getClientData(client_ci)" spellcheck="true" autocomplete="off" />
                 </div>
                 <div class="col-5">
-                    <button class="btn btn-info btn-sm" tabindex="-2" id="openModalSearch" data-bs-toggle="modal" data-bs-target="#modalSearch" title="Agregar nuevo cliente" (click)="setFocusOnModal()">
+                    <button class="btn btn-info btn-sm me-1" tabindex="-2" id="openModalSearch" data-bs-toggle="modal" data-bs-target="#modalSearch" title="Agregar nuevo cliente" (click)="setFocusOnModal()">
                       <i class="bi bi-search"></i>
                     </button>
                     <button class="btn btn-success btn-sm" tabindex="-2" id="openModal" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Agregar nuevo cliente" (click)="setFocusNew()">
@@ -147,7 +147,7 @@
 
 <!-- Modal busqueda cliente -->
 <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
         <app-search-client-modal (selectedClient)="getClientData($event)" (close)="setFocusOnCode()"></app-search-client-modal>
     </div>
 </div>

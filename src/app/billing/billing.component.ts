@@ -111,8 +111,8 @@ export class BillingComponent implements OnInit {
   }
 
   getProductBarcode() {
-    this.isRequesting = true;
     if (this.productBarcode) {
+      this.isRequesting = true;
       this.productService
         .getProductBarcode(this.productBarcode)
         .subscribe((resp) => {
@@ -231,7 +231,7 @@ export class BillingComponent implements OnInit {
   setFocusOnCode() {
     setTimeout(() => {
       (document.querySelector("#code") as HTMLElement)?.focus();
-    }, 500);
+    }, 100);
   }
 
   setFocusChange() {

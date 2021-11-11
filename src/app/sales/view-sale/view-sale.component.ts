@@ -10,18 +10,19 @@ import { SaleService } from '../sale.service';
 })
 export class ViewSaleComponent implements OnInit {
   sale: Sale;
+  client: string;
   constructor(private activatedRoute: ActivatedRoute, private saleService: SaleService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
-      ({id}) => {
+      ({id, client}) => {
         this.saleService.getSaleById(id).subscribe(
           resp => {
-            this.sale = resp
+            this.sale = resp;
+            this.client = client;
           }
         )
       }
     )
   }
-
 }

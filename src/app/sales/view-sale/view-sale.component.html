@@ -2,14 +2,16 @@
 <div class="container" *ngIf="sale">
     <div class="row">
         <div class="col-8 offset-2">
+            <label><strong>Cliente</strong> {{client}}</label><br>
             <label><strong>Fecha:</strong> {{sale.sale_date | date}}</label><br>
             <label><strong>Total:</strong> {{sale.sale_totalRetail}}</label><br>
-            <table class="table">
+            <table class="table mt-3">
                 <thead>
                     <tr>
                         <th>Cant</th>
                         <th>Producto</th>
                         <th>Precio</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,6 +19,7 @@
                         <td>{{saleInfo.sdt_quantity}}</td>
                         <td>{{saleInfo.product.prod_name}}</td>
                         <td>{{saleInfo.sdt_salePrice}}</td>
+                        <td>{{saleInfo.sdt_quantity * saleInfo.sdt_salePrice}}</td>
                     </tr>
                 </tbody>
             </table>

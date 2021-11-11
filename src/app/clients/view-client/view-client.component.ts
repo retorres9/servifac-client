@@ -21,6 +21,8 @@ export class ViewClientComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ ci }) => {
       this.clientService.getClientSummary(ci).subscribe((resp) => {
         this.summary = resp;
+        console.log(resp.sale);
+
         if(Object.entries( this.summary.credit).length > 0) {
           this.hasCredit = true;
         } else {
@@ -68,6 +70,7 @@ export interface Sale {
   sale_totalRetail: string;
   sale_totalPayment: string;
   sale_date: Date;
+  sale_maxDate: Date;
 }
 
 export interface Credit {

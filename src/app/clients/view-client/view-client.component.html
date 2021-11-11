@@ -21,30 +21,42 @@
     </form>
     <div class="row ">
         <div class="col">
-            <div class="info d-flex align-items-center justify-content-end mt-3">
+            <div class="info d-flex align-items-center justify-content-end mt-3 mb-1">
                 <div class="square square-paid"></div> &nbsp;
                 <label>Pagado</label> &nbsp; &nbsp;
                 <div class="square square-pending"></div>&nbsp;
                 <label>Pendiente</label>
             </div>
-            <table class="table table-hover table-sm mt-1">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Total</th>
-                        <th>Pagado</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let sale of summary.sale" [ngClass]="+sale.sale_totalPayment === +sale.sale_totalRetail ? 'table-success' : 'table-warning'">
-                        <td>{{ sale.sale_id }}</td>
-                        <td>{{ sale.sale_totalRetail | currency }}</td>
-                        <td>{{ sale.sale_totalPayment | currency }}</td>
-                        <td>{{ sale.sale_date | date }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th>Total</th>
+                            <th>Pagado</th>
+                            <th>Fecha de compra</th>
+                            <th>Fecha de crédito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sale of summary.sale" [ngClass]="+sale.sale_totalPayment === +sale.sale_totalRetail ? 'table-success' : 'table-warning'">
+                            <td>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" [disabled]="+sale.sale_totalPayment === +sale.sale_totalRetail" [value]="sale.sale_id">
+                                    <label class="form-check-label" for="">
+                            </label>
+                                </div>
+                            </td>
+                            <td>{{ sale.sale_id }}</td>
+                            <td>{{ sale.sale_totalRetail | currency }}</td>
+                            <td>{{ sale.sale_totalPayment | currency }}</td>
+                            <td>{{ sale.sale_date | date }}</td>
+                            <td>{{ sale.sale_maxDate | date }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
