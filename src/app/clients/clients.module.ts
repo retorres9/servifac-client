@@ -8,6 +8,7 @@ import { ListingComponent } from './listing/listing.component';
 import { ViewClientComponent } from './view-client/view-client.component';
 import { AuthCreditComponent } from './view-client/auth-credit/auth-credit.component';
 import { SharedModule } from '../shared/shared.module';
+import { HistoryComponent } from './history/history.component';
 
 
 
@@ -16,7 +17,8 @@ import { SharedModule } from '../shared/shared.module';
     NewClientComponent,
     ListingComponent,
     ViewClientComponent,
-    AuthCreditComponent
+    AuthCreditComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,

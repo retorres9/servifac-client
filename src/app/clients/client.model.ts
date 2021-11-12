@@ -4,7 +4,7 @@ export class Client {
   cli_lastName: string;
   cli_email: string;
   cli_phone: string;
-  cli_debt: string;
+  cli_debt: number;
   cli_isActive: boolean;
   cli_address: string;
   cli_credit: number

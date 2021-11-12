@@ -5,6 +5,7 @@ import { ClientsComponent } from './clients.component';
 import { NewClientComponent } from './new-client/new-client.component';
 import { ListingComponent } from './listing/listing.component';
 import { ViewClientComponent } from './view-client/view-client.component';
+import { HistoryComponent } from './history/history.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
         path: 'new-client/:ci',
         component: NewClientComponent
       },
+      {
+        path: 'history/:ci/:firstName/:lastName',
+        component: HistoryComponent
+      }
     ]
   }
 ]

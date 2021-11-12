@@ -59,7 +59,7 @@
                                     </div>
                                     <!-- Deuda -->
                                     <div class="col-4 text-end">
-                                        <i class="bi bi-info-circle" title="Agregar solo si el cliente posee una deuda pre existente"></i><label for="debt">Deuda:</label>
+                                        <i class="bi bi-info-circle" title="Agregar solo si el cliente posee una deuda pre existente"></i><label for="debt" class="ms-1">Deuda:</label>
                                     </div>
                                     <div class="col-8 mb-3">
                                         <input type="number" id="debt" class="form-control form-control-sm" name="debt" id="debt" formControlName="cli_debt" />
@@ -81,7 +81,7 @@
                           <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span>
                           Guardar
                         </button>
-                        <a class="btn btn-warning" [routerLink]="['../../home']">
+                        <a class="btn btn-warning" onclick="history.back()">
                             <i class="bi bi-arrow-bar-left"></i> Salir
                         </a>
                     </div>

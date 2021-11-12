@@ -6,7 +6,7 @@
                     <label for="search">Buscar:</label>
                 </div>
                 <div class="col-4">
-                    <input autofocus autocomplete="off" type="text" class="form-control form-control-sm" id="search" #searchCriteria (keyup.enter)="searchClient(searchCriteria.value)">
+                    <input autocomplete="off" type="text" class="form-control form-control-sm" id="search" #searchCriteria (keyup.enter)="searchClient(searchCriteria.value)">
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                         <button class="btn btn-success btn-sm" title="Editar datos del cliente" (click)="toEditClient(clients.cli_ci)">
                       <i class="bi bi-pencil-square "></i>
                     </button>&nbsp;
-                        <button class="btn btn-warning btn-sm" title="Ver historial ">
+                        <button class="btn btn-warning btn-sm" title="Ver historial " (click)="goToHistory(clients.cli_ci, clients.cli_firstName, clients.cli_lastName)">
                       <i class="bi bi-clipboard "></i>
                     </button>
                     </td>

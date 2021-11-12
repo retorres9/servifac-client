@@ -29,6 +29,10 @@ export class ListingComponent implements OnInit {
     this.router.navigateByUrl(`/clients/new-client/${client}`);
   }
 
+  goToHistory(client_ci: string, firstName: string, lastName: string) {
+    this.router.navigateByUrl(`/clients/history/${client_ci}/${firstName}/${lastName}`)
+  }
+
   searchClient(criteria: string) {
     this.clientsService.getClientByQuery(criteria).subscribe(
       resp => {

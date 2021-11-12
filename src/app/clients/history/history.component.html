@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>Historial</h2>
+    <label><strong>Cliente: </strong>{{client}}</label>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Pago</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let record of history">
+                    <td>{{record.clp_id}}</td>
+                    <td>{{record.clp_amount}}</td>
+                    <td>{{record.clm_type}}</td>
+                    <td>{{record.clp_date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

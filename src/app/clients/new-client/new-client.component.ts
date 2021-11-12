@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ClientsService } from "../clients.service";
+import { ActivatedRoute } from "@angular/router";
+import { Client } from '../client.model';
 
 @Component({
   selector: "app-new-client",
@@ -10,12 +12,16 @@ import { ClientsService } from "../clients.service";
 export class NewClientComponent implements OnInit {
   newClientForm: FormGroup;
   enableCredit: boolean = true;
+  editingMode: boolean = false;
 
   message: string;
   alert: boolean = false;
   alertType: string;
   loading = false;
-  constructor(private clientsService: ClientsService) {}
+  constructor(
+    private clientsService: ClientsService,
+    private aRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.newClientForm = new FormGroup({
@@ -51,21 +57,43 @@ export class NewClientComponent implements OnInit {
         updateOn: "change",
         validators: [Validators.required],
       }),
-      cli_credit: new FormControl({value: false, disabled: this.enableCredit}, {
-        updateOn: 'change'
-      })
+      cli_credit: new FormControl(
+        { value: false, disabled: this.enableCredit },
+        {
+          updateOn: "change",
+        }
+      ),
     });
+    if (this.aRoute.snapshot.params.ci) {
+      this.newClientForm.controls['cli_ci'].disable();
+      this.editingMode = true;
+      this.clientsService
+        .getClient(this.aRoute.snapshot.params.ci)
+        .subscribe((resp) => {
+          const client = resp.client;
+          console.log(client.cli_debt);
+
+          this.newClientForm.patchValue({
+            cli_firstName: client.cli_firstName,
+            cli_ci: client.cli_ci,
+            cli_lastName: client.cli_lastName,
+            cli_address: client.cli_address,
+            cli_phone: client.cli_phone,
+            cli_debt: client.cli_debt,
+            cli_email: client.cli_email,
+            cli_credit: client.cli_credit,
+          });
+        });
+    }
   }
 
   enableCheckbox() {
-    console.log(this.enableCredit);
-
     if (this.enableCredit) {
-      this.newClientForm.controls['cli_credit'].enable();
-      this.enableCredit = false
+      this.newClientForm.controls["cli_credit"].enable();
+      this.enableCredit = false;
     } else {
-      this.newClientForm.controls['cli_credit'].disable();
-      this.enableCredit = true
+      this.newClientForm.controls["cli_credit"].disable();
+      this.enableCredit = true;
     }
   }
 
@@ -74,30 +102,38 @@ export class NewClientComponent implements OnInit {
       return;
     }
     const clientForm = this.newClientForm.value;
-    let credit;
-
+    let clientCredit;
     if (clientForm.cli_credit) {
-      credit = clientForm.cli_credit;
+      clientCredit = clientForm.cli_credit;
     } else {
-      credit = null;
+      clientCredit = null;
     }
     this.loading = true;
+    const client = new Client();
+    client.cli_ci = clientForm.cli_ci,
+    client.cli_firstName = clientForm.cli_firstName,
+    client.cli_lastName = clientForm.cli_lastName,
+    client.cli_email = clientForm.cli_email,
+    client.cli_phone = clientForm.cli_phone,
+    client.cli_address = clientForm.cli_address,
+    client.cli_debt = +clientForm.cli_debt,
+    client.cli_credit = clientCredit
+
+    if (this.editingMode) {
+      client.cli_ci = this.newClientForm.getRawValue().cli_ci;
+      this.updateClient({...client});
+    } else {
+      this.createClient({...client});
+    }
+  }
+
+  private createClient(client: Client) {
     return this.clientsService
-      .createClient(
-        clientForm.cli_ci,
-        clientForm.cli_firstName,
-        clientForm.cli_lastName,
-        clientForm.cli_email,
-        clientForm.cli_phone,
-        clientForm.cli_address,
-        credit,
-        clientForm.cli_debt
-      )
+      .createClient(client)
       .subscribe(
         (resp) => {
           this.alert = true;
-          this.message = "Cliente creado satisfactoriamente";
-          this.alertType = "alert-success";
+          this.showAlert("Cliente creado satisfactoriamente", "alert-success");
           this.newClientForm.reset();
           this.loading = false;
           (document.querySelector("#ci") as HTMLElement)?.focus();
@@ -107,13 +143,47 @@ export class NewClientComponent implements OnInit {
         },
         (error) => {
           this.alert = true;
-          this.message = error.error.message;
-          this.alertType = "alert-danger";
+          this.showAlert(error.error.message, "alert-danger");
           this.loading = false;
           setTimeout(() => {
             this.alert = false;
           }, 5000);
         }
       );
+  }
+
+  private updateClient(client: Client) {
+    return this.clientsService
+      .updateClient(client)
+      .subscribe(
+        (resp) => {
+          this.alert = true;
+          this.showAlert("Cliente actualizado correctamente", "alert-primary");
+          this.loading = false;
+          (document.querySelector("#ci") as HTMLElement)?.focus();
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        },
+        (error) => {
+          this.alert = true;
+          this.showAlert(error.error.message, "alert-danger");
+          this.loading = false;
+          setTimeout(() => {
+            this.alert = false;
+          }, 5000);
+        }
+      );
+  }
+
+  private showAlert(message: string, type: string) {
+    this.alert = true;
+    this.message = message;
+    this.alertType = type;
+    this.loading = false;
+    (document.querySelector("#ci") as HTMLElement)?.focus();
+    setTimeout(() => {
+      this.alert = false;
+    }, 5000);
   }
 }

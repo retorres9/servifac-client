@@ -4,6 +4,7 @@ import { Client, ClientInfo } from "./client.model";
 import { ClientSummary } from "./view-client/view-client.component";
 import { CreditData } from "./view-client/auth-credit/model/credit-data.model";
 import { ClientMovement } from "./client-movement.model";
+import { History } from './models/history.model';
 
 @Injectable({
   providedIn: "root",
@@ -11,28 +12,14 @@ import { ClientMovement } from "./client-movement.model";
 export class ClientsService {
   constructor(private http: HttpClient) {}
 
-  createClient(
-    cli_ci: string,
-    cli_first_name: string,
-    cli_last_name: string,
-    cli_email: string,
-    cli_phone: string,
-    cli_address: string,
-    cli_credit?: number,
-    cli_debt?: string,
-    cli_isActive?: boolean
+  createClient(client: Client
   ) {
-    const client = new Client();
-    client.cli_ci = cli_ci;
-    client.cli_firstName = cli_first_name;
-    client.cli_lastName = cli_last_name;
-    client.cli_email = cli_email;
-    client.cli_phone = cli_phone;
-    client.cli_debt = cli_debt;
-    client.cli_credit = cli_credit;
-    client.cli_isActive = cli_isActive;
-    client.cli_address = cli_address;
     return this.http.post<Client>("http://127.0.0.1:3000/client/", client);
+  }
+
+  updateClient(client: Client
+  ) {
+    return this.http.patch<Client>('http://127.0.0.1:3000/client/', {...client});
   }
 
   getClient(clientId) {
@@ -65,5 +52,9 @@ export class ClientsService {
       "http://127.0.0.1:3000/client-movement",
       clientMovement
     );
+  }
+
+  getHistory(client_ci: string) {
+    return this.http.get<History[]>(`http://127.0.0.1:3000/client-movement/${client_ci}`);
   }
 }
