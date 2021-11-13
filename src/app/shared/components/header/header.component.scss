@@ -1,4 +1,60 @@
 .nav {
     background-color: #1976D2;
     color: #fff;
+    position: relative;
+}
+
+.notifications {
+    position: absolute;
+    display: none;
+    border: 1px solid #555;
+    background-color: #fafafa;
+    right: 116px;
+    width: 330px;
+    top: 70px;
+    border-radius: 0 0 5px 5px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.notifications>h4 {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #1976D2;
+    margin: 0;
+}
+
+.notifications.change {
+    display: inline;
+    background-color: #fff;
+}
+
+.notification-wrapper {
+    padding: 0;
+}
+
+li.notification {
+    color: #333;
+    list-style-type: none;
+    padding: 10px 10px 4px 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+li.notification:hover {
+    background-color: rgba($color: #8ad3fd, $alpha: 1.0);
+}
+
+hr {
+    color: #333;
+    margin: 0;
+}
+
+.btn-notification {
+    margin-left: auto;
+    border: none;
+    background: transparent;
 }

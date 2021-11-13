@@ -5,9 +5,17 @@
     </h3>
     <hr class="mb-2">
     <div class="ms-auto p-2">
-        <button class="btn btn-danger" (click)="goToMinimums()" *ngIf="alert">
+        <button class="btn btn-danger me-1" *ngIf="alert" (click)="toggleNotifications()">
           <i class="bi bi-exclamation-circle"></i>
         </button>
+        <div class="notifications" [ngClass]="{'change': isChange === true}">
+            <h4><strong>Notificaciones</strong></h4>
+            <ul class="notification-wrapper">
+                <li class="notification" (click)="goToMinimums()"><span>Hay Productos debajo del mínimo</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
+                <hr>
+                <li class="notification"><span>Hay deudas de clientes pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
+            </ul>
+        </div>
         <div class="btn-group">
             <button class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">{{user}}</button>
             <ul class="dropdown-menu">
