@@ -1,3 +1,19 @@
 .card-header {
     background-color: #bbdefb;
 }
+
+.modal-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bi-exclamation-octagon {
+    color: #dc3545;
+    font-size: 50px;
+}
+
+.alertMessage {
+    margin-bottom: 0;
+    font-size: 25px;
+}

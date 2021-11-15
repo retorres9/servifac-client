@@ -13,7 +13,7 @@
             <ul class="notification-wrapper">
                 <li class="notification" (click)="goToMinimums()"><span>Hay Productos debajo del mínimo</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
                 <hr>
-                <li class="notification"><span>Hay deudas de clientes pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
+                <li class="notification" *ngIf="saleAlert === true" (click)="goToOutOfDate()"><span>Hay deudas de clientes pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
             </ul>
         </div>
         <div class="btn-group">

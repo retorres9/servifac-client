@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-around">
-                        <button class="btn btn-success" (click)="onPostClient()" [disabled]="!newClientForm.valid || loading">
+                        <button class="btn btn-success" [disabled]="!newClientForm.valid || loading" data-bs-toggle="modal" data-bs-target="#modalAlert">
                           <i class="bi bi-save" *ngIf="!loading"></i>
                           <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span>
                           Guardar
@@ -87,6 +87,31 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modelId">
+
+
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Alerta</h5>
+            </div>
+            <div class="modal-body">
+                <i class="bi bi-exclamation-octagon me-3"></i>
+                <p class="alertMessage">¿Seguro que desea actualizar el cliente?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="onPostClient()">Aceptar</button>
+            </div>
         </div>
     </div>
 </div>

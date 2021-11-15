@@ -21,7 +21,6 @@ export class ListingSalesComponent implements OnInit {
     if (this.date) {
       console.log('bad');
       this.saleService.getSales(this.date).subscribe(resp => {
-        console.log(resp);
         this.sales = resp;
       });
     }

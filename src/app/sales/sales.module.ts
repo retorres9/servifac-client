@@ -5,6 +5,7 @@ import { SalesComponent } from './sales.component';
 import { SalesRoutingModule } from './sales-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ListingSalesComponent } from './listing-sales/listing-sales.component';
+import { OutOfDateComponent } from './out-of-date/out-of-date.component';
 
 
 
@@ -12,7 +13,8 @@ import { ListingSalesComponent } from './listing-sales/listing-sales.component';
   declarations: [
     ViewSaleComponent,
     SalesComponent,
-    ListingSalesComponent
+    ListingSalesComponent,
+    OutOfDateComponent
   ],
   imports: [
     CommonModule,
