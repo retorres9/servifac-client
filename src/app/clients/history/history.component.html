@@ -1,5 +1,15 @@
 <div class="container">
     <h2>Historial</h2>
+    <div class="row">
+        <div class="col-4">
+            <select name="searchType" id="" class="form-select">
+          <option selected>Seleccione que tipo de busqueda desea realizar</option>
+          <option value="payment">Pagos</option>
+          <option value="credit">Créditos</option>
+          <option value="all">Todos</option>
+        </select>
+        </div>
+    </div>
     <label><strong>Cliente: </strong>{{client}}</label>
     <div class="table-wrapper">
         <table class="table">

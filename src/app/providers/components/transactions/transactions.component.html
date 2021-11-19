@@ -1,0 +1,55 @@
+<!-- Modal -->
+<div class="modal fade" id="modalTransaction" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" *ngIf="action === 'PAGO'">Ingrese la información del pago</h5>
+                <h5 class="modal-title" *ngIf="action === 'CREDITO'">Ingrese la información del credito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert" [ngClass]="alertType" role="alert" *ngIf="isAlert">
+                    <strong>{{message}}</strong>
+                </div>
+                <div class="transaction-type d-flex" *ngIf="action === 'PAGO'">
+                    <div class="form-check">
+                        <label class="form-check-label me-2">
+                            <input type="radio" class="form-check-input" name="type" id="" value="money" [(ngModel)]="type">
+                            Efectivo
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label me-2">
+                            <input type="radio" class="form-check-input" name="type" id="" value="transfer" [(ngModel)]="type">
+                            Transferencia
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="type" id="" value="check" [(ngModel)]="type">
+                            Cheque
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label for="amount">Monto:</label>
+                    <input type="text" name="amount" id="amount" class="form-control" [(ngModel)]="amount" placeholder="Ingrese el monto" aria-describedby="helpId">
+                </div>
+
+                <div>
+                    <div class="form-group mt-3">
+                        <label for="reference">Ingresar referencia de la transferencia</label>
+                        <textarea [(ngModel)]="description" cols="30" rows="5" class="form-control" placeholder="Ingrese información adicional a la transacción. Ej. Referencia de depositos, número de factura, etc."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="postTransaction()">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>

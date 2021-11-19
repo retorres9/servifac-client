@@ -41,7 +41,7 @@ export class SaleService {
             let date1 = new Date().toISOString().split('T')[0];
             let today = new Date(date1).getTime();
             let date2 = new Date(resp[key].sale_maxDate).getTime();
-            let diff = date2 - today;
+            let diff = today - date2 ;
             asd.sale_delay = diff/(1000*3600*24);
 
           }

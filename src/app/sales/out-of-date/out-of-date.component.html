@@ -23,11 +23,16 @@
                 <td>{{outOfDateSales[i].sale_totalPayment}}</td>
                 <td>{{outOfDateSales[i].sale_date}}</td>
                 <td>{{outOfDateSales[i].sale_maxDate}}</td>
-                <td *ngIf="outOfDateSales[i].sale_delay > 0">{{outOfDateSales[i].sale_delay}}</td>
-                <td *ngIf="outOfDateSales[i].sale_delay <= 0">0*</td>
+                <td *ngIf="outOfDateSales[i]?.sale_delay > 0">{{outOfDateSales[i].sale_delay}}</td>
+                <td *ngIf="outOfDateSales[i]?.sale_delay <= 0">0*</td>
             </tr>
         </tbody>
     </table>
-    <label>* Fecha límite es hoy</label>
+    <footer class="d-flex justify-content-around mt-3">
+        <label>* Fecha límite es hoy</label>
+        <button class="btn btn-warning" onclick="history.back()">
+        Atrás
+      </button>
+    </footer>
 
 </div>

@@ -12,6 +12,9 @@ export class InventoryComponent implements OnInit {
   constructor(private productService: ProductsService) { }
   inventory: Product[];
   ngOnInit(): void {
+    setTimeout(() => {
+      (document.querySelector('#search') as HTMLElement)?.focus();
+    },100)
   }
 
   searchProduct(searchCriteria: string) {

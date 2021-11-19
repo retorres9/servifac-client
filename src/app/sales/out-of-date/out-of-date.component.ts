@@ -12,8 +12,10 @@ export class OutOfDateComponent implements OnInit {
   constructor(private saleService: SaleService) { }
 
   ngOnInit(): void {
-    this.saleService.alertInfo.subscribe(resp => {
+    this.saleService.alertInfo.subscribe((resp) => {
       this.outOfDateSales = resp;
+      console.log(this.outOfDateSales[0]);
+
     });
   }
 

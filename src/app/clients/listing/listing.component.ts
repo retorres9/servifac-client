@@ -15,6 +15,8 @@ export class ListingComponent implements OnInit {
   constructor(private clientsService: ClientsService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log(this.client.length);
+
   }
 
   ngAfterViewChecked(): void {
@@ -34,9 +36,13 @@ export class ListingComponent implements OnInit {
   }
 
   searchClient(criteria: string) {
+    console.log(criteria);
+
     this.clientsService.getClientByQuery(criteria).subscribe(
       resp => {
         this.client = resp
+        console.log(resp.length);
+
       }
     );
   }

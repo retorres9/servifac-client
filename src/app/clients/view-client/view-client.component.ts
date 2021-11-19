@@ -36,6 +36,19 @@ export class ViewClientComponent implements OnInit {
     });
   }
 
+  pagar() {
+    console.log(this.summary);
+    let salesToPay = [];
+    this.summary.sale.forEach(el => {
+      if(el.isSelected === true) {
+        salesToPay.push(el.sale_id);
+      }
+    });
+    console.log(salesToPay);
+
+
+  }
+
   setFocusModal() {
     setTimeout(() => {
       (document.querySelector("#amount") as HTMLElement)?.focus();
@@ -71,6 +84,7 @@ export interface Sale {
   sale_totalPayment: string;
   sale_date: Date;
   sale_maxDate: Date;
+  isSelected?: boolean;
 }
 
 export interface Credit {

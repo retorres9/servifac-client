@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Provider } from "./provider.model";
+import { Transaction } from './models/transaction.model';
 
 @Injectable({
   providedIn: "root",
@@ -31,5 +32,10 @@ export class ProvidersService {
 
   getProviders() {
     return this.http.get<Provider[]>('http://127.0.0.1:3000/provider/');
+  }
+
+  postProviderMovement(transactionInfo: Transaction) {
+    console.log(transactionInfo);
+    return this.http.post<Transaction>('http://127.0.0.1:3000/provider-movement/', transactionInfo);
   }
 }

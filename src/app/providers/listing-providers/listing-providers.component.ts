@@ -9,6 +9,8 @@ import { ProvidersService } from '../providers.service';
 })
 export class ListingProvidersComponent implements OnInit {
   providers: Provider[];
+  action: string;
+
   constructor(private providerService: ProvidersService) { }
 
   ngOnInit() {
@@ -17,6 +19,13 @@ export class ListingProvidersComponent implements OnInit {
         this.providers = resp;
       }
     )
+  }
+  payment() {
+    this.action = 'PAGO';
+  }
+
+  credit() {
+    this.action = 'CREDITO';
   }
 
 }

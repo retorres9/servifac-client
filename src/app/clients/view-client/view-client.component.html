@@ -21,6 +21,7 @@
     </form>
     <div class="row ">
         <div class="col">
+            <button class="btn btn-light" (click)="pagar()">Pagar</button>
             <div class="info d-flex align-items-center justify-content-end mt-3 mb-1">
                 <div class="square square-paid"></div> &nbsp;
                 <label>Pagado</label> &nbsp; &nbsp;
@@ -43,7 +44,7 @@
                         <tr *ngFor="let sale of summary.sale" [ngClass]="+sale.sale_totalPayment === +sale.sale_totalRetail ? 'table-success' : 'table-warning'">
                             <td>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" [disabled]="+sale.sale_totalPayment === +sale.sale_totalRetail" [value]="sale.sale_id">
+                                    <input type="checkbox" class="form-check-input" [value]="sale.sale_id" [disabled]="+sale.sale_totalPayment === +sale.sale_totalRetail" [value]="sale.sale_id" [(ngModel)]="sale.isSelected">
                                     <label class="form-check-label" for="">
                             </label>
                                 </div>

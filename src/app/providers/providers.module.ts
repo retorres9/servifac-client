@@ -6,13 +6,15 @@ import { NewProviderComponent } from './new-provider/new-provider.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ListingProvidersComponent } from './listing-providers/listing-providers.component';
+import { TransactionsComponent } from './components/transactions/transactions.component';
 
 
 
 @NgModule({
   declarations: [
     NewProviderComponent,
-    ListingProvidersComponent
+    ListingProvidersComponent,
+    TransactionsComponent
   ],
   imports: [
     CommonModule,

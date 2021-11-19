@@ -7,23 +7,39 @@
                     <th>RUC</th>
                     <th>Nombre comercial</th>
                     <th>Nombre de cuenta</th>
-                    <th>Número de cuenta</th>
-                    <th>Tipo de de cuenta</th>
+                    <!-- <th>Número de cuenta</th> -->
+                    <!-- <th>Tipo de de cuenta</th> -->
                     <th>Deuda</th>
-                    <th>Teléfono</th>
+                    <!-- <th>Teléfono</th> -->
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let provider of providers">
-                    <td>{{provider.prov_ruc}}</td>
-                    <td>{{provider.prov_name}}</td>
-                    <td>{{provider.prov_accountName}}</td>
-                    <td>{{provider.prov_accountNumber}}</td>
-                    <td>{{provider.prov_accountType}}</td>
-                    <td>{{provider.prov_debt}}</td>
-                    <td>{{provider.prov_phone}}</td>
+                    <td>{{ provider.prov_ruc }}</td>
+                    <td>{{ provider.prov_name }}</td>
+                    <!-- <td>{{provider.prov_accountName}}</td> -->
+                    <td>{{ provider.prov_accountNumber }}</td>
+                    <!-- <td>{{provider.prov_accountType}}</td> -->
+                    <td>{{ provider.prov_debt }}</td>
+                    <!-- <td>{{provider.prov_phone}}</td> -->
+                    <td>
+                        <button class="btn btn-primary btn-sm me-1" title="Ver información del proveedor">
+                          <i class="bi bi-eye-fill"></i>
+                        </button>
+                        <button class="btn btn-info btn-sm me-1" title="Ver historial de transacciones">
+                          <i class="bi bi-stickies-fill"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm me-1" title="Ingresar pago a proveedor" (click)="payment()" data-bs-toggle="modal" data-bs-target="#modalTransaction">
+                          <i class="bi bi-journal-arrow-down"></i>
+                        </button>
+                        <button class="btn btn-warning btn-sm" title="Ingresar crédito a proveedor" (click)="credit()" data-bs-toggle="modal" data-bs-target="#modalTransaction">
+                          <i class="bi bi-journal-arrow-up"></i>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+<app-transactions [action]="action"></app-transactions>
