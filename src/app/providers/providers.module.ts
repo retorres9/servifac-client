@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ListingProvidersComponent } from './listing-providers/listing-providers.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
+import { HistoryComponent } from './history/history.component';
 
 
 
@@ -14,7 +15,8 @@ import { TransactionsComponent } from './components/transactions/transactions.co
   declarations: [
     NewProviderComponent,
     ListingProvidersComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,

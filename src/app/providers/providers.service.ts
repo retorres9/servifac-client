@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Provider } from "./provider.model";
 import { Transaction } from './models/transaction.model';
+import { History } from "./models/history.model";
 
 @Injectable({
   providedIn: "root",
@@ -37,5 +38,12 @@ export class ProvidersService {
   postProviderMovement(transactionInfo: Transaction) {
     console.log(transactionInfo);
     return this.http.post<Transaction>('http://127.0.0.1:3000/provider-movement/', transactionInfo);
+  }
+
+  getProviderMovements(movement: string, ruc: string) {
+    console.log(movement, ruc);
+
+    const params = new HttpParams().set('type', movement).set('provider', ruc);
+    return this.http.get<History[]>('http://127.0.0.1:3000/provider-movement', {params: params});
   }
 }

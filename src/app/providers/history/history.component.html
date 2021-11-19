@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-4">
+            <select class="form-select" [(ngModel)]="movement" (change)="getProviderMovements()">
+              <option value="Seleccione el tipo de movimiento" selected  >Seleccione el tipo de movimiento</option>
+              <option value="PAGO">Pagos</option>
+              <option value="CREDITO">Créditos</option>
+              <option value="ALL">Todos</option>
+            </select>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let record of history">
+                <td>{{record.pmv_id}}</td>
+                <td>{{record.pmv_amount}}</td>
+                <td>{{record.pmv_date | date}}</td>
+                <td>{{record.pmv_movement}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
