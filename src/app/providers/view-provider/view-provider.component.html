@@ -1,0 +1,84 @@
+<app-header></app-header>
+
+<div class="container">
+    <form>
+        <fieldset>
+            <legend>Proveedor</legend>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label><b>Empresa:</b> </label> {{provider?.prov_name}}
+                    </div>
+                    <div class="form-group">
+                        <label><b>RUC:</b> </label> {{provider?.prov_ruc}}
+                    </div>
+                    <div class="form-group">
+                        <label><b>Teléfono:</b> </label> {{provider?.prov_phone}}
+                    </div>
+                    <button class="btn btn-info btn-sm">
+                      Ver historial
+                    </button>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label><b>Nombre de la cuenta:</b> </label> {{provider?.prov_accountName}}
+                    </div>
+                    <div class="form-group">
+                        <label><b>Tipo de cuenta:</b> </label> {{provider?.prov_accountType}}
+                    </div>
+                    <div class="form-group">
+                        <label><b>Número de cuenta:</b> </label> {{provider?.prov_accountNumber}}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <div class="row d-flex mt-2">
+        <div class="col-3 form-group">
+            <span>Buscar:</span>
+            <select name="type" id="type" class="form-select form-select-sm">
+              <option value="na">Seleccione...</option>
+              <option value="credit">Por fechas</option>
+              <option value="all">Todos</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <span>Desde:</span> <input type="date" [max]="maxDate" class="form-control form-control-sm">
+        </div>
+        <div class="col-3">
+            <span>Hasta:</span> <input type="date" [max]="maxDate" class="form-control form-control-sm">
+        </div>
+    </div>
+    <table class="table table-hover table-sm mt-3">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Monto de crédito</th>
+                <th>Monto cancelado</th>
+                <th>Fecha</th>
+                <th>Fecha máxima</th>
+                <th>Información</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>$ 123</td>
+                <td>$ 223</td>
+                <td>12/12/2021</td>
+                <td>12/12/2021</td>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+</div>

@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Provider } from "./provider.model";
 import { Transaction } from './models/transaction.model';
 import { History } from "./models/history.model";
+import { Credit } from './models/credit.model';
 
 @Injectable({
   providedIn: "root",
@@ -41,9 +42,17 @@ export class ProvidersService {
   }
 
   getProviderMovements(movement: string, ruc: string) {
-    console.log(movement, ruc);
-
     const params = new HttpParams().set('type', movement).set('provider', ruc);
     return this.http.get<History[]>('http://127.0.0.1:3000/provider-movement', {params: params});
+  }
+
+  getProvider(ruc: string) {
+    return this.http.get<Provider>(`http://127.0.0.1:3000/provider/${ruc}`);
+  }
+
+  postCredit(credit: Credit) {
+    console.log(credit);
+    return;
+    return this.http.post<Credit>('http://127.0.0.1:3000/credit', credit);
   }
 }

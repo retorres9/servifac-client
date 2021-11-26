@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Credit } from '../../models/credit.model';
 import { Transaction } from '../../models/transaction.model';
 import { ProvidersService } from '../../providers.service';
 
@@ -23,6 +24,15 @@ export class TransactionsComponent implements OnInit {
   }
 
   postTransaction() {
+    this.action === 'CREDITO' ? this.postCredit(): this.postPayment();
+  }
+
+  postCredit() {
+    const credit = new Credit(this.amount, this.amount, this.description, '1231231231', '1105970717')
+    this.providerService.postCredit(credit);
+  }
+
+  postPayment() {
     const transaction = new Transaction(
       this.amount,
       this.action,
@@ -47,6 +57,6 @@ export class TransactionsComponent implements OnInit {
     this.isAlert = true;
     setTimeout(() => {
       this.isAlert = false;
-    },4000)
+    },4000);
   }
 }

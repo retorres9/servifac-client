@@ -12,34 +12,43 @@
                 <div class="alert" [ngClass]="alertType" role="alert" *ngIf="isAlert">
                     <strong>{{message}}</strong>
                 </div>
-                <div class="transaction-type d-flex" *ngIf="action === 'PAGO'">
-                    <div class="form-check">
-                        <label class="form-check-label me-2">
-                            <input type="radio" class="form-check-input" name="type" id="" value="money" [(ngModel)]="type">
-                            Efectivo
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label me-2">
-                            <input type="radio" class="form-check-input" name="type" id="" value="transfer" [(ngModel)]="type">
-                            Transferencia
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="type" id="" value="check" [(ngModel)]="type">
-                            Cheque
-                        </label>
-                    </div>
-                </div>
 
-                <div class="form-group mt-2">
+
+                <div class="form-group">
                     <label for="amount">Monto:</label>
                     <input type="text" name="amount" id="amount" class="form-control" [(ngModel)]="amount" placeholder="Ingrese el monto" aria-describedby="helpId">
                 </div>
 
+                <div class="transaction-type mt-2 d-flex" *ngIf="action === 'PAGO' else CREDITO">
+                    <div class="form-check">
+                        <label class="form-check-label me-2">
+                          <input type="radio" class="form-check-input" name="type" id="" value="money" [(ngModel)]="type">
+                          Efectivo
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label me-2">
+                          <input type="radio" class="form-check-input" name="type" id="" value="transfer" [(ngModel)]="type">
+                          Transferencia
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="type" id="" value="check" [(ngModel)]="type">
+                          Cheque
+                      </label>
+                    </div>
+                </div>
+                <ng-template #CREDITO>
+                    <div class="form-group mt-2">
+                        <label for="payment">Adelanto</label>
+                        <input type="text" name="payment" class="form-control" placeholder="Ingrese el monto pagado">
+                    </div>
+                </ng-template>
+
+
                 <div>
-                    <div class="form-group mt-3">
+                    <div class="form-group mt-2">
                         <label for="reference">Ingresar referencia de la transferencia</label>
                         <textarea [(ngModel)]="description" cols="30" rows="5" class="form-control" placeholder="Ingrese información adicional a la transacción. Ej. Referencia de depositos, número de factura, etc."></textarea>
                     </div>

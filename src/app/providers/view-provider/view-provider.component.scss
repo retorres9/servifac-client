@@ -1,0 +1,14 @@
+fieldset {
+    border: 1px solid #666;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+legend {
+    position: absolute;
+    top: -20px;
+    padding: 0 5px;
+    background: #fafafa;
+    width: auto;
+}

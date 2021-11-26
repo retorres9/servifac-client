@@ -5,6 +5,7 @@ import { ProvidersComponent } from './providers.component';
 import { NewProviderComponent } from './new-provider/new-provider.component';
 import { ListingProvidersComponent } from './listing-providers/listing-providers.component';
 import { HistoryComponent } from './history/history.component';
+import { ViewProviderComponent } from './view-provider/view-provider.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'listing',
         component: ListingProvidersComponent
+      },
+      {
+        path: 'view/:provId',
+        component: ViewProviderComponent
       },
       {
         path: 'history/:prov_id',

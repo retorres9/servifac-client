@@ -33,4 +33,8 @@ export class ListingProvidersComponent implements OnInit {
   goToHistory(prov_id) {
     this.router.navigateByUrl(`/provider/history/${prov_id}`);
   }
+
+  goToViewProv(ruc: string) {
+    this.router.navigateByUrl(`/provider/view/${ruc}`);
+  }
 }

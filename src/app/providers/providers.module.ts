@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ListingProvidersComponent } from './listing-providers/listing-providers.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { HistoryComponent } from './history/history.component';
+import { ViewProviderComponent } from './view-provider/view-provider.component';
 
 
 
@@ -16,7 +17,8 @@ import { HistoryComponent } from './history/history.component';
     NewProviderComponent,
     ListingProvidersComponent,
     TransactionsComponent,
-    HistoryComponent
+    HistoryComponent,
+    ViewProviderComponent
   ],
   imports: [
     CommonModule,

@@ -10,7 +10,7 @@ import { ProvidersService } from '../providers.service';
 })
 export class HistoryComponent implements OnInit {
   providerRuc:  string;
-  movement: string;
+  movement: string = 'NA';
 
   history: History[];
   constructor(private aRoute: ActivatedRoute, private providerService: ProvidersService) { }
@@ -18,11 +18,11 @@ export class HistoryComponent implements OnInit {
   ngOnInit(): void {
     this.aRoute.params.subscribe(({prov_id}) => {
       this.providerRuc = prov_id;
-    })
+    });
   }
 
   getProviderMovements() {
-    if (this.movement !== 'Seleccione el tipo de movimiento') {
+    if (this.movement !== 'NA') {
       console.log(this.movement, this.providerRuc);
 
       this.providerService.getProviderMovements(this.movement, this.providerRuc).subscribe(

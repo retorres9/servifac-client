@@ -24,7 +24,7 @@
                     <td>{{ provider.prov_debt }}</td>
                     <!-- <td>{{provider.prov_phone}}</td> -->
                     <td>
-                        <button class="btn btn-primary btn-sm me-1" title="Ver información del proveedor">
+                        <button class="btn btn-primary btn-sm me-1" title="Ver información del proveedor" (click)="goToViewProv(provider.prov_ruc)">
                           <i class="bi bi-eye-fill"></i>
                         </button>
                         <button class="btn btn-info btn-sm me-1" title="Ver historial de transacciones" (click)="goToHistory(provider.prov_ruc)">

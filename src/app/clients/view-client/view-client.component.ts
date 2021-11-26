@@ -55,6 +55,10 @@ export class ViewClientComponent implements OnInit {
     }, 500);
   }
 
+  goToHistory(ci: string, firstName: string, lastName: string) {
+    this.router.navigate(['clients', 'history', ci, firstName, lastName]);
+  }
+
   goBack() {
     this.router.navigateByUrl('clients/listing');
   }
