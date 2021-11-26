@@ -4,6 +4,7 @@ import { Provider } from "./provider.model";
 import { Transaction } from './models/transaction.model';
 import { History } from "./models/history.model";
 import { Credit } from './models/credit.model';
+import { AppConfig } from '../../environments/environment.dev';
 
 @Injectable({
   providedIn: "root",
@@ -29,30 +30,30 @@ export class ProvidersService {
     provider.prov_accountNumber = prov_accountNumber;
     provider.prov_accountType = prov_accountType;
     provider.prov_debt = prov_debt;
-    return this.http.post<Provider>('http://127.0.0.1:3000/provider/', provider);
+    return this.http.post<Provider>(AppConfig.baseUrl + 'provider/', provider);
   }
 
   getProviders() {
-    return this.http.get<Provider[]>('http://127.0.0.1:3000/provider/');
+    return this.http.get<Provider[]>(AppConfig.baseUrl + 'provider/');
   }
 
   postProviderMovement(transactionInfo: Transaction) {
     console.log(transactionInfo);
-    return this.http.post<Transaction>('http://127.0.0.1:3000/provider-movement/', transactionInfo);
+    return this.http.post<Transaction>(AppConfig.baseUrl + 'provider-movement/', transactionInfo);
   }
 
   getProviderMovements(movement: string, ruc: string) {
     const params = new HttpParams().set('type', movement).set('provider', ruc);
-    return this.http.get<History[]>('http://127.0.0.1:3000/provider-movement', {params: params});
+    return this.http.get<History[]>(AppConfig.baseUrl + 'provider-movement', {params: params});
   }
 
   getProvider(ruc: string) {
-    return this.http.get<Provider>(`http://127.0.0.1:3000/provider/${ruc}`);
+    return this.http.get<Provider>(`${AppConfig.baseUrl}provider/${ruc}`);
   }
 
   postCredit(credit: Credit) {
     console.log(credit);
     return;
-    return this.http.post<Credit>('http://127.0.0.1:3000/credit', credit);
+    return this.http.post<Credit>(AppConfig.baseUrl + 'credit', credit);
   }
 }

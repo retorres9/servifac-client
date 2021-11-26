@@ -4,6 +4,7 @@ import { Sale } from './models/sale.model';
 import { SaleInfo } from './models/sale-info.model';
 import { map, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { AppConfig } from '../../environments/environment.dev';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +18,18 @@ export class SaleService {
   constructor(private http: HttpClient) { }
 
   getSaleById(saleId: string) {
-    return this.http.get<Sale>(`http://127.0.0.1:3000/sale/${saleId}`);
+    return this.http.get<Sale>(`${AppConfig.baseUrl}sale/${saleId}`);
   }
 
   getSales(dateSearched) {
     const params = new HttpParams().set('date', dateSearched);
-    return this.http.get<SaleInfo[]>('http://127.0.0.1:3000/sale/listing', {params});
+    return this.http.get<SaleInfo[]>(AppConfig.baseUrl + 'sale/listing', {params});
   }
 
   getSaleAlerts() {
     const alertInfo = [];
     const asd = new SaleInfo();
-    return this.http.get<SaleInfo[]>('http://127.0.0.1:3000/sale/alert').pipe(
+    return this.http.get<SaleInfo[]>(AppConfig.baseUrl + 'sale/alert').pipe(
       map( resp => {
         for (const key in resp) {
           if (resp.hasOwnProperty(key)) {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Sale } from './models/sale.model';
 import { tap } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { AppConfig } from '../../environments/environment.dev';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class BillingService {
     this.amountGivens(value);
   }
   onNewSale(sale: Sale) {
-    return this.http.post('http://127.0.0.1:3000/sale', sale).pipe(
+    return this.http.post(AppConfig.baseUrl + 'sale', sale).pipe(
       tap(resp => console.log(resp))
     );
   }
