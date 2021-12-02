@@ -10,7 +10,6 @@ import { Router } from "@angular/router";
 })
 export class ListingProvidersComponent implements OnInit {
   providers: Provider[];
-  action: string;
 
   constructor(
     private providerService: ProvidersService,
@@ -21,13 +20,6 @@ export class ListingProvidersComponent implements OnInit {
     this.providerService.getProviders().subscribe((resp) => {
       this.providers = resp;
     });
-  }
-  payment() {
-    this.action = "PAGO";
-  }
-
-  credit() {
-    this.action = "CREDITO";
   }
 
   goToHistory(prov_id) {

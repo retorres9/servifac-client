@@ -11,6 +11,8 @@ import { Provider } from './../provider.model';
 export class ViewProviderComponent implements OnInit {
   provider?: Provider;
   maxDate: string;
+
+  action: string;
   constructor(
     private aRoute: ActivatedRoute,
     private providerService: ProvidersService
@@ -28,4 +30,13 @@ export class ViewProviderComponent implements OnInit {
       );
     });
   }
+
+  payment() {
+    this.action = "PAGO";
+  }
+
+  credit() {
+    this.action = "CREDITO";
+  }
+
 }

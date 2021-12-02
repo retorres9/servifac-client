@@ -5,6 +5,7 @@ import { Transaction } from './models/transaction.model';
 import { History } from "./models/history.model";
 import { Credit } from './models/credit.model';
 import { AppConfig } from '../../environments/environment.dev';
+import { Purchase } from './models/purchase.model';
 
 @Injectable({
   providedIn: "root",
@@ -55,5 +56,11 @@ export class ProvidersService {
     console.log(credit);
     return;
     return this.http.post<Credit>(AppConfig.baseUrl + 'credit', credit);
+  }
+
+  postPurchase(purchaseInfo: Purchase) {
+    console.log(purchaseInfo.pur_amount);
+
+    return this.http.post<Purchase>(AppConfig.baseUrl + 'purchases', purchaseInfo);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Credit } from '../../models/credit.model';
+import { Purchase } from '../../models/purchase.model';
 import { Transaction } from '../../models/transaction.model';
 import { ProvidersService } from '../../providers.service';
 
@@ -10,9 +11,12 @@ import { ProvidersService } from '../../providers.service';
 })
 export class TransactionsComponent implements OnInit {
   @Input() action: string;
+  @Input() ruc: string;
   type: string = "money";
   amount: number;
+  today: string;
   description: string;
+  maxDate: string;
 
   alertType: string;
   message: string;
@@ -21,10 +25,21 @@ export class TransactionsComponent implements OnInit {
   constructor(private providerService: ProvidersService) { }
 
   ngOnInit(): void {
+    this.today = new Date().toISOString().split('T')[0];
   }
 
   postTransaction() {
     this.action === 'CREDITO' ? this.postCredit(): this.postPayment();
+  }
+
+  postPurchase() {
+    const purchase = new Purchase(this.amount, this.description, this.ruc, this.maxDate);
+    this.providerService.postPurchase(purchase).subscribe(resp => {
+      this.showAlert('alert-success', 'Compra registrada!');
+    }, err => {
+      console.log(err);
+      this.showAlert('alert-danger', 'Asegurese de ingresar todos los datos');
+    });
   }
 
   postCredit() {

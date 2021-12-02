@@ -29,6 +29,10 @@
                     <div class="form-group">
                         <label><b>Número de cuenta:</b> </label> {{provider?.prov_accountNumber}}
                     </div>
+                    <button class="btn btn-success btn-sm me-1" title="Ingresar pago a proveedor" (click)="payment()" data-bs-toggle="modal" data-bs-target="#modalTransaction">
+                      <i class="bi bi-journal-arrow-down"></i> Registrar Pago
+                    </button>
+
                 </div>
             </div>
         </fieldset>
@@ -48,6 +52,11 @@
         </div>
         <div class="col-3">
             <span>Hasta:</span> <input type="date" [max]="maxDate" class="form-control form-control-sm">
+        </div>
+        <div class="col-3 d-flex align-self-end justify-content-end">
+            <button class="btn btn-warning btn-sm" title="Ingresar crédito a proveedor" (click)="credit()" data-bs-toggle="modal" data-bs-target="#modalTransaction">
+            <i class="bi bi-plus-square"></i> Registrar compra
+          </button>
         </div>
     </div>
     <table class="table table-hover table-sm mt-3">
@@ -82,3 +91,4 @@
         </ul>
     </nav>
 </div>
+<app-transactions [action]="action" [ruc]="provider?.prov_ruc"></app-transactions>
