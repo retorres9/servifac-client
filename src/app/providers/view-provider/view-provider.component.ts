@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { Purchases } from "../models/purchases.model";
 import { ProvidersService } from "../providers.service";
 import { Provider } from './../provider.model';
 
@@ -11,6 +12,10 @@ import { Provider } from './../provider.model';
 export class ViewProviderComponent implements OnInit {
   provider?: Provider;
   maxDate: string;
+  from: string;
+  to: string;
+
+  purchases: Purchases[];
 
   action: string;
   constructor(
@@ -37,6 +42,14 @@ export class ViewProviderComponent implements OnInit {
 
   credit() {
     this.action = "CREDITO";
+  }
+
+  searchPurchases() {
+    if (this.from && this.to) {
+      this.providerService.getPurchases(this.from, this.to).subscribe(resp => {
+        this.purchases = resp;
+      });
+    }
   }
 
 }

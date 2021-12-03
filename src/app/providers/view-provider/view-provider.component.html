@@ -39,7 +39,7 @@
     </form>
 
     <div class="row d-flex mt-2">
-        <div class="col-3 form-group">
+        <div class="col-2 form-group">
             <span>Buscar:</span>
             <select name="type" id="type" class="form-select form-select-sm">
               <option value="na">Seleccione...</option>
@@ -47,13 +47,16 @@
               <option value="all">Todos</option>
             </select>
         </div>
-        <div class="col-3">
-            <span>Desde:</span> <input type="date" [max]="maxDate" class="form-control form-control-sm">
+        <div class="col-2">
+            <span>Desde:</span> <input type="date" [max]="maxDate" class="form-control form-control-sm" [(ngModel)]="from">
         </div>
-        <div class="col-3">
-            <span>Hasta:</span> <input type="date" [max]="maxDate" class="form-control form-control-sm">
+        <div class="col-2">
+            <span>Hasta:</span> <input type="date" [max]="maxDate" class="form-control form-control-sm" [(ngModel)]="to">
         </div>
-        <div class="col-3 d-flex align-self-end justify-content-end">
+        <div class="col-1 d-flex align-self-end">
+            <button class="btn btn-primary btn-sm" (click)="searchPurchases()">Buscar</button>
+        </div>
+        <div class="col d-flex align-self-end justify-content-end">
             <button class="btn btn-warning btn-sm" title="Ingresar crédito a proveedor" (click)="credit()" data-bs-toggle="modal" data-bs-target="#modalTransaction">
             <i class="bi bi-plus-square"></i> Registrar compra
           </button>
@@ -71,13 +74,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>$ 123</td>
-                <td>$ 223</td>
-                <td>12/12/2021</td>
-                <td>12/12/2021</td>
-                <td>Lorem ipsum dolor sit amet consectetur adipisicing </td>
+            <tr *ngFor="let purchase of purchases">
+                <td>{{purchase.pur_id}}</td>
+                <td>{{purchase.pur_amount}}</td>
+                <td>{{purchase.pur_paid}}</td>
+                <td>{{purchase.pur_date}}</td>
+                <td>{{purchase.pur_maxDate}}</td>
+                <td>{{purchase.pur_info}} </td>
             </tr>
         </tbody>
     </table>

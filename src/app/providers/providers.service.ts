@@ -6,6 +6,7 @@ import { History } from "./models/history.model";
 import { Credit } from './models/credit.model';
 import { AppConfig } from '../../environments/environment.dev';
 import { Purchase } from './models/purchase.model';
+import { Purchases } from "./models/purchases.model";
 
 @Injectable({
   providedIn: "root",
@@ -59,8 +60,11 @@ export class ProvidersService {
   }
 
   postPurchase(purchaseInfo: Purchase) {
-    console.log(purchaseInfo.pur_amount);
+    return this.http.post(AppConfig.baseUrl + 'purchases', purchaseInfo);
+  }
 
-    return this.http.post<Purchase>(AppConfig.baseUrl + 'purchases', purchaseInfo);
+  getPurchases(from, to) {
+    const query = new HttpParams().set('from', from).set('to', to)
+    return this.http.get<Purchases[]>(AppConfig.baseUrl + 'purchases', {params: query});
   }
 }
