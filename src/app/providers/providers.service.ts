@@ -67,4 +67,12 @@ export class ProvidersService {
     const query = new HttpParams().set('from', from).set('to', to)
     return this.http.get<Purchases[]>(AppConfig.baseUrl + 'purchases', {params: query});
   }
+
+  getPurchasesAlarm(query?: string) {
+    let params;
+    if (query) {
+      params = new HttpParams().set('select', 'true')
+    }
+    return this.http.get<number | Purchases[]>(AppConfig.baseUrl + 'purchases/alarm', {params});
+  }
 }

@@ -6,6 +6,7 @@ import { NewProviderComponent } from './new-provider/new-provider.component';
 import { ListingProvidersComponent } from './listing-providers/listing-providers.component';
 import { HistoryComponent } from './history/history.component';
 import { ViewProviderComponent } from './view-provider/view-provider.component';
+import { OutOfDateComponent } from './out-of-date/out-of-date.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'listing',
         component: ListingProvidersComponent
+      },
+      {
+        path: 'out-of-date',
+        component: OutOfDateComponent
       },
       {
         path: 'view/:provId',

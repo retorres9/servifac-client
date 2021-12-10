@@ -9,6 +9,7 @@ import { ListingProvidersComponent } from './listing-providers/listing-providers
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { HistoryComponent } from './history/history.component';
 import { ViewProviderComponent } from './view-provider/view-provider.component';
+import { OutOfDateComponent } from './out-of-date/out-of-date.component';
 
 
 
@@ -18,7 +19,8 @@ import { ViewProviderComponent } from './view-provider/view-provider.component';
     ListingProvidersComponent,
     TransactionsComponent,
     HistoryComponent,
-    ViewProviderComponent
+    ViewProviderComponent,
+    OutOfDateComponent
   ],
   imports: [
     CommonModule,

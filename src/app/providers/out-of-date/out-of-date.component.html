@@ -1,0 +1,29 @@
+<app-header></app-header>
+<div class="container">
+    <h3>Cuentas por pagar:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Proveedor</th>
+                <th>Total</th>
+                <th>Cancelado</th>
+                <th>Dias de retraso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let purchase of purchases; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{purchase.provider.prov_name}}</td>
+                <td>{{purchase.pur_amount}}</td>
+                <td>{{purchase.pur_paid}}</td>
+                <td>{{purchase.pur_maxDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-warning" onclick="history.back()">
+        Atrás
+      </button>
+    </div>
+</div>

@@ -10,9 +10,8 @@ import { CredentialsJwt } from "../../../auth/jwt-credentials.model";
 import jwt_decode from "jwt-decode";
 import { ProductsService } from "../../../products/products.service";
 import { SaleService } from '../../../sales/sale.service';
-import { SaleInfo } from '../../../sales/models/sale-info.model';
-import { BehaviorSubject } from 'rxjs';
-import { map } from "rxjs/operators";
+import { ProvidersService } from '../../../providers/providers.service';
+import { Purchases } from '../../../providers/models/purchases.model';
 
 @Component({
   selector: "app-header",
@@ -23,7 +22,7 @@ export class HeaderComponent implements OnInit {
   alert: boolean;
   saleAlert: boolean;
   user: string;
-
+  purchaseAlert: number | Purchases[];
   isChange: boolean = false;
 
   @Input() tab: string;
@@ -31,7 +30,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private productService: ProductsService,
     private eRef: ElementRef,
-    private saleService: SaleService
+    private saleService: SaleService,
+    private providerService: ProvidersService
   ) {}
 
   ngOnInit(): void {
@@ -44,10 +44,18 @@ export class HeaderComponent implements OnInit {
     this.saleService.getSaleAlerts().subscribe(
       resp => {
         resp.length > 0 ? this.saleAlert = true : this.saleAlert = false;
-        console.log(this.saleAlert);
-
       }
     );
+    this.providerService.getPurchasesAlarm().subscribe(
+      resp => {
+        console.log(resp);
+
+        this.purchaseAlert = resp;
+      }
+    );
+    console.log(this.purchaseAlert);
+
+
   }
 
   @HostListener("document:click", ["$event"])
@@ -69,6 +77,9 @@ export class HeaderComponent implements OnInit {
 
   goToOutOfDate() {
     this.router.navigateByUrl("sales/out-of-date");
+  }
+  goToOutOfDateProv() {
+    this.router.navigateByUrl('provider/out-of-date')
   }
 
   onLogout() {

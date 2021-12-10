@@ -14,6 +14,8 @@
                 <li class="notification" (click)="goToMinimums()"><span>Hay Productos debajo del mínimo</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
                 <hr>
                 <li class="notification" *ngIf="saleAlert === true" (click)="goToOutOfDate()"><span>Hay deudas de clientes pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
+                <hr>
+                <li class="notification" *ngIf="purchaseAlert" (click)="goToOutOfDateProv()"><span>Hay deudas por pagar pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
             </ul>
         </div>
         <div class="btn-group">

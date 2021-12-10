@@ -6,6 +6,7 @@ import { HomeRoutingModule } from './home/home-routing.module';
 import { BillingRoutingModule } from './billing/billing-routing.module';
 import { BillingComponent } from './billing/billing.component';
 import { ProvidersComponent } from './providers/providers.component';
+import { HomeGuard } from './home/home.guard';
 
 const routes: Routes = [
   {
@@ -19,24 +20,39 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    loadChildren: () => import('../app/products/products.module').then(m => m.ProductsModule)
+    loadChildren: () => import('../app/products/products.module').then(m => m.ProductsModule),
+    canActivate: [
+      HomeGuard
+    ]
   },
   {
     path: 'clients',
-    loadChildren: () => import('../app/clients/clients.module').then(m => m.ClientsModule)
+    loadChildren: () => import('../app/clients/clients.module').then(m => m.ClientsModule),
+    canActivate: [
+      HomeGuard
+    ]
   },
   {
     path: 'provider',
     component: ProvidersComponent,
-    loadChildren: () => import('../app/providers/providers.module').then(m => m.ProvidersModule)
+    loadChildren: () => import('../app/providers/providers.module').then(m => m.ProvidersModule),
+    canActivate: [
+      HomeGuard
+    ]
   },
   {
     path: 'billing',
-    component: BillingComponent
+    component: BillingComponent,
+    canActivate: [
+      HomeGuard
+    ]
   },
   {
     path: 'sales',
-    loadChildren: () => import('./sales/sales.module').then(m => m.SalesModule)
+    loadChildren: () => import('./sales/sales.module').then(m => m.SalesModule),
+    canActivate: [
+      HomeGuard
+    ]
   },
   {
     path: '**',

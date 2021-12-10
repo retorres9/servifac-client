@@ -62,28 +62,30 @@
           </button>
         </div>
     </div>
-    <table class="table table-hover table-sm mt-3">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Monto de crédito</th>
-                <th>Monto cancelado</th>
-                <th>Fecha</th>
-                <th>Fecha máxima</th>
-                <th>Información</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let purchase of purchases">
-                <td>{{purchase.pur_id}}</td>
-                <td>{{purchase.pur_amount}}</td>
-                <td>{{purchase.pur_paid}}</td>
-                <td>{{purchase.pur_date}}</td>
-                <td>{{purchase.pur_maxDate}}</td>
-                <td>{{purchase.pur_info}} </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper mt-3">
+        <table class="table table-hover table-sm ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Monto de crédito</th>
+                    <th>Monto cancelado</th>
+                    <th>Fecha</th>
+                    <th>Fecha máxima</th>
+                    <th>Información</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let purchase of purchases">
+                    <td>{{purchase.pur_id}}</td>
+                    <td>{{purchase.pur_amount}}</td>
+                    <td>{{purchase.pur_paid}}</td>
+                    <td>{{purchase.pur_date}}</td>
+                    <td>{{purchase.pur_maxDate}}</td>
+                    <td>{{purchase.pur_info}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center mt-3">
             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
