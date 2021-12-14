@@ -22,38 +22,31 @@ export class ProductsService {
   }
 
   getLocations() {
-    return this.http.get<Location>('http://127.0.0.1:3000/location');
+    return this.http.get<Location>(AppConfig.baseUrl + 'location');
   }
 
   getProviders() {
-    return this.http.get<Provider>('http://127.0.0.1:3000/provider/combo');
+    return this.http.get<Provider>(AppConfig.baseUrl + 'provider/combo');
   }
 
   postProduct(product: NewProduct) {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${token.accessToken}`
-      })
-    };
-    return this.http.post<NewProduct>('http://127.0.0.1:3000/product', product, httpOptions);
+    return this.http.post<NewProduct>(AppConfig.baseUrl + 'product', product);
   }
 
   queryProduct(param: string) {
     const params = new HttpParams().set('param', param);
-    return this.http.get<NewProduct[]>('http://127.0.0.1:3000/product', {params});
+    return this.http.get<NewProduct[]>(AppConfig.baseUrl + 'product', {params});
   }
 
   getProductsInventory(criteria: string) {
-    // const params = new HttpParams().set('criteria', criteria);
-    return this.http.get<Product[]>(`http://127.0.0.1:3000/product/inventory/${criteria}`);
+    return this.http.get<Product[]>(AppConfig.baseUrl + `product/inventory/${criteria}`);
   }
 
   getProductWarning() {
-    return this.http.get<boolean>('http://127.0.0.1:3000/product/warning');
+    return this.http.get<boolean>(AppConfig.baseUrl + 'product/warning');
   }
 
   getProductMinimums() {
-    return this.http.get<Product[]>('http://127.0.0.1:3000/product/minimums');
+    return this.http.get<Product[]>(AppConfig.baseUrl + 'product/minimums');
   }
 }

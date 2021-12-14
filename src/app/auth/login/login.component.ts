@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
 
       if (!bool) {
-        this.router.navigate(["home"]);
+        // this.router.navigate(["home"]);
       }
     }
   }

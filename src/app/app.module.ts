@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 
@@ -24,6 +24,7 @@ import { SpinnersAngularModule } from "spinners-angular";
 import { SearchClientModalComponent } from "./billing/search-client-modal/search-client-modal.component";
 import { AmountGivenModalComponent } from './billing/amount-given-modal/amount-given-modal.component';
 import { NewClientModalComponent } from './billing/new-client-modal/new-client-modal.component';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -61,7 +62,13 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
