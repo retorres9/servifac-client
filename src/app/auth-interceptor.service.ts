@@ -13,16 +13,11 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(private router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(req.url);
-
-    console.log(req.url.includes('user/login'));
     const tokenLocal = JSON.parse(localStorage.getItem('token'));
     if (tokenLocal) {
       const token: CredentialsJwt = jwt_decode(tokenLocal.accessToken);
       let isActive = new Date() < new Date(token.exp * 1000) ? true : false;
       if (isActive && !(req.url.includes('user/login'))) {
-        console.log('login');
-
         req = req.clone({
           setHeaders: {Authorization: `Bearer ${tokenLocal.accessToken}`}
         });

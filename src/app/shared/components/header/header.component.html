@@ -1,4 +1,4 @@
-<ul class="nav d-flex align-items-center shadow p-2 mb-5">
+<ul class="nav d-flex align-items-center shadow p-2 mb-5" *ngIf="isLoggedIn$ | async">
     <app-sidedraw class="p-2"></app-sidedraw>&nbsp;&nbsp;
     <h3 class="title">
         {{tab}}
@@ -9,13 +9,19 @@
           <i class="bi bi-exclamation-circle"></i>
         </button>
         <div class="notifications" [ngClass]="{'change': isChange === true}">
-            <h4><strong>Notificaciones</strong></h4>
+            <h4 id="notification-header"><strong>Notificaciones</strong></h4>
             <ul class="notification-wrapper">
-                <li class="notification" (click)="goToMinimums()"><span>Hay Productos debajo del mínimo</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
+                <li class="notification" (click)="goToMinimums()">
+                    <img class="notification-icon" src="assets/product-alert.svg" alt=""><span>Hay Productos debajo del mínimo</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button>
+                </li>
                 <hr>
-                <li class="notification" *ngIf="saleAlert === true" (click)="goToOutOfDate()"><span>Hay deudas de clientes pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
+                <li class="notification" *ngIf="saleAlert === true" (click)="goToOutOfDate()">
+                    <img class="notification-icon" src="assets/pay-pending.svg" alt=""><span>Hay deudas de clientes pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button>
+                </li>
                 <hr>
-                <li class="notification" *ngIf="purchaseAlert" (click)="goToOutOfDateProv()"><span>Hay deudas por pagar pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button></li>
+                <li class="notification" *ngIf="purchaseAlert" (click)="goToOutOfDateProv()">
+                    <img class="notification-icon" src="assets/pay-pending.svg" alt=""><span>Hay deudas por pagar pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button>
+                </li>
             </ul>
         </div>
         <div class="btn-group">

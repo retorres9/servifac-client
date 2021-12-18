@@ -4,13 +4,22 @@
     position: relative;
 }
 
+#notification-header {
+    color: #fff;
+}
+
+.notification-icon {
+    max-height: 25px;
+    margin-right: 5px;
+}
+
 .notifications {
     position: absolute;
     display: none;
     border: 1px solid #555;
     background-color: #fafafa;
     right: 116px;
-    width: 330px;
+    width: 350px;
     top: 70px;
     border-radius: 0 0 5px 5px;
     z-index: 100;
@@ -21,7 +30,7 @@
     padding-left: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #1976D2;
+    background-color: #2196F3;
     margin: 0;
 }
 
@@ -37,7 +46,7 @@
 li.notification {
     color: #333;
     list-style-type: none;
-    padding: 10px 10px 4px 20px;
+    padding: 10px 10px 4px 10px;
     cursor: pointer;
     display: flex;
     flex-direction: row;

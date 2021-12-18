@@ -12,6 +12,8 @@ import { ProductsService } from "../../../products/products.service";
 import { SaleService } from '../../../sales/sale.service';
 import { ProvidersService } from '../../../providers/providers.service';
 import { Purchases } from '../../../providers/models/purchases.model';
+import { AuthService } from '../../../auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-header",
@@ -24,6 +26,8 @@ export class HeaderComponent implements OnInit {
   user: string;
   purchaseAlert: number | Purchases[];
   isChange: boolean = false;
+  isExecuted: boolean = false;
+  isLoggedIn$: Observable<boolean>;
 
   @Input() tab: string;
   constructor(
@@ -31,29 +35,29 @@ export class HeaderComponent implements OnInit {
     private productService: ProductsService,
     private eRef: ElementRef,
     private saleService: SaleService,
-    private providerService: ProvidersService
+    private providerService: ProvidersService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem("token");
     const credentials: CredentialsJwt = jwt_decode(token);
     this.user = credentials.user_username;
-    this.productService
-      .getProductWarning()
-      .subscribe((resp) => (this.alert = resp));
-    this.saleService.getSaleAlerts().subscribe(
-      resp => {
-        resp.length > 0 ? this.saleAlert = true : this.saleAlert = false;
-      }
-    );
-    this.providerService.getPurchasesAlarm().subscribe(
-      resp => {
-        console.log(resp);
-
-        this.purchaseAlert = resp;
-      }
-    );
-    console.log(this.purchaseAlert);
+    console.log(this.isExecuted);
+    this.isLoggedIn$ = this.authService.loggedIn;
+    if (!this.isExecuted) {
+      this.productService
+        .getProductWarning()
+        .subscribe((resp) => (this.alert = resp));
+      this.saleService.getSaleAlerts().subscribe(
+        resp => {
+          resp.length > 0 ? this.saleAlert = true : this.saleAlert = false;
+        });
+      this.providerService.getPurchasesAlarm().subscribe(
+        resp => {
+          this.purchaseAlert = resp;
+        });
+    }
 
 
   }
@@ -68,7 +72,6 @@ export class HeaderComponent implements OnInit {
   }
   toggleNotifications() {
     this.isChange = !this.isChange;
-    console.log(this.isChange);
   }
 
   goToMinimums() {

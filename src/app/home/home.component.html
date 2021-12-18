@@ -1,110 +1,113 @@
-<app-header></app-header>
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow mb-3">
                 <div class="card-header">
-                    <h4 class="card-title">Facturación</h4>
+                    <h5 class="card-title">Facturación</h5>
                 </div>
                 <div class="card-body">
-                    <img src="assets/caja-registradora.png" alt="">
+                    <img src="assets/cash-register.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../billing']">Ir a facturación</a>
+                    <a class="btn btn-primary" [routerLink]="['../billing']">Ir a facturación</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Ingreso de productos</h4>
+                    <h5 class="card-title">Ventas</h5>
                 </div>
                 <div class="card-body">
-                    <img class="img-fluid-home" src="assets/caja.png" alt="">
+                    <img class="img-fluid-home" src="assets/documents.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../products/new-product']">Ingreso de productos</a>
+                    <a class="btn btn-primary" [routerLink]="['../sales/listing']">Ventas</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Clientes</h4>
+                    <h5 class="card-title">Agregar productos</h5>
                 </div>
                 <div class="card-body">
-                    <img class="img-fluid-home" src="assets/objetivo.png" alt="">
+                    <img class="img-fluid-home" src="assets/product.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../clients/new-client']">Clientes</a>
+                    <a class="btn btn-primary" [routerLink]="['../products/new-product']">Ingreso de productos</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Listado clientes</h4>
+                    <h5 class="card-title">Inventario</h5>
                 </div>
                 <div class="card-body">
-                    <img class="img-fluid-home" src="assets/caja-registradora.png" alt="">
+                    <img class="img-fluid-home" src="assets/inventory.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../clients/listing']">Listado</a>
+                    <a class="btn btn-primary" [routerLink]="['../products/inventory']">Inventario</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Nuevo proveedor</h4>
+                    <h5 class="card-title">Clientes</h5>
                 </div>
                 <div class="card-body">
-                    <img class="img-fluid-home" src="assets/inventario.png" alt="">
+                    <img class="img-fluid-home" src="assets/add-user-group-woman-man.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../provider/new-provider']">Ir a nuevo proveedor</a>
+                    <a class="btn btn-primary" [routerLink]="['../clients/new-client']">Clientes</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Inventario</h4>
+                    <h5 class="card-title">Listado clientes</h5>
                 </div>
                 <div class="card-body">
-                    <img class="img-fluid-home" src="assets/caja.png" alt="">
+                    <img class="img-fluid-home" src="assets/list-clients.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../products/inventory']">Inventario</a>
+                    <a class="btn btn-primary" [routerLink]="['../clients/listing']">Listado</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Ventas</h4>
+                    <h5 class="card-title">Nuevo proveedor</h5>
                 </div>
                 <div class="card-body">
-                    <img class="img-fluid-home" src="assets/caja.png" alt="">
+                    <img class="img-fluid-home" src="assets/manager.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../sales/listing']">Ventas</a>
+                    <a class="btn btn-primary" [routerLink]="['../provider/new-provider']">Ir a nuevo proveedor</a>
                 </div>
             </div>
         </div>
+
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center shadow">
                 <div class="card-header">
-                    <h4 class="card-title">Listado proveedores</h4>
+                    <h5 class="card-title">Listado proveedores</h5>
                 </div>
                 <div class="card-body">
-                    <img class="img-fluid-home" src="assets/caja.png" alt="">
+                    <img class="img-fluid-home" src="assets/list-provider.svg" alt="">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-success" [routerLink]="['../provider/listing']">Listado proveedores</a>
+                    <a class="btn btn-primary" [routerLink]="['../provider/listing']">Listado proveedores</a>
                 </div>
             </div>
         </div>
+
+
+
     </div>
     <!-- <a routerLink="/auth/login">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a> -->
 </div>
