@@ -17,6 +17,7 @@ import { CredentialsJwt } from '../auth/jwt-credentials.model';
 import jwtDecode from "jwt-decode";
 import { SaleState } from "./enums/sale-state.enum";
 import { SaleType } from "./enums/sale-type.enum";
+import { HeaderService } from '../shared/components/header/header.service';
 
 @Component({
   selector: "app-detail",
@@ -58,10 +59,12 @@ export class BillingComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private clientService: ClientsService,
-    private billingService: BillingService
+    private billingService: BillingService,
+    private headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
+    this.headerService.setheaderTitle('Facturación');
     const configuration = JSON.parse(localStorage.getItem("configuration"));
     this.tax = configuration.tax;
     const token = localStorage.getItem("token");

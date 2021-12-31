@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ProductsService } from "../products.service";
 import { NewProduct } from "./new-product.model";
+import { HeaderService } from "../../shared/components/header/header.service";
 
 @Component({
   selector: "app-new-product",
@@ -9,8 +10,6 @@ import { NewProduct } from "./new-product.model";
   styleUrls: ["./new-product.component.scss"],
 })
 export class NewProductComponent implements OnInit {
-  section: string = "Ingreso de Productos"
-
   newProductForm: FormGroup;
   categories: any;
   locations: any;
@@ -25,9 +24,13 @@ export class NewProductComponent implements OnInit {
   isAlert: boolean;
   loading: boolean = false;
 
-  constructor(private productService: ProductsService) {}
+  constructor(
+    private productService: ProductsService,
+    private headerService: HeaderService
+  ) {}
 
   ngOnInit(): void {
+    this.headerService.setheaderTitle("Ingreso de Productos");
     let config = JSON.parse(localStorage.getItem("configuration"));
     this.tax = config.tax;
     this.newProductForm = new FormGroup({
@@ -107,8 +110,12 @@ export class NewProductComponent implements OnInit {
   private calculatePrices(tax?: number) {
     const productForm = this.newProductForm.value;
     return tax
-    ? Number(productForm.prod_price * (0.2 + tax / 100) + productForm.prod_price).toFixed(2)
-    : Number(productForm.prod_price * 0.27 + productForm.prod_price).toFixed(2);
+      ? Number(
+          productForm.prod_price * (0.2 + tax / 100) + productForm.prod_price
+        ).toFixed(2)
+      : Number(productForm.prod_price * 0.27 + productForm.prod_price).toFixed(
+          2
+        );
   }
 
   setPrice(precio: string) {
@@ -122,12 +129,8 @@ export class NewProductComponent implements OnInit {
     newProduct.prod_name = productForm.prod_name;
     newProduct.prod_code = productForm.prod_code;
     newProduct.prod_price = productForm.prod_price;
-    newProduct.prod_normalProfit = Number(
-      productForm.prod_normalProfit
-    );
-    newProduct.prod_wholesaleProfit = Number(
-      productForm.prod_wholesaleProfit
-    );
+    newProduct.prod_normalProfit = Number(productForm.prod_normalProfit);
+    newProduct.prod_wholesaleProfit = Number(productForm.prod_wholesaleProfit);
     newProduct.prod_quantity = productForm.quantity;
     newProduct.prod_minQuantity = productForm.minQuantity;
     newProduct.loc_id = Number(productForm.location);
@@ -156,7 +159,6 @@ export class NewProductComponent implements OnInit {
   }
 
   private roundDecimal(value: number) {
-
     let stringNumber = String(value).split(".");
     if (stringNumber[1] === undefined) {
       return value;

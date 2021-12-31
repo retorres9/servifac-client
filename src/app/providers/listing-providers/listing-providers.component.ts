@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Provider } from "../provider.model";
 import { ProvidersService } from "../providers.service";
 import { Router } from "@angular/router";
+import { HeaderService } from '../../shared/components/header/header.service';
 
 @Component({
   selector: "app-listing-providers",
@@ -13,10 +14,12 @@ export class ListingProvidersComponent implements OnInit {
 
   constructor(
     private providerService: ProvidersService,
-    private router: Router
+    private router: Router,
+    private headerService: HeaderService
   ) {}
 
   ngOnInit() {
+    this.headerService.setheaderTitle('Listado de proveedores')
     this.providerService.getProviders().subscribe((resp) => {
       this.providers = resp;
     });

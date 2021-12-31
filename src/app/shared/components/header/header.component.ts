@@ -14,6 +14,7 @@ import { ProvidersService } from '../../../providers/providers.service';
 import { Purchases } from '../../../providers/models/purchases.model';
 import { AuthService } from '../../../auth/auth.service';
 import { Observable } from 'rxjs';
+import { HeaderService } from './header.service';
 
 @Component({
   selector: "app-header",
@@ -36,14 +37,14 @@ export class HeaderComponent implements OnInit {
     private eRef: ElementRef,
     private saleService: SaleService,
     private providerService: ProvidersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem("token");
     const credentials: CredentialsJwt = jwt_decode(token);
     this.user = credentials.user_username;
-    console.log(this.isExecuted);
     this.isLoggedIn$ = this.authService.loggedIn;
     if (!this.isExecuted) {
       this.productService
@@ -57,6 +58,11 @@ export class HeaderComponent implements OnInit {
         resp => {
           this.purchaseAlert = resp;
         });
+      this.headerService.headerTitle().subscribe(
+        newTitle => {
+          this.tab = newTitle
+        }
+      )
     }
 
 
@@ -65,7 +71,6 @@ export class HeaderComponent implements OnInit {
   @HostListener("document:click", ["$event"])
   closeNotifications(event) {
     if (this.eRef.nativeElement.contains(event.target)) {
-      console.log("in");
     } else {
       this.isChange = false;
     }

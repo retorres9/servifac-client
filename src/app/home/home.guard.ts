@@ -20,9 +20,7 @@ export class HomeGuard implements CanActivate {
         return;
       }
       const token: CredentialsJwt = jwt_decode(redirectToken);
-      console.log(token);
       if (new Date() > new Date(token.exp * 1000)) {
-        console.log('expira');
       }
       new Date() > new Date(token.exp * 1000) ? redirect = false : redirect = true;
       new Date() > new Date(token.exp * 1000) ? this.router.navigate(['auth/login']) : false;

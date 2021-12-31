@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Purchases } from "../models/purchases.model";
 import { ProvidersService } from "../providers.service";
 import { Provider } from './../provider.model';
+import { HeaderService } from '../../shared/components/header/header.service';
 
 @Component({
   selector: "app-view-provider",
@@ -20,17 +21,18 @@ export class ViewProviderComponent implements OnInit {
   action: string;
   constructor(
     private aRoute: ActivatedRoute,
-    private providerService: ProvidersService
+    private providerService: ProvidersService,
+    private headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
+    this.headerService.setheaderTitle('Vista del proveedor');
     this.maxDate = new Date().toISOString().split('T')[0];
 
     this.aRoute.params.subscribe(({ provId }) => {
       this.providerService.getProvider(provId).subscribe(
         resp => {
           this.provider = resp;
-          console.log(resp);
         }
       );
     });

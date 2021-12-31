@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ClientsService } from "../clients.service";
+import { HeaderService } from '../../shared/components/header/header.service';
 
 @Component({
   selector: "app-view-client",
@@ -14,10 +15,12 @@ export class ViewClientComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private clientService: ClientsService,
-    private router: Router
+    private router: Router,
+    private headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
+    this.headerService.setheaderTitle('Vista del cliente');
     this.activatedRoute.params.subscribe(({ ci }) => {
       this.clientService.getClientSummary(ci).subscribe((resp) => {
         this.summary = resp;

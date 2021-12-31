@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ClientsService } from "../clients.service";
 import { ActivatedRoute } from "@angular/router";
 import { Client } from '../client.model';
+import { HeaderService } from '../../shared/components/header/header.service';
 
 @Component({
   selector: "app-new-client",
@@ -20,10 +21,12 @@ export class NewClientComponent implements OnInit {
   loading = false;
   constructor(
     private clientsService: ClientsService,
-    private aRoute: ActivatedRoute
+    private aRoute: ActivatedRoute,
+    private headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
+    this.headerService.setheaderTitle('Nuevo cliente');
     this.newClientForm = new FormGroup({
       cli_firstName: new FormControl("", {
         updateOn: "change",
@@ -65,6 +68,7 @@ export class NewClientComponent implements OnInit {
       ),
     });
     if (this.aRoute.snapshot.params.ci) {
+      this.headerService.setheaderTitle('Actualizar cliente');
       this.newClientForm.controls['cli_ci'].disable();
       this.editingMode = true;
       this.clientsService

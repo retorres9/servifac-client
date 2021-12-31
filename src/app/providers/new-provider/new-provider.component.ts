@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ProvidersService } from "../providers.service";
+import { HeaderService } from '../../shared/components/header/header.service';
 
 @Component({
   selector: "app-new-provider",
@@ -13,9 +14,10 @@ export class NewProviderComponent implements OnInit {
   isAlertShowing: boolean = false;
   alertMessage: string;
   alertType: string;
-  constructor(private providerService: ProvidersService) {}
+  constructor(private providerService: ProvidersService, private headerService: HeaderService) {}
 
   ngOnInit(): void {
+    this.headerService.setheaderTitle('Nuevo proveedor');
     this.newProvForm = new FormGroup({
       prov_ruc: new FormControl("", {
         updateOn: "change",
