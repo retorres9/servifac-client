@@ -25,6 +25,8 @@ import { SearchClientModalComponent } from "./billing/search-client-modal/search
 import { AmountGivenModalComponent } from './billing/amount-given-modal/amount-given-modal.component';
 import { NewClientModalComponent } from './billing/new-client-modal/new-client-modal.component';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './auth/login/login.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -35,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     AuthComponent,
+    LoginComponent,
     ProductsComponent,
     BillingComponent,
     ClientsComponent,
@@ -44,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NewClientModalComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,

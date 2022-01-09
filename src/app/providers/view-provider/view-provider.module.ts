@@ -6,7 +6,7 @@ import { ViewProviderComponent } from './view-provider.component';
 
 @NgModule({
   declarations: [
-    ViewProviderComponent
+    // ViewProviderComponent
   ],
   imports: [
     CommonModule

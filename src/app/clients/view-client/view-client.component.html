@@ -8,7 +8,7 @@
                     <strong>Nombre:</strong> {{ summary.cli_firstName }} {{ summary.cli_lastName }}<br />
                     <strong>Phone:</strong> {{ summary.cli_phone }}<br />
                     <strong>Deuda:</strong> {{ summary.cli_debt | currency }}<br />
-                    <button *ngIf="summary.cli_debt > 0" class="btn btn-success btn-sm">Realiza pago</button>
+                    <button *ngIf="+summary.cli_debt > 0" class="btn btn-success btn-sm">Realiza pago</button>
                 </div>
                 <div class="col-6">
                     <strong>Email:</strong> {{ summary.cli_email }}<br />
@@ -65,7 +65,8 @@
 </div>
 
 <div class="modal fade" id="creditAuthModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <app-auth-credit [client_ci]="summary?.cli_ci" (amountOutput)="updateClientCredit()"></app-auth-credit>
+    <!--! Check Here the input in updateClientCredit  -->
+    <app-auth-credit [client_ci]="summary?.cli_ci" (amountOutput)="updateClientCredit(12)"></app-auth-credit>
 </div>
 
 <div class="modal fade" id="amountModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">

@@ -113,7 +113,7 @@
     </div>
 
     <div class="d-flex justify-content-around mt-3">
-        <button class="btn btn-primary" tabindex="-1" data-bs-toggle="modal" data-bs-target="#change" (click)="setFocusChange()" [disabled]="total===0 || !clientName">
+        <button class="btn btn-primary" tabindex="-1" data-bs-toggle="modal" data-bs-target="#change" (click)="setFocusChange()" [disabled]="totalRetail===0 || !clientName">
       <i class="bi bi-gear-fill"></i>
       Procesar
     </button>
@@ -128,7 +128,8 @@
 
 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <app-new-client-modal (client)="updateClient($event)" (close)="setFocusOnCode()"></app-new-client-modal>
+        <app-new-client-modal (close)="setFocusOnCode()"></app-new-client-modal>
+        <!--! <app-new-client-modal (client)="updateClient($event)" (close)="setFocusOnCode()"></app-new-client-modal> -->
     </div>
 </div>
 <!-- Fin Modal nuevo Cliente -->
@@ -169,7 +170,7 @@
                             <label for="searchProdName">Producto</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" name="searchProdName" class="form-control form-control-sm" [(ngModel)]="seachedProduct" (keyup.enter)="searchProduct(seachedProduct)">
+                            <input type="text" name="searchProdName" class="form-control form-control-sm" [(ngModel)]="searchTerm" (keyup.enter)="searchProduct(searchTerm)">
                         </div>
                     </div>
                 </div>

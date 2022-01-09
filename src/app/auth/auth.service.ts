@@ -27,6 +27,10 @@ export class AuthService {
     );
   }
 
+  logOut() {
+    return this.http.get(AppConfig.baseUrl+'category');
+  }
+
   getConfiguration() {
     return this.http.get(AppConfig.baseUrl + 'configuration');
   }

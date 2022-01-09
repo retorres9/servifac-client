@@ -6,6 +6,7 @@ import { SalesRoutingModule } from './sales-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ListingSalesComponent } from './listing-sales/listing-sales.component';
 import { OutOfDateComponent } from './out-of-date/out-of-date.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -19,7 +20,8 @@ import { OutOfDateComponent } from './out-of-date/out-of-date.component';
   imports: [
     CommonModule,
     SalesRoutingModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class SalesModule { }

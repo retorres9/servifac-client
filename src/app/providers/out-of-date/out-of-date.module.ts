@@ -6,7 +6,7 @@ import { OutOfDateComponent } from './out-of-date.component';
 
 @NgModule({
   declarations: [
-    OutOfDateComponent
+    // OutOfDateComponent
   ],
   imports: [
     CommonModule

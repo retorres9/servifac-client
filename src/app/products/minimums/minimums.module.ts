@@ -6,7 +6,7 @@ import { MinimumsComponent } from './minimums.component';
 
 @NgModule({
   declarations: [
-    MinimumsComponent
+    // MinimumsComponent
   ],
   imports: [
     CommonModule

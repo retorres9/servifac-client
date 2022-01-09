@@ -9,9 +9,9 @@ import { NewClientModalComponent } from './new-client-modal/new-client-modal.com
 
 @NgModule({
   declarations: [
-    SearchClientModalComponent,
-    AmountGivenModalComponent,
-    NewClientModalComponent
+    // SearchClientModalComponent,
+    // AmountGivenModalComponent,
+    // NewClientModalComponent
   ],
   imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule, BillingRoutingModule],
   exports: [],

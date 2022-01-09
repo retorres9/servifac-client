@@ -8,8 +8,8 @@
                 </div>
                 <form [formGroup]="newProvForm">
                     <div class="card-body">
-                        <div class="alert text-center" *ngIf="alert === true" [ngClass]="type">
-                            {{message}}
+                        <div class="alert text-center" *ngIf="isAlertShowing === true" [ngClass]="alertType">
+                            {{alertMessage}}
                         </div>
                         <div class="row">
                             <!-- Ruc -->
@@ -68,8 +68,8 @@
                     </div>
                     <div class="card-footer d-flex justify-content-around">
                         <button class="btn btn-success" (click)="onSaveProv()" [disabled]="!newProvForm.valid">
-                          <i class="bi bi-save" *ngIf="!loading"></i>
-                          <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span>
+                          <!--! NO LOADING IN TS <i class="bi bi-save" *ngIf="!loading"></i> -->
+                          <!-- <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span> -->
                           Guardar
                         </button>
                         <a class="btn btn-danger" [routerLink]="['../../home']">Atrás</a>

@@ -6,7 +6,7 @@ import { HistoryComponent } from './history.component';
 
 @NgModule({
   declarations: [
-    HistoryComponent
+    // HistoryComponent
   ],
   imports: [
     CommonModule

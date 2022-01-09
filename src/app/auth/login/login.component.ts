@@ -2,11 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import jwt_decode from "jwt-decode";
-
 import { Credentials } from "./credentials.model";
 import { AuthService } from "../auth.service";
-import { CredentialsJwt } from "../jwt-credentials.model";
+import { HeaderService } from "../../shared/components/header/header.service";
 
 @Component({
   selector: "app-login",
@@ -19,9 +17,22 @@ export class LoginComponent implements OnInit {
   isError: boolean = false;
   loading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private headerService: HeaderService
+  ) {}
 
   ngOnInit() {
+    console.log('log 1');
+
+    this.headerService.hide();
+    console.log('log 2');
+    this.headerService.setIsLoggedIn$(false);
+    console.log('log 3');
+    console.log('reached login');
+    console.log('log 4');
+
     this.form = new FormGroup({
       username: new FormControl("", {
         updateOn: "change",
@@ -30,17 +41,18 @@ export class LoginComponent implements OnInit {
       password: new FormControl("", {
         updateOn: "change",
         validators: [Validators.required],
-      }),
+      })
     });
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      const decoded: CredentialsJwt = jwt_decode(token);
-      let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
+    console.log('log 5');
+    // const token = localStorage.getItem("token");
+    // if (token !== null) {
+    //   const decoded: CredentialsJwt = jwt_decode(token);
+    //   let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
 
-      if (!bool) {
-        // this.router.navigate(["home"]);
-      }
-    }
+    //   if (!bool) {
+    //     // this.router.navigate(["home"]);
+    //   }
+    // }
   }
 
   onLogin() {
@@ -55,6 +67,7 @@ export class LoginComponent implements OnInit {
         });
         localStorage.setItem("token", JSON.stringify(resp));
         this.loading = false;
+        this.headerService.show();
         this.router.navigate(["home"]);
       },
       (error) => {

@@ -66,7 +66,7 @@ export class ViewClientComponent implements OnInit {
     this.router.navigateByUrl('clients/listing');
   }
 
-  private updateClientCredit(amount: number) {
+  updateClientCredit(amount: number) {
     this.summary.credit.cre_amount = amount;
     this.hasCredit = true;
   }

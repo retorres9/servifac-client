@@ -6,7 +6,7 @@ import { AuthCreditComponent } from './auth-credit/auth-credit.component';
 
 @NgModule({
   declarations: [
-    AuthCreditComponent
+    // AuthCreditComponent
   ],
   imports: [
     CommonModule

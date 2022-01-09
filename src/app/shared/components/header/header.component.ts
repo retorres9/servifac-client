@@ -29,6 +29,9 @@ export class HeaderComponent implements OnInit {
   isChange: boolean = false;
   isExecuted: boolean = false;
   isLoggedIn$: Observable<boolean>;
+  isVisible: boolean;
+
+  isClosingSession = false;
 
   @Input() tab: string;
   constructor(
@@ -43,10 +46,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     const token = localStorage.getItem("token");
+    this.isVisible = this.headerService.isVisible;
+    console.log(this.isVisible);
+    this.isLoggedIn$ = this.headerService.getIsLoggedIn$();
+
+
     const credentials: CredentialsJwt = jwt_decode(token);
     this.user = credentials.user_username;
-    this.isLoggedIn$ = this.authService.loggedIn;
-    if (!this.isExecuted) {
+    // console.log(this.headerService.getIsLoggedIn$());
+    // this.isLoggedIn$ = this.headerService.getIsLoggedIn$();
+
       this.productService
         .getProductWarning()
         .subscribe((resp) => (this.alert = resp));
@@ -63,14 +72,13 @@ export class HeaderComponent implements OnInit {
           this.tab = newTitle
         }
       )
-    }
-
 
   }
 
   @HostListener("document:click", ["$event"])
   closeNotifications(event) {
     if (this.eRef.nativeElement.contains(event.target)) {
+      console.log("in");
     } else {
       this.isChange = false;
     }
@@ -91,7 +99,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    localStorage.removeItem("token");
-    this.router.navigateByUrl("auth/login");
+    this.isClosingSession = true;
+    // localStorage.removeItem("token");
+    this.router.navigate(["auth", "login"]);
   }
 }

@@ -23,7 +23,7 @@ export class AmountGivenModalComponent implements OnInit {
     this.change = null;
     this.print.emit(auxChange);
   }
-  private calculateChange() {
+  calculateChange() {
     this.change = this.amountGiven - this.totalRetail;
     this.change = Number(this.change.toFixed(2));
     this.amountGivenChecker.emit(this.amountGiven);
