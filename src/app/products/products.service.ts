@@ -12,8 +12,8 @@ export class ProductsService {
 
   private _isAlarm$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public get isAlarm$(): BehaviorSubject<boolean> {
-    return this._isAlarm$;
+  public get isAlarm$() {
+    return this._isAlarm$.asObservable();
   }
 
   constructor(private http: HttpClient) { }
@@ -50,7 +50,11 @@ export class ProductsService {
   }
 
   getProductWarning() {
-    return this.http.get<boolean>(AppConfig.baseUrl + 'product/warning');
+    return this.http.get<boolean>(AppConfig.baseUrl + 'product/warning').pipe(
+      tap(resp => {
+        this._isAlarm$.next(true);
+      })
+    );
   }
 
   getProductMinimums() {

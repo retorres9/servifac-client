@@ -12,7 +12,9 @@ import { AppConfig } from '../../environments/environment.dev';
 export class SaleService {
 
   private _alertInfo = new BehaviorSubject<SaleInfo[]>([]);
-  public get alertInfo() {
+  public get alertInfo$() {
+    this._alertInfo.subscribe(resp => console.log(resp));
+
     return this._alertInfo.asObservable();
   }
   constructor(private http: HttpClient) { }
@@ -48,10 +50,10 @@ export class SaleService {
           }
           alertInfo.push({...asd});
         }
-        // resp.forEach(el => {
-        // });
         return alertInfo;
       }), tap((alertInfo)=> {
+        console.log(alertInfo);
+
         return this._alertInfo.next(alertInfo);
       })
     );

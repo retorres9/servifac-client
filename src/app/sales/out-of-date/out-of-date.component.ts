@@ -17,7 +17,7 @@ export class OutOfDateComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerService.setheaderTitle("Deudas por cobrar vencidas");
-    this.saleService.alertInfo.subscribe((resp) => {
+    this.saleService.alertInfo$.subscribe((resp) => {
       this.outOfDateSales = resp;
     });
   }

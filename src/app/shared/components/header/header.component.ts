@@ -9,11 +9,13 @@ import { Router } from "@angular/router";
 import { CredentialsJwt } from "../../../auth/jwt-credentials.model";
 import jwt_decode from "jwt-decode";
 import { ProductsService } from "../../../products/products.service";
-import { SaleService } from '../../../sales/sale.service';
-import { ProvidersService } from '../../../providers/providers.service';
-import { Purchases } from '../../../providers/models/purchases.model';
-import { Observable } from 'rxjs';
-import { HeaderService } from './header.service';
+import { SaleService } from "../../../sales/sale.service";
+import { ProvidersService } from "../../../providers/providers.service";
+import { Purchases } from "../../../providers/models/purchases.model";
+import { Observable } from "rxjs";
+import { HeaderService } from "./header.service";
+import { tap } from 'rxjs/operators';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: "app-header",
@@ -21,13 +23,16 @@ import { HeaderService } from './header.service';
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
-  alert: boolean;
+  alert: boolean = true;
   saleAlert: boolean;
-  user: string;
+  user$: Observable<string>;
   purchaseAlert: number | Purchases[];
   isChange: boolean = false;
   isExecuted: boolean = false;
   isLoggedIn$: Observable<boolean>;
+  setProductAlarm$: Observable<any>;
+  setProviderAlarm$: Observable<any>;
+  setSaleAlarm$: Observable<any>;
   isVisible: boolean;
   numb: any;
 
@@ -40,17 +45,14 @@ export class HeaderComponent implements OnInit {
     private eRef: ElementRef,
     private saleService: SaleService,
     private providerService: ProvidersService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem("token");
     this.isVisible = this.headerService.isVisible;
     this.isLoggedIn$ = this.headerService.getIsLoggedIn$();
-
-
-    const credentials: CredentialsJwt = jwt_decode(token);
-    this.user = credentials.user_username;
+    this.user$ = this.authService.loggedUser$;
     this.requestAlarms();
   }
 
@@ -64,24 +66,14 @@ export class HeaderComponent implements OnInit {
   }
 
   requestAlarms() {
-    this.productService
-        .isAlarm$.subscribe((resp) => (this.alert = resp));
-      this.saleService.alertInfo.subscribe(
-        resp => {
-          resp.length > 0 ? this.saleAlert = true : this.saleAlert = false;
-        });
-      this.providerService.getPurchasesAlarm().subscribe(
-        resp => {
-          this.purchaseAlert = resp;
-        });
-        this.providerService.alarm$.subscribe(resp => {
-          this.numb = resp;
-        });
-      this.headerService.headerTitle().subscribe(
-        newTitle => {
-          this.tab = newTitle
-        }
-      )
+    console.log('requstiong alarm');
+
+    this.setProductAlarm$ = this.productService.isAlarm$;
+    this.setSaleAlarm$ = this.saleService.alertInfo$;
+    this.setProviderAlarm$ = this.providerService.alarm$;
+    this.headerService.headerTitle().subscribe((newTitle) => {
+      this.tab = newTitle;
+    });
   }
 
   toggleNotifications() {
@@ -96,7 +88,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl("sales/out-of-date");
   }
   goToOutOfDateProv() {
-    this.router.navigateByUrl('provider/out-of-date')
+    this.router.navigateByUrl("provider/out-of-date");
   }
 
   onLogout() {
@@ -106,7 +98,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggle() {
-    console.log('asdaskjdaksjdh');
-
+    console.log("asdaskjdaksjdh");
   }
 }

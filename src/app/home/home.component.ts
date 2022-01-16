@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ProvidersService } from '../providers/providers.service';
 import { ProductsService } from '../products/products.service';
 import { SaleService } from '../sales/sale.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,9 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private providerService: ProvidersService,
     private productService: ProductsService,
-    private saleService: SaleService) { }
+    private saleService: SaleService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
     this.headerService.show();
@@ -24,6 +27,7 @@ export class HomeComponent implements OnInit {
     this.providerService.getPurchasesAlarm().subscribe();
     this.productService.getProductWarning().subscribe();
     this.saleService.getSaleAlerts().subscribe();
+    this.authService.getLoggedUser();
   }
   logout() {
     this.router.navigateByUrl('auth/login');

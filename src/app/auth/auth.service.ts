@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AppConfig } from '../../environments/environment.dev';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import jwt_decode from 'jwt-decode';
+import { CredentialsJwt } from './jwt-credentials.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,10 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   constructor(private http: HttpClient) {}
   private _loggedIn = new BehaviorSubject<boolean>(false);
+  private _loggedUser$ = new BehaviorSubject<string>('Usuario');
+  public get loggedUser$() {
+    return this._loggedUser$;
+  }
 
   public get loggedIn() {
     return this._loggedIn.asObservable();
@@ -19,12 +25,16 @@ export class AuthService {
     return this.http.post(AppConfig.baseUrl + 'user/login', credential).pipe(
       tap(resp => {
         if (resp) {
-          console.log('enter');
-
           this._loggedIn.next(true);
         }
       })
     );
+  }
+
+  getLoggedUser() {
+    const local = localStorage.getItem('token');
+    const token: CredentialsJwt = jwt_decode(local.toString());
+    this._loggedUser$.next(token.user_username);
   }
 
 

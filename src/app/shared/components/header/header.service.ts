@@ -20,7 +20,6 @@ export class HeaderService {
   }
 
   getIsLoggedIn$() {
-
     return this._isLoggedIn$.asObservable();
   }
   setIsLoggedIn$(bool: boolean) {
