@@ -42,6 +42,9 @@ export class AuthCreditComponent implements OnInit {
           this.isCreditApproved
             ? this.createAlert("alert-success", "Credito aprobado")
             : this.createAlert("alert-danger", "Credito denegado");
+            this.isCreditApproved
+            ? this.amountOutput.emit(this.amount)
+            : false;
           this.isRequesting = false;
         }, err => {
           this.createAlert('alert-danger', 'Ha ocurrido un error');

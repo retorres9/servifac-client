@@ -72,8 +72,8 @@ export class ViewClientComponent implements OnInit {
     }, 200);
   }
 
-  updateClientCredit(amount: number) {
-    this.summary.credit.cre_amount = amount;
+  updateClientCredit(e) {
+    this.summary.credit.cre_amount = e;
     this.hasCredit = true;
   }
 }

@@ -1,5 +1,4 @@
 <div class="container" *ngIf="summary">
-    <a class="btn btn-dark" (click)="goBack()">Atrás</a>
     <form>
         <fieldset>
             <legend>Datos del cliente</legend>
@@ -23,7 +22,7 @@
     </form>
     <div class="row ">
         <div class="col">
-            <button class="btn btn-light" (click)="pagar()">Pagar</button>
+            <!-- <button class="btn btn-light" (click)="pagar()">Pagar</button> -->
             <div class="info d-flex align-items-center justify-content-end mt-3 mb-1">
                 <div class="square square-paid"></div> &nbsp;
                 <label>Pagado</label> &nbsp; &nbsp;
@@ -60,13 +59,16 @@
                     </tbody>
                 </table>
             </div>
+            <div class="buttons d-flex justify-content-end mt-3">
+                <a class="btn btn-warning" (click)="goBack()">Atrás</a>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="modal fade" id="creditAuthModal" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <!--! Check Here the input in updateClientCredit  -->
-    <app-auth-credit [client_ci]="summary?.cli_ci" (amountOutput)="updateClientCredit()"></app-auth-credit>
+    <app-auth-credit [client_ci]="summary?.cli_ci" (amountOutput)="updateClientCredit($event)"></app-auth-credit>
 </div>
 
 <div class="modal fade" id="amountModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
