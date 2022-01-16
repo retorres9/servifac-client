@@ -14,6 +14,7 @@ export class NewProviderComponent implements OnInit {
   isAlertShowing: boolean = false;
   alertMessage: string;
   alertType: string;
+  loading: boolean = false;
   constructor(private providerService: ProvidersService, private headerService: HeaderService) {}
 
   ngOnInit(): void {
@@ -59,6 +60,7 @@ export class NewProviderComponent implements OnInit {
       return;
     }
     const provForm = this.newProvForm.value;
+    this.loading = true;
     this.providerService
       .createProvider(
         provForm.prov_ruc,
@@ -75,6 +77,7 @@ export class NewProviderComponent implements OnInit {
           this.isAlertShowing = true;
           this.alertType = "alert-success";
           this.newProvForm.reset();
+          this.loading = false;
           setTimeout(() => {
             this.isAlertShowing = false;
           }, 5000);
@@ -83,6 +86,7 @@ export class NewProviderComponent implements OnInit {
           this.alertMessage = error.error.message;
           this.isAlertShowing = true;
           this.alertType = "alert-danger";
+          this.loading = false;
           setTimeout(() => {
             this.isAlertShowing = false;
           }, 5000);

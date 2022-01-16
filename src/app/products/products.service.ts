@@ -4,10 +4,17 @@ import { NewProduct } from './new-product/new-product.model';
 import { ProductBill, Category, Provider, Location, Product } from './models/models';
 import { tap } from 'rxjs/operators';
 import { AppConfig } from '../../environments/environment.dev';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
+
+  private _isAlarm$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public get isAlarm$(): BehaviorSubject<boolean> {
+    return this._isAlarm$;
+  }
 
   constructor(private http: HttpClient) { }
 

@@ -228,7 +228,6 @@ export class BillingComponent implements OnInit {
 
   setAmountGiven(e) {
     this.amountGiven = e;
-    console.log(this.amountGiven);
   }
 
   setFocusOnCode() {

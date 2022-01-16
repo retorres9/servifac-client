@@ -4,8 +4,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <div class="alert alert-danger">
-            <!--! <div class="alert alert-danger" *ngIf="error"> -->
+        <div class="alert alert-danger" *ngIf="error">
             No se pudo ingresar el nuevo cliente
         </div>
         <form [formGroup]="newClientForm">
@@ -14,43 +13,47 @@
                     <label for="cli_ci">CI/RUC:</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control form-control-sm" id="cli_ci" formControlName="cli_ci">
+                    <input type="text" class="form-control form-control-sm" id="cli_ci" formControlName="cli_ci" />
                 </div>
                 <div class="col-4 text-end mb-3">
                     <label for="cli_firstName">Nombres:</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control form-control-sm" id="cli_firstName" formControlName="cli_firstName">
+                    <input type="text" class="form-control form-control-sm" id="cli_firstName" formControlName="cli_firstName" />
                 </div>
                 <div class="col-4 text-end mb-3">
                     <label for="cli_lastName">Apellidos:</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control form-control-sm" id="cli_lastName" formControlName="cli_lastName">
+                    <input type="text" class="form-control form-control-sm" id="cli_lastName" formControlName="cli_lastName" />
                 </div>
                 <div class="col-4 text-end mb-3">
                     <label for="cli_phone">Telefono:</label>
                 </div>
                 <div class="col-8">
-                    <input type="phone" class="form-control form-control-sm" id="cli_phone" autocomplete="off" formControlName="cli_phone">
+                    <input type="phone" class="form-control form-control-sm" id="cli_phone" autocomplete="off" formControlName="cli_phone" />
                 </div>
                 <div class="col-4 text-end mb-3">
                     <label for="cli_email">Correo:</label>
                 </div>
                 <div class="col-8">
-                    <input type="email" class="form-control form-control-sm" id="cli_email" autocomplete="off" formControlName="cli_email">
+                    <input type="email" class="form-control form-control-sm" id="cli_email" autocomplete="off" formControlName="cli_email" />
                 </div>
                 <div class="col-4 text-end mb-3">
                     <label for="cli_address">Dirección:</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control form-control-sm" id="cli_address" formControlName="cli_address">
+                    <input type="text" class="form-control form-control-sm" id="cli_address" formControlName="cli_address" />
                 </div>
             </div>
         </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="closeModal" data-bs-dismiss="modal" (click)="closeModal()">Cerrar</button>
-        <button type="button" class="btn btn-primary" [disabled]="!newClientForm.valid" (click)="onPostClient()">Guardar</button>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="closeModal" data-bs-dismiss="modal" (click)="closeModal()">
+        Cerrar
+      </button>
+            <button type="button" class="btn btn-primary" [disabled]="!newClientForm.valid" (click)="onPostClient()">
+        Guardar
+      </button>
+        </div>
     </div>
 </div>

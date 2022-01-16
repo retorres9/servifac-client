@@ -35,4 +35,8 @@ export class ListingSalesComponent implements OnInit {
     const name = `${firstName} ${lastName}`;
     this.router.navigateByUrl(`/sales/view/${saleId}/${name}`);
   }
+
+  goBack() {
+    this.router.navigateByUrl('/home');
+  }
 }

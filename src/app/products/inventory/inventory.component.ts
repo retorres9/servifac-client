@@ -3,6 +3,7 @@ import { Product } from "../models/models";
 import { ProductsService } from "../products.service";
 import jsPDF from "jspdf";
 import { HeaderService } from "../../shared/components/header/header.service";
+import { Router } from '@angular/router';
 @Component({
   selector: "app-inventory",
   templateUrl: "./inventory.component.html",
@@ -12,7 +13,8 @@ export class InventoryComponent implements OnInit {
   section: string = "Inventario";
   constructor(
     private productService: ProductsService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private router: Router
   ) {}
   inventory: Product[];
   ngOnInit(): void {
@@ -28,5 +30,9 @@ export class InventoryComponent implements OnInit {
       .subscribe((resp) => {
         this.inventory = resp;
       });
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/home');
   }
 }

@@ -13,6 +13,7 @@ export class NewClientModalComponent implements OnInit {
   newClientForm: FormGroup;
   @Output() close = new EventEmitter<boolean>();
   @Output() client = new EventEmitter<Client>();
+  error: boolean = false;
   constructor(private clientService: ClientsService) {}
 
   ngOnInit(): void {
@@ -77,7 +78,7 @@ export class NewClientModalComponent implements OnInit {
           (document.querySelector("#closeModal") as HTMLElement)?.click();
         },
         (error) => {
-          // ! Handle error
+          this.error = true;
         }
       );
   }

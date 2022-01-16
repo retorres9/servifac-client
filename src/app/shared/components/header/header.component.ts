@@ -12,7 +12,6 @@ import { ProductsService } from "../../../products/products.service";
 import { SaleService } from '../../../sales/sale.service';
 import { ProvidersService } from '../../../providers/providers.service';
 import { Purchases } from '../../../providers/models/purchases.model';
-import { AuthService } from '../../../auth/auth.service';
 import { Observable } from 'rxjs';
 import { HeaderService } from './header.service';
 
@@ -30,6 +29,7 @@ export class HeaderComponent implements OnInit {
   isExecuted: boolean = false;
   isLoggedIn$: Observable<boolean>;
   isVisible: boolean;
+  numb: any;
 
   isClosingSession = false;
 
@@ -40,39 +40,18 @@ export class HeaderComponent implements OnInit {
     private eRef: ElementRef,
     private saleService: SaleService,
     private providerService: ProvidersService,
-    private authService: AuthService,
     private headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem("token");
     this.isVisible = this.headerService.isVisible;
-    console.log(this.isVisible);
     this.isLoggedIn$ = this.headerService.getIsLoggedIn$();
 
 
     const credentials: CredentialsJwt = jwt_decode(token);
     this.user = credentials.user_username;
-    // console.log(this.headerService.getIsLoggedIn$());
-    // this.isLoggedIn$ = this.headerService.getIsLoggedIn$();
-
-      this.productService
-        .getProductWarning()
-        .subscribe((resp) => (this.alert = resp));
-      this.saleService.getSaleAlerts().subscribe(
-        resp => {
-          resp.length > 0 ? this.saleAlert = true : this.saleAlert = false;
-        });
-      this.providerService.getPurchasesAlarm().subscribe(
-        resp => {
-          this.purchaseAlert = resp;
-        });
-      this.headerService.headerTitle().subscribe(
-        newTitle => {
-          this.tab = newTitle
-        }
-      )
-
+    this.requestAlarms();
   }
 
   @HostListener("document:click", ["$event"])
@@ -83,6 +62,28 @@ export class HeaderComponent implements OnInit {
       this.isChange = false;
     }
   }
+
+  requestAlarms() {
+    this.productService
+        .isAlarm$.subscribe((resp) => (this.alert = resp));
+      this.saleService.alertInfo.subscribe(
+        resp => {
+          resp.length > 0 ? this.saleAlert = true : this.saleAlert = false;
+        });
+      this.providerService.getPurchasesAlarm().subscribe(
+        resp => {
+          this.purchaseAlert = resp;
+        });
+        this.providerService.alarm$.subscribe(resp => {
+          this.numb = resp;
+        });
+      this.headerService.headerTitle().subscribe(
+        newTitle => {
+          this.tab = newTitle
+        }
+      )
+  }
+
   toggleNotifications() {
     this.isChange = !this.isChange;
   }
@@ -102,5 +103,10 @@ export class HeaderComponent implements OnInit {
     this.isClosingSession = true;
     // localStorage.removeItem("token");
     this.router.navigate(["auth", "login"]);
+  }
+
+  toggle() {
+    console.log('asdaskjdaksjdh');
+
   }
 }

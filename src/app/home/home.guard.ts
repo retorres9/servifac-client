@@ -14,11 +14,8 @@ export class HomeGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      console.log('Guard exec');
-
       let redirect;
       const redirectToken = localStorage.getItem('token');
-      // !Posiblemente esta causando redirección a #
       if (!redirectToken) {
         return;
       }

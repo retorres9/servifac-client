@@ -24,15 +24,8 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('log 1');
-
     this.headerService.hide();
-    console.log('log 2');
     this.headerService.setIsLoggedIn$(false);
-    console.log('log 3');
-    console.log('reached login');
-    console.log('log 4');
-
     this.form = new FormGroup({
       username: new FormControl("", {
         updateOn: "change",
@@ -43,16 +36,6 @@ export class LoginComponent implements OnInit {
         validators: [Validators.required],
       })
     });
-    console.log('log 5');
-    // const token = localStorage.getItem("token");
-    // if (token !== null) {
-    //   const decoded: CredentialsJwt = jwt_decode(token);
-    //   let bool = new Date() > new Date(decoded.exp * 1000) ? true : false;
-
-    //   if (!bool) {
-    //     // this.router.navigate(["home"]);
-    //   }
-    // }
   }
 
   onLogin() {

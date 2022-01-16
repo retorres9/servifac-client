@@ -7,11 +7,21 @@ import { Credit } from './models/credit.model';
 import { AppConfig } from '../../environments/environment.dev';
 import { Purchase } from './models/purchase.model';
 import { Purchases } from "./models/purchases.model";
+import { Subject } from "rxjs";
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
 })
 export class ProvidersService {
+
+  private _alarm$: Subject<number | Purchases[]> = new Subject<number | Purchases[]>();
+
+  public get alarm$(): Subject<number | Purchases[]> {
+    return this._alarm$;
+  }
+
+
 
   constructor(private http: HttpClient) {}
 
@@ -73,6 +83,10 @@ export class ProvidersService {
     if (query) {
       params = new HttpParams().set('select', 'true')
     }
-    return this.http.get<number | Purchases[]>(AppConfig.baseUrl + 'purchases/alarm', {params});
+    return this.http.get<number | Purchases[]>(AppConfig.baseUrl + 'purchases/alarm', {params}).pipe(
+      tap(resp => {
+        this._alarm$.next(resp);
+      })
+    );
   }
 }

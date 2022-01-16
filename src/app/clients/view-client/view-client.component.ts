@@ -66,6 +66,12 @@ export class ViewClientComponent implements OnInit {
     this.router.navigateByUrl('clients/listing');
   }
 
+  focusApproval() {
+    setTimeout(()=>{
+      (document.querySelector("#amountApproved") as HTMLElement)?.focus();
+    }, 200);
+  }
+
   updateClientCredit(amount: number) {
     this.summary.credit.cre_amount = amount;
     this.hasCredit = true;

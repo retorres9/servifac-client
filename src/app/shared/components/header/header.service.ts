@@ -6,6 +6,7 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 })
 export class HeaderService {
   private _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _username$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isVisible: boolean = false;
 
   hide() {
@@ -14,7 +15,6 @@ export class HeaderService {
   }
 
   show() {
-    console.log('executed header service');
     this._isLoggedIn$.next(true);
     this.isVisible = true;
   }

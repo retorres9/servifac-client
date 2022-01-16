@@ -13,8 +13,6 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(private router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Interceptor exec');
-
     const tokenLocal = JSON.parse(localStorage.getItem('token'));
     if (tokenLocal) {
       const token: CredentialsJwt = jwt_decode(tokenLocal.accessToken);

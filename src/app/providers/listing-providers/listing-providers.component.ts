@@ -32,4 +32,8 @@ export class ListingProvidersComponent implements OnInit {
   goToViewProv(ruc: string) {
     this.router.navigateByUrl(`/provider/view/${ruc}`);
   }
+
+  goBack() {
+    this.router.navigateByUrl('/home');
+  }
 }

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HeaderService } from '../shared/components/header/header.service';
 import { Router } from '@angular/router';
+import { ProvidersService } from '../providers/providers.service';
+import { ProductsService } from '../products/products.service';
+import { SaleService } from '../sales/sale.service';
 
 @Component({
   selector: 'app-home',
@@ -8,18 +11,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  @Output() showNotification = new EventEmitter<boolean>();
   constructor(private headerService: HeaderService,
-    private router: Router) { }
+    private router: Router,
+    private providerService: ProvidersService,
+    private productService: ProductsService,
+    private saleService: SaleService) { }
 
   ngOnInit(): void {
-    // this.headerService.getIsLoggedIn$;
-    console.log('executing header service');
     this.headerService.show();
-    console.log(this.headerService.isVisible);
-
-
     this.headerService.setheaderTitle('Menú principal');
+    this.providerService.getPurchasesAlarm().subscribe();
+    this.productService.getProductWarning().subscribe();
+    this.saleService.getSaleAlerts().subscribe();
   }
   logout() {
     this.router.navigateByUrl('auth/login');
