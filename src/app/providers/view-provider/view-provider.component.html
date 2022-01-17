@@ -95,5 +95,11 @@
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
     </nav>
+    <div class="buttons d-flex justify-content-end">
+        <button class="btn btn-warning" (click)="goToListingProv()">
+        <i class="bi bi-arrow-left"></i>
+        Atrás
+      </button>
+    </div>
 </div>
 <app-transactions [action]="action" [ruc]="provider?.prov_ruc"></app-transactions>

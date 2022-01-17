@@ -69,9 +69,12 @@
                         <button class="btn btn-success" (click)="onSaveProv()" [disabled]="!newProvForm.valid">
                           <!--! NO LOADING IN TS <i class="bi bi-save" *ngIf="!loading"></i> -->
                           <!-- <span class="spinner-border spinner-border-sm" role="status" *ngIf="loading" aria-hidden="true"></span> -->
+                          <i class="bi bi-save"></i>
                           Guardar
                         </button>
-                        <a class="btn btn-danger" [routerLink]="['../../home']">Atrás</a>
+                        <a class="btn btn-warning" [routerLink]="['../../home']">
+                            <i class="bi bi-arrow-left"></i> Atrás
+                        </a>
                     </div>
                 </form>
             </div>

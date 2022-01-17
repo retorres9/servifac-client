@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import { Purchases } from "../models/purchases.model";
 import { ProvidersService } from "../providers.service";
 import { Provider } from './../provider.model';
@@ -22,7 +22,8 @@ export class ViewProviderComponent implements OnInit {
   constructor(
     private aRoute: ActivatedRoute,
     private providerService: ProvidersService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +53,10 @@ export class ViewProviderComponent implements OnInit {
         this.purchases = resp;
       });
     }
+  }
+
+  goToListingProv() {
+    this.router.navigateByUrl('provider/listing');
   }
 
 }
