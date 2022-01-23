@@ -33,6 +33,13 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'configuration',
+    loadChildren: () => import('../app/configuration/configuration.module').then(m => m.ConfigurationModule),
+    canActivate: [
+      HomeGuard
+    ]
+  },
+  {
     path: 'provider',
     component: ProvidersComponent,
     loadChildren: () => import('../app/providers/providers.module').then(m => m.ProvidersModule),
