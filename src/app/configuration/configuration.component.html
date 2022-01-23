@@ -1,0 +1,32 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="config-nav-tab" data-bs-toggle="tab" data-bs-target="#nav-config">
+                  Configuración
+                </button>
+
+                <button class="nav-link" id="categories-nav-tab" data-bs-toggle="tab" data-bs-target="#nav-categories">
+                  Categorias
+                </button>
+
+                <button class="nav-link" id="locations-nav-tab" data-bs-toggle="tab" data-bs-target="#nav-locations">
+                  Ubicaciones
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-config" role="tabpanel">
+            <app-company-info></app-company-info>
+        </div>
+        <div class="tab-pane fade" id="nav-categories" role="tabpanel">
+            <app-categories></app-categories>
+        </div>
+        <div class="tab-pane fade" id="nav-locations" role="tabpanel">
+            <app-locations></app-locations>
+        </div>
+    </div>
+
+</div>
