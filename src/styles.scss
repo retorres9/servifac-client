@@ -17,6 +17,10 @@ body {
     border-radius: 5px;
 }
 
+.card-header {
+    background-color: #bbdefb;
+}
+
 input.ng-dirty.ng-invalid {
     border-radius: 2px;
     border-color: #dc3545;
@@ -36,6 +40,12 @@ label.ng-valid {
 label.ng-valid {
     border-color: #dc3545;
     box-shadow: 0 0 0 0.25rem rgb(220 53 69 / 25%);
+}
+
+.table-wrapper {
+    height: 350px;
+    overflow-y: auto;
+    border: 1px solid #888;
 }
 
 table {

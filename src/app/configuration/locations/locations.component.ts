@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ConfigurationService } from '../configuration.service';
+import { Locations } from './../models/locations.model';
 
 @Component({
   selector: 'app-locations',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./locations.component.scss']
 })
 export class LocationsComponent implements OnInit {
-
-  constructor() { }
+  locations$: Observable<Locations[]>
+  constructor(private configurationService: ConfigurationService) { }
 
   ngOnInit(): void {
+    this.locations$ = this.configurationService.getLocations();
   }
 
 }

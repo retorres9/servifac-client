@@ -9,25 +9,27 @@
                   <i class="bi bi-plus-circle"></i>
                   Agregar categoria
                 </button>
-                <table class="table table-sm table-hover mt-2">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Lápices</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Editar</button>
-                                <button class="btn btn-warning btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper mt-2">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of categories$ | async; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{category.cat_name}}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm me-1">Editar</button>
+                                    <button class="btn btn-warning btn-sm">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
