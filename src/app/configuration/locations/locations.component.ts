@@ -10,10 +10,15 @@ import { Locations } from './../models/locations.model';
 })
 export class LocationsComponent implements OnInit {
   locations$: Observable<Locations[]>
+  id: string;
   constructor(private configurationService: ConfigurationService) { }
 
   ngOnInit(): void {
-    this.locations$ = this.configurationService.getLocations();
+    this.locations$ = this.configurationService.getAllLocations;
+  }
+
+  updateId() {
+    this.configurationService.setTarget('ubicacion');
   }
 
 }

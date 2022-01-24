@@ -5,6 +5,7 @@ import { ConfigurationRoutingModule } from './configuration-routing.module';
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { LocationsComponent } from './locations/locations.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -13,11 +14,12 @@ import { LocationsComponent } from './locations/locations.component';
     ConfigurationComponent,
     CompanyInfoComponent,
     CategoriesComponent,
-    LocationsComponent
+    LocationsComponent,
   ],
   imports: [
     CommonModule,
-    ConfigurationRoutingModule
+    ConfigurationRoutingModule,
+    SharedModule
   ]
 })
 export class ConfigurationModule { }

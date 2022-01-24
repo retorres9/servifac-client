@@ -10,11 +10,16 @@ import { Categories } from '../models/categories.model';
 })
 export class CategoriesComponent implements OnInit {
   categories$: Observable<Categories[]>;
+  id: string;
 
   constructor(private configurationService: ConfigurationService) { }
 
   ngOnInit(): void {
-    this.categories$ = this.configurationService.getCategories();
+    this.categories$ = this.configurationService.getAllCategories;
+  }
+
+  updateId() {
+    this.configurationService.setTarget('categoria');
   }
 
 }

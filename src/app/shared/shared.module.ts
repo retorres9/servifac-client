@@ -10,6 +10,7 @@ import { SidedrawComponent } from "./components/sidedraw/sidedraw.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { AmountComponent } from "./components/amount/amount.component";
+import { CreationModalComponent } from './components/creation-modal/creation-modal.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AmountComponent } from "./components/amount/amount.component";
     HeaderComponent,
     LoaderComponent,
     AmountComponent,
+    CreationModalComponent,
   ],
   imports: [CommonModule, TranslateModule, FormsModule],
   exports: [
@@ -28,7 +30,8 @@ import { AmountComponent } from "./components/amount/amount.component";
     SidedrawComponent,
     HeaderComponent,
     LoaderComponent,
-    AmountComponent
+    AmountComponent,
+    CreationModalComponent
   ],
 })
 export class SharedModule {}
