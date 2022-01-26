@@ -2,20 +2,22 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Configuration } from "./models/configuration.model";
 import { AppConfig } from "../../environments/environment.dev";
-import { Categories } from './models/categories.model';
+import { Categories } from "./models/categories.model";
 import { Locations } from "./models/locations.model";
-import { map, tap } from "rxjs/operators";
+import { map, switchMap, take, tap } from "rxjs/operators";
 import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class ConfigurationService {
-  private _locations$: BehaviorSubject<Locations[]> = new BehaviorSubject<Locations[]>([]);
+  private _locations$: BehaviorSubject<Locations[]> = new BehaviorSubject<
+    Locations[]
+  >([]);
   private _categories$: Subject<Categories[]> = new Subject<Categories[]>();
 
   // ? Used to diferenciate modal in configuration component
-  private _target$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private _target$: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   get getAllLocations() {
     return this._locations$.asObservable();
@@ -28,7 +30,6 @@ export class ConfigurationService {
   get getTarget() {
     return this._target$.asObservable();
   }
-
 
   constructor(private http: HttpClient) {}
 
@@ -70,44 +71,34 @@ export class ConfigurationService {
     );
   }
 
-  postOnTarget(target: string, data: Locations | Categories) {
-    console.log(data);
-
-    if (target === 'categoria') {
-      return this.http.post<Categories>(AppConfig.baseUrl + 'category', data).pipe(
-        map(resp => {
-          const category = [];
-          this._categories$.subscribe(categories => {
-            for(const key in categories) {
-              if (categories.hasOwnProperty(key)) {
-                category.push(new Categories(categories[key].cat_name, categories[key].cat_id));
-              }
-            }
-          });
-          category.push(new Categories(resp.cat_name, resp.cat_id));
-          console.log(category);
-          return category;
+  postCategory(data: Categories) {
+    const cat = new Categories(data.cat_name, data.cat_id);
+    return this.http
+      .post<Categories>(AppConfig.baseUrl + "category", data)
+      .pipe(
+        switchMap((resp) => {
+          return this.getAllCategories;
         }),
-        tap(category => {
-          return this._categories$.next(category);
-        })
-      )
-    } else {
-      return this.http.post<Locations>(AppConfig.baseUrl + 'location', data).pipe(
-        map(resp => {
-          const location = [];
-          this._locations$.forEach(locationValue => {
-            location.push(locationValue);
-          });
-          location.push(resp);
-          console.log(location);
-          return location;
-        }),
-        tap(location => {
-          return this._locations$.next(location);
+        take(1),
+        tap((category) => {
+          return this._categories$.next(category.concat(cat));
         })
       );
-    }
+  }
+
+  postLocation(data: Locations) {
+    const loc = new Locations(data.loc_name, data.loc_id);
+    return this.http
+    .post<Locations>(AppConfig.baseUrl + "location", data)
+    .pipe(
+      switchMap((resp) => {
+        return this.getAllLocations;
+      }),
+      take(1),
+      tap((location) => {
+        return this._locations$.next(location.concat(loc));
+      })
+    );
   }
 
   public setTarget(target: string) {

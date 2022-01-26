@@ -25,26 +25,33 @@ export class CreationModalComponent implements OnInit {
 
   saveOnTarget() {
     this.isRequesting = true;
-
+    this.configurationService.getTarget.subscribe(
+      resp => {
+        this.target = resp;
+      }
+    );
     this.target === "categoria" ? this.setCategory() : this.setLocation();
     if (this.target === 'categoria') {
-      this.configurationService.postOnTarget('categoria', this.category).subscribe(
+      console.log('entra');
+
+      this.configurationService.postCategory(this.category).subscribe(
         resp => {
+          console.log(resp);
+
           this.isRequesting = false;
         }, error =>{
           console.log(error);
         });
     } else {
-      this.configurationService.postOnTarget('location', this.location).subscribe(
+      this.configurationService.postLocation(this.location).subscribe(
         resp => {
+          console.log(resp);
+
           this.isRequesting = false;
         }, error => {
           console.log(error);
         });
     }
-    // target === "categoria"
-    //   ? this.configurationService.postOnTarget('categoria', this.category)
-    //   : this.configurationService.postOnTarget('location', this.location);
   }
 
   private setLocation() {
