@@ -11,10 +11,8 @@ import { BehaviorSubject, Subject } from "rxjs";
   providedIn: "root",
 })
 export class ConfigurationService {
-  private _locations$: BehaviorSubject<Locations[]> = new BehaviorSubject<
-    Locations[]
-  >([]);
-  private _categories$: Subject<Categories[]> = new Subject<Categories[]>();
+  private _locations$: BehaviorSubject<Locations[]> = new BehaviorSubject<Locations[]>([]);
+  private _categories$: BehaviorSubject<Categories[]> = new BehaviorSubject<Categories[]>([]);
 
   // ? Used to diferenciate modal in configuration component
   private _target$: BehaviorSubject<string> = new BehaviorSubject<string>("");
@@ -77,13 +75,20 @@ export class ConfigurationService {
       .post<Categories>(AppConfig.baseUrl + "category", data)
       .pipe(
         switchMap((resp) => {
+          console.log(resp);
           return this.getAllCategories;
         }),
         take(1),
         tap((category) => {
+          console.log('reach');
+
           return this._categories$.next(category.concat(cat));
         })
       );
+  }
+
+  postCat(data: Categories) {
+    return this.http.post<Categories>(AppConfig.baseUrl + 'category', data);
   }
 
   postLocation(data: Locations) {
@@ -96,6 +101,8 @@ export class ConfigurationService {
       }),
       take(1),
       tap((location) => {
+        console.log('location');
+
         return this._locations$.next(location.concat(loc));
       })
     );

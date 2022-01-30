@@ -14,7 +14,7 @@
                 <button class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
                 <button class="btn btn-success" (click)="saveOnTarget()">
                 <i class="bi bi-save-fill" *ngIf="!isRequesting"></i>
-                <div class="spinner-border text-dark" role="status" *ngIf="isRequesting">
+                <div class="spinner-border spinner-border-sm text-dark" role="status" *ngIf="isRequesting">
                   <span class="visually-hidden"></span>
                 </div>
                 Guardar

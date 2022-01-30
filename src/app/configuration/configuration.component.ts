@@ -21,21 +21,9 @@ export class ConfigurationComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerService.setheaderTitle("Configuración");
-    this.configurationService.getConfiguration().subscribe(
-      resp => {
-        console.log(resp);
-      }
-    );
-    this.configurationService.getCategories().subscribe(
-      resp => {
-        console.log(resp);
-      }
-    );
-    this.configurationService.getLocations().subscribe(
-      resp => {
-        console.log(resp);
-      }
-    )
+    this.configurationService.getConfiguration().subscribe();
+    this.configurationService.getCategories().subscribe();
+    this.configurationService.getLocations().subscribe();
   }
 
   goToHome() {
