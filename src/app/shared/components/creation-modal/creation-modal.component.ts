@@ -38,9 +38,8 @@ export class CreationModalComponent implements OnInit {
   private postCategory() {
     this.configurationService.postCategory(this.category).subscribe(
       resp => {
-        console.log(resp);
-
         this.isRequesting = false;
+        this.name = '';
       }, error => {
         this.isRequesting = false;
         console.log(error);
@@ -50,9 +49,8 @@ export class CreationModalComponent implements OnInit {
   private postLocation() {
     this.configurationService.postLocation(this.location).subscribe(
       resp => {
-        console.log(resp);
-
         this.isRequesting = false;
+        this.name = '';
       }, error => {
         this.isRequesting = false;
         console.log(error);

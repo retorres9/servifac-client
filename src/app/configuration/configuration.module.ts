@@ -6,6 +6,7 @@ import { CompanyInfoComponent } from './company-info/company-info.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { LocationsComponent } from './locations/locations.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     ConfigurationRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class ConfigurationModule { }

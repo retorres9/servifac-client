@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Configuration } from "./models/configuration.model";
+import { Configuration } from './models/configuration.model';
 import { AppConfig } from "../../environments/environment.dev";
 import { Categories } from "./models/categories.model";
 import { Locations } from "./models/locations.model";
@@ -27,6 +27,10 @@ export class ConfigurationService {
 
   get getTarget() {
     return this._target$.asObservable();
+  }
+
+  public setTarget(target: string) {
+    this._target$.next(target);
   }
 
   constructor(private http: HttpClient) {}
@@ -87,10 +91,6 @@ export class ConfigurationService {
       );
   }
 
-  postCat(data: Categories) {
-    return this.http.post<Categories>(AppConfig.baseUrl + 'category', data);
-  }
-
   postLocation(data: Locations) {
     const loc = new Locations(data.loc_name, data.loc_id);
     return this.http
@@ -108,7 +108,7 @@ export class ConfigurationService {
     );
   }
 
-  public setTarget(target: string) {
-    this._target$.next(target);
+  postCompanyInfo(companyInfo: Configuration) {
+    return this.http.patch<Configuration>(AppConfig.baseUrl + 'configuration', companyInfo);
   }
 }
