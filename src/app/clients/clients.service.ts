@@ -6,11 +6,21 @@ import { CreditData } from "./view-client/auth-credit/model/credit-data.model";
 import { ClientMovement } from "./client-movement.model";
 import { History } from "./models/history.model";
 import { AppConfig } from "../../environments/environment.dev";
+import { BehaviorSubject } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class ClientsService {
+  private _clientsSearched$: BehaviorSubject<Client[]> = new BehaviorSubject<
+    Client[]
+  >([]);
+
+  get clientsSearched() {
+    return this._clientsSearched$.asObservable();
+  }
+
   constructor(private http: HttpClient) {}
 
   createClient(client: Client) {
@@ -39,7 +49,35 @@ export class ClientsService {
 
   getClientByQuery(query: string) {
     const params = new HttpParams().set("name", query);
-    return this.http.get<Client[]>(`${AppConfig.baseUrl}client`, { params });
+    return this.http
+      .get<Client[]>(`${AppConfig.baseUrl}client`, { params })
+      .pipe(
+        map((resp) => {
+          const clients = [];
+          for (const key in resp) {
+            console.log(resp);
+
+            if (resp.hasOwnProperty(key)) {
+              const client = new Client();
+              (client.cli_address = resp[key].cli_address),
+                (client.cli_ci = resp[key].cli_ci);
+              client.cli_firstName = resp[key].cli_firstName;
+              client.cli_lastName = resp[key].cli_lastName;
+              client.cli_email = resp[key].cli_email;
+              client.cli_phone = resp[key].cli_phone;
+              client.cli_debt = resp[key].cli_debt;
+              client.cli_isActive = resp[key].cli_isActive;
+              client.cli_credit = resp[key].cli_credit;
+              clients.push(client);
+            }
+          }
+
+          return clients;
+        }),
+        tap((clients) => {
+          return this._clientsSearched$.next(clients);
+        })
+      );
   }
 
   postCreditAuthorization(creditData: CreditData) {

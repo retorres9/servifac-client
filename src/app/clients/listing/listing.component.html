@@ -6,13 +6,13 @@
                     <label for="search">Buscar:</label>
                 </div>
                 <div class="col-4">
-                    <input autocomplete="off" type="text" class="form-control form-control-sm" id="search" #searchCriteria (keyup.enter)="searchClient(searchCriteria.value)">
+                    <input autocomplete="off" type="text" class="form-control form-control-sm" id="search" #searchCriteria (keyup.enter)="searchClient(searchCriteria.value)" />
                 </div>
             </div>
         </div>
     </div>
     <div class="table-wrap">
-        <table class=" table table-sm table-bordered table-hover ">
+        <table class="table table-sm table-bordered table-hover">
             <thead>
                 <tr>
                     <th scope="col ">#</th>
@@ -23,21 +23,35 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let clients of client; let i=index ">
-                    <td>{{i + 1}}</td>
-                    <td>{{clients.cli_firstName}} {{clients.cli_lastName}}</td>
-                    <td>{{clients.cli_phone}}</td>
-                    <td>{{clients.cli_debt | currency}}</td>
+                <tr *ngFor="let clients of clientsList$ | async; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ clients.cli_firstName }} {{ clients.cli_lastName }}</td>
+                    <td>{{ clients.cli_phone }}</td>
+                    <td>{{ clients.cli_debt | currency }}</td>
                     <td>
-                        <button class="btn btn-info btn-sm" title="Ver cliente " (click)="goToClient(clients.cli_ci) ">
-                      <i class="bi bi-eye-fill "></i>
-                    </button>&nbsp;
-                        <button class="btn btn-success btn-sm" title="Editar datos del cliente" (click)="toEditClient(clients.cli_ci)">
-                      <i class="bi bi-pencil-square "></i>
-                    </button>&nbsp;
-                        <button class="btn btn-warning btn-sm" title="Ver historial " (click)="goToHistory(clients.cli_ci, clients.cli_firstName, clients.cli_lastName)">
-                      <i class="bi bi-clipboard "></i>
-                    </button>
+                        <button class="btn btn-info btn-sm" title="Ver cliente " (click)="goToClient(clients.cli_ci)">
+              <i class="bi bi-eye-fill"></i></button
+            >&nbsp;
+            <button
+              class="btn btn-success btn-sm"
+              title="Editar datos del cliente"
+              (click)="toEditClient(clients.cli_ci)"
+            >
+              <i class="bi bi-pencil-square"></i></button
+            >&nbsp;
+            <button
+              class="btn btn-warning btn-sm"
+              title="Ver historial "
+              (click)="
+                goToHistory(
+                  clients.cli_ci,
+                  clients.cli_firstName,
+                  clients.cli_lastName
+                )
+              "
+            >
+              <i class="bi bi-clipboard"></i>
+            </button>
                     </td>
                 </tr>
             </tbody>
@@ -47,9 +61,9 @@
     <!-- <div *ngIf="!client.length === 0" style="text-align: center;">
 
     </div> -->
-    <div class="buttons-actions d-flex justify-content-end ">
+    <div class="buttons-actions d-flex justify-content-end">
         <!-- <button class="btn btn-danger "></button> -->
-        <a class="btn btn-warning mt-3" [routerLink]="[ '../../home'] ">
+        <a class="btn btn-warning mt-3" [routerLink]="['../../home']">
             <i class="bi bi-arrow-left"></i> Atrás
         </a>
     </div>

@@ -3,6 +3,7 @@ import { ClientsService } from "../clients.service";
 import { Client } from "./../client.model";
 import { Router } from "@angular/router";
 import { HeaderService } from "../../shared/components/header/header.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-listing",
@@ -12,6 +13,7 @@ import { HeaderService } from "../../shared/components/header/header.service";
 export class ListingComponent implements OnInit {
   client: Client[] = [];
   searchCriteria: string;
+  clientsList$: Observable<Client[]>;
   constructor(
     private clientsService: ClientsService,
     private router: Router,
@@ -19,7 +21,8 @@ export class ListingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.headerService.setheaderTitle('Listado de clientes');
+    this.headerService.setheaderTitle("Listado de clientes");
+    this.clientsList$ = this.clientsService.clientsSearched;
   }
 
   ngAfterViewChecked(): void {
@@ -41,11 +44,8 @@ export class ListingComponent implements OnInit {
   }
 
   searchClient(criteria: string) {
-    console.log(criteria);
-
     this.clientsService.getClientByQuery(criteria).subscribe((resp) => {
       this.client = resp;
-      console.log(resp.length);
     });
   }
 }
