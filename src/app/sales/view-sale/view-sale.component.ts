@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Sale } from "../models/sale.model";
 import { SaleService } from "../sale.service";
 import { HeaderService } from '../../shared/components/header/header.service';
@@ -15,7 +15,8 @@ export class ViewSaleComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private saleService: SaleService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -26,5 +27,9 @@ export class ViewSaleComponent implements OnInit {
         this.client = client;
       });
     });
+  }
+
+  goToListingSales() {
+    this.router.navigateByUrl('sales/listing');
   }
 }

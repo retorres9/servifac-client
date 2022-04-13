@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Configuration } from './models/configuration.model';
-import { AppConfig } from "../../environments/environment.dev";
+import { AppConfig } from "../../environments/environment";
 import { Categories } from "./models/categories.model";
 import { Locations } from "./models/locations.model";
 import { map, switchMap, take, tap } from "rxjs/operators";

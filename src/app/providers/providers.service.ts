@@ -4,7 +4,7 @@ import { Provider } from "./provider.model";
 import { Transaction } from './models/transaction.model';
 import { History } from "./models/history.model";
 import { Credit } from './models/credit.model';
-import { AppConfig } from '../../environments/environment.dev';
+import { AppConfig } from '../../environments/environment';
 import { Purchase } from './models/purchase.model';
 import { Purchases } from "./models/purchases.model";
 import { Subject } from "rxjs";

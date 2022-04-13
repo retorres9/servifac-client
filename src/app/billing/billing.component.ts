@@ -145,7 +145,7 @@ export class BillingComponent implements OnInit {
     doc.setFontSize(9);
     const rows = [];
     this.products.forEach((elements) => {
-      rows.push([
+      rows.unshift([
         elements.cant,
         elements.prod_name,
         elements.price.toFixed(2),
@@ -170,8 +170,8 @@ export class BillingComponent implements OnInit {
         data.settings.margin.top = 110;
         doc.text(this.clientName, 25, 46);
         doc.text(this.clientPhone, 25, 66);
-        doc.text(totalIva.toFixed(2).toString(), 315, 395);
-        doc.text(total.toFixed(2).toString(), 315, 415);
+        doc.text(totalIva.toFixed(2).toString(), 315, 415);
+        doc.text(total.toFixed(2).toString(), 315, 395);
         const cost = totalIva + total;
         doc.text(cost.toFixed(2).toString(), 315, 435);
         totalIva = 0;
@@ -275,7 +275,7 @@ export class BillingComponent implements OnInit {
     let isIncluded = this.productArrayHelper.some(
       (product) => product.name === code
     );
-    isIncluded ? true : this.productArrayHelper.push({ ...nuevo });
+    isIncluded ? true : this.productArrayHelper.unshift({ ...nuevo });
   }
   isCreditRequested: boolean = false;
   private createSale(change: number) {
@@ -348,7 +348,7 @@ export class BillingComponent implements OnInit {
         Number(product.prod_price),
         product.prod_isTaxed
       );
-      this.products.push({
+      this.products.unshift({
         cant: 1,
         prod_name: product.prod_name,
         price: parseFloat(product.prod_price),

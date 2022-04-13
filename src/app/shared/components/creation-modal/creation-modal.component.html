@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-success" (click)="saveOnTarget()">
+                <button class="btn btn-success" (click)="saveOnTarget()" [disabled]="!name">
                 <i class="bi bi-save-fill" *ngIf="!isRequesting"></i>
                 <div class="spinner-border spinner-border-sm text-dark" role="status" *ngIf="isRequesting">
                   <span class="visually-hidden"></span>

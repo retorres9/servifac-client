@@ -4,7 +4,7 @@ import { Sale } from './models/sale.model';
 import { SaleInfo } from './models/sale-info.model';
 import { map, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import { AppConfig } from '../../environments/environment.dev';
+import { AppConfig } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

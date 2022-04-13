@@ -5,7 +5,7 @@ import { ClientSummary } from "./view-client/view-client.component";
 import { CreditData } from "./view-client/auth-credit/model/credit-data.model";
 import { ClientMovement } from "./client-movement.model";
 import { History } from "./models/history.model";
-import { AppConfig } from "../../environments/environment.dev";
+import { AppConfig } from "../../environments/environment";
 import { BehaviorSubject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NewProduct } from './new-product/new-product.model';
 import { ProductBill, Category, Provider, Location, Product } from './models/models';
 import { tap } from 'rxjs/operators';
-import { AppConfig } from '../../environments/environment.dev';
+import { AppConfig } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'

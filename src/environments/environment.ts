@@ -1,5 +1,5 @@
 export const AppConfig = {
-  production: false,
-  environment: 'LOCAL',
-  baseUrl: 'http://127.0.0.1:3000/'
+  production: true,
+  environment: 'PROD',
+  baseUrl: 'http://137.184.26.123:3000/'
 };

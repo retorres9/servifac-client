@@ -51,8 +51,12 @@ export class AmountComponent implements OnInit {
           this.isTransactionOk = true;
           this.generateAlert('alert-success', 'Transacción exitosa!');
           this.printDocument();
+          this.resetFields();
+          setTimeout(() => {
+            this.isAlert = false;
+          },5000);
         }, err => {
-          this.generateAlert('alert-danger', 'Error al procesar la transacción!');
+          this.generateAlert('alert-danger alert-dismissible fade show', 'Error al procesar la transacción!');
           this.isProcessing = false;
         }
       );
@@ -99,12 +103,9 @@ export class AmountComponent implements OnInit {
 
   resetFields() {
     this.transaction = 'money';
-    this.isAlert = false;
     this.isProcessing = false;
     this.isTransactionOk = false;
-    this.amount = null
-    console.log(this.transaction);
-
+    this.amount = null;
   }
 
   private generateAlert(type: string, message: string) {
