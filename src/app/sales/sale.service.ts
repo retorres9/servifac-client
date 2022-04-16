@@ -13,7 +13,7 @@ export class SaleService {
 
   private _alertInfo = new BehaviorSubject<SaleInfo[]>([]);
   public get alertInfo$() {
-    this._alertInfo.subscribe(resp => console.log(resp));
+    this._alertInfo.subscribe();
 
     return this._alertInfo.asObservable();
   }
@@ -52,8 +52,6 @@ export class SaleService {
         }
         return alertInfo;
       }), tap((alertInfo)=> {
-        console.log(alertInfo);
-
         return this._alertInfo.next(alertInfo);
       })
     );

@@ -1,4 +1,3 @@
-<!-- <app-header></app-header> -->
 <div class="container">
     <div class="row mb-3">
         <div class="col-1">
@@ -13,22 +12,30 @@
             </select>
         </div>
     </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Monto</th>
-                <th>Fecha</th>
-                <th>Tipo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let record of history">
-                <td>{{record.pmv_id}}</td>
-                <td>{{record.pmv_amount}}</td>
-                <td>{{record.pmv_date | date}}</td>
-                <td>{{record.pmv_movement | titlecase}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="table table-hover">
+          <thead class="thead-inverse">
+              <tr>
+                  <th>Id</th>
+                  <th>Monto</th>
+                  <th>Fecha</th>
+                  <th>Tipo</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let record of history">
+                  <td>{{record.pmv_id}}</td>
+                  <td>{{record.pmv_amount}}</td>
+                  <td>{{record.pmv_date | date}}</td>
+                  <td>{{record.pmv_movement | titlecase}}</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+    <div class="actions d-flex justify-content-end mt-2">
+      <button class="btn btn-warning me-5" (click)="goToListing()">
+        <i class="bi bi-arrow-bar-left"></i>
+        Atrás
+      </button>
+    </div>
 </div>

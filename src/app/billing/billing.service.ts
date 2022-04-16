@@ -22,8 +22,6 @@ export class BillingService {
     this.amountGivens(value);
   }
   onNewSale(sale: Sale) {
-    return this.http.post(AppConfig.baseUrl + 'sale', sale).pipe(
-      tap(resp => console.log(resp))
-    );
+    return this.http.post(AppConfig.baseUrl + 'sale', sale);
   }
 }

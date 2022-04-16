@@ -10,8 +10,9 @@
             </div>
 
         </div>
-        <table class="table table-hover mt-3">
-            <thead>
+        <div class="table-wrapper">
+          <table class="table table-hover mt-3">
+            <thead class="thead-inverse">
                 <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
@@ -26,9 +27,10 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-secondary" id="btnModalSearch" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
         <button type="button" class="btn btn-primary" (click)="closeModal()" data-bs-dismiss="modal">Guardar</button>
     </div>
 </div>

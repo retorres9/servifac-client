@@ -46,7 +46,6 @@ export class AmountComponent implements OnInit {
       clientMovement.clm_type = 'Pago';
       this.clientService.postClientMovement({...clientMovement}).subscribe(
         resp => {
-          console.log(resp)
           this.isProcessing = false;
           this.isTransactionOk = true;
           this.generateAlert('alert-success', 'Transacción exitosa!');

@@ -1,11 +1,12 @@
 <div class="modal fade" id="modal-new" tabindex="-1" aria-labelledby="modal-new" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-new">Ingrese la nueva {{id$ | async}}</h5>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-new">Ingrese la nueva {{id$ | async}}</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+                  <div class="alert" [ngClass]="alertType" *ngIf="isAlert">{{message}}</div>
                     <label for="category">{{id$ | async | titlecase }}</label>
                     <input type="text" name="" id="" class="form-control" [(ngModel)]="name">
                 </div>

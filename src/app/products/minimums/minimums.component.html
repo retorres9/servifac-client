@@ -1,6 +1,7 @@
 <!-- <app-header [tab]="section"></app-header> -->
 
 <div class="container">
+  <div class="table-wrapper">
     <table class="table table-sm table-hover">
         <thead>
             <tr>
@@ -26,8 +27,15 @@
             </tr>
         </tbody>
     </table>
-    <div class="buttons">
-        <button type="button" class="btn btn-primary" (click)="printMinimums()">Imprimir</button>
-        <button class="btn btn-danger" onclick="history.back()">Atrás</button>
+  </div>
+    <div class="buttons d-flex justify-content-around mt-2">
+        <button type="button" class="btn btn-primary" (click)="printMinimums()">
+          <i class="bi bi-printer-fill"></i>
+          Imprimir
+        </button>
+        <button class="btn btn-warning" onclick="history.back()">
+          <i class="bi bi-arrow-bar-left"></i>
+          Atrás
+        </button>
     </div>
 </div>

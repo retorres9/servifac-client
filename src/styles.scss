@@ -43,14 +43,14 @@ label.ng-valid {
 }
 
 .table-wrapper {
-    height: 350px;
+    height: 340px;
     overflow-y: auto;
     border: 1px solid #888;
 }
 
 table {
     margin-top: 10px;
-    outline: 1px solid #555;
+    outline: 1px 1px 0 1px solid #555;
     background: #fff;
 }
 
@@ -69,4 +69,11 @@ td {
 
 .table {
     margin: 0;
+}
+
+.thead-inverse {
+  position: sticky;
+  top: -1px;
+  padding: 0;
+  // background-color: white;
 }

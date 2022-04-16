@@ -34,12 +34,10 @@ export class TransactionsComponent implements OnInit {
 
   postPurchase() {
     const purchase = new Purchase(this.amount, this.description, this.ruc, this.maxDate);
-    console.log(purchase);
 
     this.providerService.postPurchase(purchase).subscribe(resp => {
       this.showAlert('alert-success', 'Compra registrada!');
     }, err => {
-      console.log(err);
       this.showAlert('alert-danger', 'Asegurese de ingresar todos los datos');
     });
   }

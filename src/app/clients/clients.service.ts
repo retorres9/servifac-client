@@ -55,8 +55,6 @@ export class ClientsService {
         map((resp) => {
           const clients = [];
           for (const key in resp) {
-            console.log(resp);
-
             if (resp.hasOwnProperty(key)) {
               const client = new Client();
               (client.cli_address = resp[key].cli_address),

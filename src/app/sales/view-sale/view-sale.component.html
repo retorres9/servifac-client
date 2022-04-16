@@ -1,28 +1,36 @@
 <!-- <app-header></app-header> -->
-<div class="container" *ngIf="sale">
+<div class="container mt-4" *ngIf="sale">
     <div class="row">
-        <div class="col-8 offset-2">
-            <label><strong>Cliente</strong> {{client}}</label><br>
-            <label><strong>Fecha:</strong> {{sale.sale_date | date}}</label><br>
-            <label><strong>Total:</strong> {{sale.sale_totalRetail}}</label><br>
-            <table class="table mt-3">
-                <thead>
-                    <tr>
-                        <th>Cant</th>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let saleInfo of sale.sale; let i = index">
-                        <td>{{saleInfo.sdt_quantity}}</td>
-                        <td>{{saleInfo.product.prod_name}}</td>
-                        <td>{{saleInfo.sdt_salePrice}}</td>
-                        <td>{{saleInfo.sdt_quantity * saleInfo.sdt_salePrice}}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-8 offset-2 mt-2">
+          <form>
+            <fieldset>
+              <legend>Información de la venta</legend>
+              <label><strong>Cliente</strong> {{client}}</label><br>
+              <label><strong>Fecha:</strong> {{sale.sale_date | date}}</label><br>
+              <label><strong>Total:</strong> {{sale.sale_totalRetail}}</label><br>
+
+            </fieldset>
+          </form>
+            <div class="table-wrapper mt-3">
+              <table class="table">
+                  <thead class="thead-inverse">
+                      <tr>
+                          <th>Cant</th>
+                          <th>Producto</th>
+                          <th>Precio</th>
+                          <th>Total</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let saleInfo of sale.sale; let i = index">
+                          <td>{{saleInfo.sdt_quantity}}</td>
+                          <td>{{saleInfo.product.prod_name}}</td>
+                          <td>{{saleInfo.sdt_salePrice}}</td>
+                          <td>{{saleInfo.sdt_quantity * saleInfo.sdt_salePrice}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+            </div>
             <div class="actions d-flex justify-content-end">
               <button class="btn btn-warning mt-2" (click)="goToListingSales()">
                 <i class="bi bi-arrow-bar-left"></i>

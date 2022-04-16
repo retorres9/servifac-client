@@ -4,14 +4,14 @@
         <div class="col-3">
             <div class="input-group input-group-sm mb-3">
                 <span class="input-group-text" id="prefixId">Fecha</span>
-                <input type="date" name="name" id="name" class="form-control" [(ngModel)]="date" min="12/10/2021" placeholder="placeholder" aria-describedby="prefixId">
-                <button class="btn btn-success" (click)="getSales()">Buscar</button>
+                <input type="date" name="name" id="name" class="form-control shadow-sm" [(ngModel)]="date" min="12/10/2021" placeholder="placeholder" aria-describedby="prefixId">
+                <button class="btn btn-success shadow-sm" (click)="getSales()">Buscar</button>
             </div>
         </div>
     </div>
     <div class="table-wrapper">
         <table class="table table-sm table-hover">
-            <thead>
+            <thead class="thead-inverse">
                 <tr>
                     <th>Id</th>
                     <th>Cliente</th>
@@ -36,7 +36,7 @@
 
     <div class="buttons mt-3 d-flex justify-content-end">
         <button class="btn btn-warning" (click)="goBack()">
-          <i class="bi bi-arrow-left"></i>
+          <i class="bi bi-arrow-bar-left"></i>
             Atrás
         </button>
     </div>

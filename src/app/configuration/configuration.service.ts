@@ -79,13 +79,10 @@ export class ConfigurationService {
       .post<Categories>(AppConfig.baseUrl + "category", data)
       .pipe(
         switchMap((resp) => {
-          console.log(resp);
           return this.getAllCategories;
         }),
         take(1),
         tap((category) => {
-          console.log('reach');
-
           return this._categories$.next(category.concat(cat));
         })
       );
@@ -101,8 +98,6 @@ export class ConfigurationService {
       }),
       take(1),
       tap((location) => {
-        console.log('location');
-
         return this._locations$.next(location.concat(loc));
       })
     );

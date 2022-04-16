@@ -13,11 +13,12 @@
 
     <div class="table-wrapper mt-3">
         <table class="table table-sm table-hover">
-            <thead>
+            <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
                     <th>Código</th>
                     <th>Nombre</th>
+                    <th>Precio</th>
                     <th>Cantidad</th>
                     <th>Ubicación</th>
                     <th>Acciones</th>
@@ -28,6 +29,7 @@
                     <td>{{i + 1}}</td>
                     <td>{{product.prod_code}}</td>
                     <td>{{product.prod_name | titlecase}}</td>
+                    <td>{{product.prod_price | currency}}</td>
                     <td>{{product.prod_quantity}}</td>
                     <td>{{product.location.loc_name}}</td>
                     <td>
@@ -47,7 +49,7 @@
     </div>
     <div class="buttons mt-3 d-flex justify-content-end">
         <button class="btn btn-warning" (click)="goBack()">
-          <i class="bi bi-arrow-left"></i>
+          <i class="bi bi-arrow-bar-left"></i>
           Atrás
         </button>
     </div>

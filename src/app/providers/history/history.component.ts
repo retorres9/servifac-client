@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router'
 import { History } from "../models/history.model";
 import { ProvidersService } from "../providers.service";
 import { HeaderService } from "../../shared/components/header/header.service";
@@ -17,7 +17,8 @@ export class HistoryComponent implements OnInit {
   constructor(
     private aRoute: ActivatedRoute,
     private providerService: ProvidersService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -29,13 +30,15 @@ export class HistoryComponent implements OnInit {
 
   getProviderMovements() {
     if (this.movement !== "NA") {
-      console.log(this.movement, this.providerRuc);
-
       this.providerService
         .getProviderMovements(this.movement, this.providerRuc)
         .subscribe((resp) => {
           this.history = resp;
         });
     }
+  }
+
+  goToListing() {
+    this.router.navigateByUrl('/provider/listing');
   }
 }

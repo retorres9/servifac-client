@@ -28,6 +28,8 @@ export class SearchClientModalComponent implements OnInit {
     const client = new Client();
     client.cli_ci = selectedClient.cli_ci;
     this.selectedClient.emit(selectedClient.cli_ci);
+    (document.querySelector('#btnModalSearch') as HTMLElement).click();
+    this.closeModal();
   }
 
   closeModal() {

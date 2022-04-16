@@ -224,6 +224,7 @@ export class BillingComponent implements OnInit {
     asd.prod_name = product.prod_name;
     asd.prod_price = product.prod_price;
     this.processProduct({...asd});
+    (document.querySelector('#btnCloseProdSearch') as HTMLElement).click();
   }
 
   setAmountGiven(e) {
@@ -279,14 +280,11 @@ export class BillingComponent implements OnInit {
   }
   isCreditRequested: boolean = false;
   private createSale(change: number) {
-    console.log(this.isCreditRequested);
-
     const token = localStorage.getItem('token');
     const credentials: CredentialsJwt = jwtDecode(token);
     let payment = change > 0 ? this.totalRetail : (this.totalRetail - Math.abs(change));
     const sale = new Sale();
     sale.sale = this.products;
-    console.log(this.client_ci);
     sale.sale_client = this.client_ci;
     sale.sale_totalRetail = this.totalRetail;
     sale.sale_totalPayment = (+payment.toFixed(2));
@@ -295,9 +293,8 @@ export class BillingComponent implements OnInit {
     sale.sale_paymentType = SaleType.EFECTIVO;
     sale.sale_date = new Date().toISOString().split('T')[0];
     sale.sale_toDate = this.isCreditRequested ? new Date() : null;
-    console.log(sale.sale_toDate);
 
-    this.billingService.onNewSale(sale).subscribe((resp) => console.log(resp));
+    this.billingService.onNewSale(sale).subscribe();
   }
 
   private resetFields() {

@@ -19,9 +19,7 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   getProductBarcode(code: string) {
-    return this.http.get<ProductBill>(`${AppConfig.baseUrl}product/${code}`).pipe(
-      tap(resp => console.log(resp))
-    );
+    return this.http.get<ProductBill>(`${AppConfig.baseUrl}product/${code}`);
   }
 
   getCategories() {

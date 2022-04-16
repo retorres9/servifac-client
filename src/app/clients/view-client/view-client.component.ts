@@ -24,7 +24,6 @@ export class ViewClientComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ ci }) => {
       this.clientService.getClientSummary(ci).subscribe((resp) => {
         this.summary = resp;
-        console.log(resp.sale);
 
         if(Object.entries( this.summary.credit).length > 0) {
           this.hasCredit = true;
@@ -40,16 +39,12 @@ export class ViewClientComponent implements OnInit {
   }
 
   pagar() {
-    console.log(this.summary);
     let salesToPay = [];
     this.summary.sale.forEach(el => {
       if(el.isSelected === true) {
         salesToPay.push(el.sale_id);
       }
     });
-    console.log(salesToPay);
-
-
   }
 
   setFocusModal() {

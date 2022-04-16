@@ -75,7 +75,6 @@ export class NewClientComponent implements OnInit {
         .getClient(this.aRoute.snapshot.params.ci)
         .subscribe((resp) => {
           const client = resp.client;
-          console.log(client.cli_debt);
 
           this.newClientForm.patchValue({
             cli_firstName: client.cli_firstName,

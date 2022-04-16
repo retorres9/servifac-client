@@ -2,32 +2,34 @@
 
 <div class="container">
     <h4>Ventas que superaron su fecha limite</h4>
-    <table class="table">
+    <div class="table-wrapper">
+      <table class="table">
 
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Cliente</th>
-                <th>Total</th>
-                <th>Pagado</th>
-                <th>Fecha de compra</th>
-                <th>Fecha límite</th>
-                <th>Dias de retraso*</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let sale of outOfDateSales; let i = index">
-                <td>{{outOfDateSales[i].sale_id}}</td>
-                <td>{{outOfDateSales[i].sale_client.cli_firstName}}</td>
-                <td>{{outOfDateSales[i].sale_totalRetail}}</td>
-                <td>{{outOfDateSales[i].sale_totalPayment}}</td>
-                <td>{{outOfDateSales[i].sale_date}}</td>
-                <td>{{outOfDateSales[i].sale_maxDate}}</td>
-                <td *ngIf="outOfDateSales[i]?.sale_delay > 0">{{outOfDateSales[i].sale_delay}}</td>
-                <td *ngIf="outOfDateSales[i]?.sale_delay <= 0">0*</td>
-            </tr>
-        </tbody>
-    </table>
+          <thead>
+              <tr>
+                  <th>Id</th>
+                  <th>Cliente</th>
+                  <th>Total</th>
+                  <th>Pagado</th>
+                  <th>Fecha de compra</th>
+                  <th>Fecha límite</th>
+                  <th>Dias de retraso*</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let sale of outOfDateSales; let i = index">
+                  <td>{{outOfDateSales[i].sale_id}}</td>
+                  <td>{{outOfDateSales[i].sale_client.cli_firstName}}</td>
+                  <td>{{outOfDateSales[i].sale_totalRetail}}</td>
+                  <td>{{outOfDateSales[i].sale_totalPayment}}</td>
+                  <td>{{outOfDateSales[i].sale_date}}</td>
+                  <td>{{outOfDateSales[i].sale_maxDate}}</td>
+                  <td *ngIf="outOfDateSales[i]?.sale_delay > 0">{{outOfDateSales[i].sale_delay}}</td>
+                  <td *ngIf="outOfDateSales[i]?.sale_delay <= 0">0*</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
     <footer class="d-flex justify-content-around mt-3">
         <label>* Fecha límite es hoy</label>
         <button class="btn btn-warning" onclick="history.back()">

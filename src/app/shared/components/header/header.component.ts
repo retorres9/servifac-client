@@ -66,7 +66,6 @@ export class HeaderComponent implements OnInit {
   }
 
   requestAlarms() {
-    console.log('requstiong alarm');
 
     this.setProductAlarm$ = this.productService.isAlarm$;
     this.setSaleAlarm$ = this.saleService.alertInfo$;
@@ -95,9 +94,5 @@ export class HeaderComponent implements OnInit {
     this.isClosingSession = true;
     // localStorage.removeItem("token");
     this.router.navigate(["auth", "login"]);
-  }
-
-  toggle() {
-    console.log("asdaskjdaksjdh");
   }
 }

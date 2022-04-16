@@ -50,7 +50,6 @@ export class ProvidersService {
   }
 
   postProviderMovement(transactionInfo: Transaction) {
-    console.log(transactionInfo);
     return this.http.post<Transaction>(AppConfig.baseUrl + 'provider-movement/', transactionInfo);
   }
 
@@ -64,8 +63,6 @@ export class ProvidersService {
   }
 
   postCredit(credit: Credit) {
-    console.log(credit);
-    return;
     return this.http.post<Credit>(AppConfig.baseUrl + 'credit', credit);
   }
 

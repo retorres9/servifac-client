@@ -3,7 +3,6 @@ import { Observable } from "rxjs";
 import { ConfigurationService } from "../../../configuration/configuration.service";
 import { Locations } from "./../../../configuration/models/locations.model";
 import { Categories } from "../../../configuration/models/categories.model";
-import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-creation-modal",
@@ -17,6 +16,11 @@ export class CreationModalComponent implements OnInit {
   category: any;
   isRequesting: boolean;
   target: string;
+
+  // Alert variables
+  isAlert: boolean = false;
+  message: string;
+  alertType: string;
   constructor(private configurationService: ConfigurationService) {}
 
   ngOnInit(): void {
@@ -28,7 +32,6 @@ export class CreationModalComponent implements OnInit {
     this.configurationService.getTarget.subscribe(
       resp => {
         this.target = resp;
-        console.log(resp);
       }
     );
     this.target === "categoria" ? this.setCategory() : this.setLocation();
@@ -39,10 +42,11 @@ export class CreationModalComponent implements OnInit {
     this.configurationService.postCategory(this.category).subscribe(
       resp => {
         this.isRequesting = false;
+        this.setAlert(`Se ha creado la categoría ${this.name}`, 'alert-success');
         this.name = '';
       }, error => {
         this.isRequesting = false;
-        console.log(error);
+        this.setAlert(`Se ha producido un error: ${error.message}`, 'alert-warning alert-dismissible');
       });
   }
 
@@ -50,10 +54,11 @@ export class CreationModalComponent implements OnInit {
     this.configurationService.postLocation(this.location).subscribe(
       resp => {
         this.isRequesting = false;
+        this.setAlert(`Se ha creado la ubicación ${this.name}`, 'alert-success');
         this.name = '';
       }, error => {
         this.isRequesting = false;
-        console.log(error);
+        this.setAlert(`Se ha producido un error: ${error.message}`, 'alert-warning alert-dismissible');
       });
   }
 
@@ -63,5 +68,16 @@ export class CreationModalComponent implements OnInit {
 
   private setCategory() {
     this.category = new Categories(this.name);
+  }
+
+  private setAlert(message: string, alertType: string) {
+    this.isAlert = true;
+    this.alertType = alertType;
+    this.message = message;
+    if (alertType.split(' ')[0] === 'alert-success') {
+      setTimeout(()=> {
+        this.isAlert = false;
+      }, 5000);
+    }
   }
 }
