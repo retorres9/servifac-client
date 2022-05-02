@@ -19,6 +19,14 @@ import { SaleState } from "./enums/sale-state.enum";
 import { SaleType } from "./enums/sale-type.enum";
 import { HeaderService } from '../shared/components/header/header.service';
 
+// import printJS from 'print-js';
+import { HttpClient } from '@angular/common/http'
+import { ElectronService } from './../core/services/electron/electron.service';
+import { BrowserWindow } from "electron";
+
+
+
+
 @Component({
   selector: "app-detail",
   templateUrl: "./billing.component.html",
@@ -60,7 +68,9 @@ export class BillingComponent implements OnInit {
     private productService: ProductsService,
     private clientService: ClientsService,
     private billingService: BillingService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    private http: HttpClient,
+    private electronService: ElectronService
   ) {}
 
   ngOnInit(): void {
@@ -137,7 +147,7 @@ export class BillingComponent implements OnInit {
     );
   }
 
-  printer(change: number) {
+  async printer(change: number) {
     this.focused = true;
     const doc = new jsPDF("p", "pt", "a5");
     let total = 0;
@@ -193,7 +203,10 @@ export class BillingComponent implements OnInit {
         }
       },
     });
-    doc.save("Factura.pdf");
+    this.electronService.fs.writeFile('Fact.pdf',doc.output(),(err) => {
+      console.log(err);
+    });
+    this.electronService.printfile();
     this.createSale(change);
     this.resetFields();
     return;

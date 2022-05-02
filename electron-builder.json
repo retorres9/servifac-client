@@ -10,12 +10,24 @@
         "!package-lock.json"
     ],
     "extraResources": [{
-        "from": "dist",
-        "to": "dist",
-        "filter": [
-            "**/*"
-        ]
-    }],
+            "from": "dist",
+            "to": "dist",
+            "filter": [
+                "**/*"
+            ]
+        },
+        {
+            "from": "node_modules/@electron/remote",
+            "to": "node_modules/@electron/remote",
+            "filter": [
+                "**/*"
+            ]
+        },
+        {
+            "from": "./src/app/shared/utilities/PDFtoPrinter.exe",
+            "to": "dist/PDFtoPrinter.exe"
+        }
+    ],
     "win": {
         "icon": "dist/assets/icons",
         "target": [
