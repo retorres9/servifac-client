@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu } from 'electron'
 import * as path from 'path';
 import * as url from 'url';
 
@@ -35,7 +35,7 @@ function createWindow(): BrowserWindow {
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/../node_modules/electron`)
     });
-    win.loadURL('http://localhost:4200');
+    win.loadURL('http://localhost:4200/home');
 
   } else {
     win.loadURL(url.format({
@@ -52,6 +52,7 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
+  Menu.setApplicationMenu(null);
 
   return win;
 }
