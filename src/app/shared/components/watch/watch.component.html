@@ -1,0 +1,73 @@
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalWatch" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">{{value?.prod_name}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td><strong>Código</strong></td>
+              <td>{{value?.prod_code}}</td>
+            </tr>
+            <tr>
+              <td><strong>Precio</strong></td>
+              <td>{{value?.prod_price | currency}}</td>
+            </tr>
+            <tr>
+              <td><strong>Ganancia normal</strong></td>
+              <td>{{value?.prod_normalProfit}}%</td>
+            </tr>
+            <tr>
+              <td><strong>Ganancia al por mayor</strong></td>
+              <td>{{value?.prod_wholesaleProfit}}%</td>
+            </tr>
+            <tr>
+              <td><strong>Disponible</strong></td>
+              <td>{{value?.prod_inStock}}</td>
+            </tr>
+            <tr>
+              <td><strong>Cantidad</strong></td>
+              <td>{{value?.prod_quantity}}</td>
+            </tr>
+            <tr>
+              <td><strong>Cantidad mínima</strong></td>
+              <td>{{value?.prod_minQuantity}}</td>
+            </tr>
+            <tr>
+              <td><strong>Precio con IVA</strong></td>
+              <td>{{value?.prod_isTaxed}}</td>
+            </tr>
+            <tr>
+              <td><strong>Categoria</strong></td>
+              <td>{{value?.category?.cat_name}}</td>
+            </tr>
+            <tr>
+              <td><strong>Ubicación</strong></td>
+              <td>{{value?.location?.loc_name}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <p>Código: {{value?.prod_code}}</p> -->
+        <!-- <p>Precio: {{value?.prod_price}}</p> -->
+        <!-- <p>Ganancia normal: {{value?.prod_normalProfit}}</p> -->
+        <!-- <p>Ganancia al por mayor: {{value?.prod_wholesaleProfit}}</p> -->
+        <!-- <p>Disponible: {{value?.prod_inStock}}</p> -->
+        <!-- <p>Cantidad: {{value?.prod_quantity}}</p> -->
+        <!-- <p>Cantidad mínima: {{value?.prod_minQuantity}}</p> -->
+        <!-- <p>Precio con IVA: {{value?.prod_isTaxed}}</p> -->
+        <!-- <p>Categoria: {{value?.category?.cat_name}}</p> -->
+        <!-- <p>Ubicación: {{value?.location?.loc_name}}</p> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

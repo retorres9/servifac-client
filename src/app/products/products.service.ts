@@ -40,7 +40,7 @@ export class ProductsService {
 
   queryProduct(param: string) {
     const params = new HttpParams().set('param', param);
-    return this.http.get<NewProduct[]>(AppConfig.baseUrl + 'product', {params});
+    return this.http.get<NewProduct[]>(AppConfig.baseUrl + 'product', { params });
   }
 
   getProductsInventory(criteria: string) {
@@ -57,5 +57,9 @@ export class ProductsService {
 
   getProductMinimums() {
     return this.http.get<Product[]>(AppConfig.baseUrl + 'product/minimums');
+  }
+
+  updateProductQty(updateData) {
+    return this.http.put<Product>(AppConfig.baseUrl + 'product/update', updateData);
   }
 }

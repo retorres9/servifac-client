@@ -11,6 +11,8 @@ import { HeaderComponent } from "./components/header/header.component";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { AmountComponent } from "./components/amount/amount.component";
 import { CreationModalComponent } from './components/creation-modal/creation-modal.component';
+import { WatchComponent } from './components/watch/watch.component';
+import { QuantityProdComponent } from './components/quantity-prod/quantity-prod.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { CreationModalComponent } from './components/creation-modal/creation-mod
     LoaderComponent,
     AmountComponent,
     CreationModalComponent,
+    WatchComponent,
+    QuantityProdComponent,
   ],
   imports: [CommonModule, TranslateModule, FormsModule],
   exports: [
@@ -31,7 +35,9 @@ import { CreationModalComponent } from './components/creation-modal/creation-mod
     HeaderComponent,
     LoaderComponent,
     AmountComponent,
-    CreationModalComponent
+    CreationModalComponent,
+    WatchComponent,
+    QuantityProdComponent
   ],
 })
 export class SharedModule {}

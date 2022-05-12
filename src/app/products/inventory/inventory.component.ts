@@ -11,11 +11,16 @@ import { Router } from '@angular/router';
 })
 export class InventoryComponent implements OnInit {
   section: string = "Inventario";
+  product: Product;
+  updateProduct = {
+    prod: {},
+    action: ''
+  }
   constructor(
     private productService: ProductsService,
     private headerService: HeaderService,
     private router: Router
-  ) {}
+  ) { }
   inventory: Product[];
   ngOnInit(): void {
     this.headerService.setheaderTitle("Inventario");
@@ -30,6 +35,17 @@ export class InventoryComponent implements OnInit {
       .subscribe((resp) => {
         this.inventory = resp;
       });
+  }
+
+  updateQtyProduct(product, action) {
+    console.log(action);
+
+    this.updateProduct.prod = product;
+    this.updateProduct.action = action;
+  }
+
+  watchProduct(product) {
+    this.product = product;
   }
 
   goBack() {

@@ -1,4 +1,3 @@
-<!-- <app-header [tab]="section"></app-header> -->
 <div class="container">
 
     <div class="row">
@@ -7,9 +6,6 @@
             <input type="text" class="form-control form-control-sm" name="search" id="search" #searchCriteria (keyup.enter)="searchProduct(searchCriteria.value)" autocomplete="off">
         </div>
     </div>
-    <!-- <div class="col-4">
-        <input type="date" placeholder="dd-mm-yy" min="2020-01-01" class="form-control form-control-sm">
-    </div> -->
 
     <div class="table-wrapper mt-3">
         <table class="table table-sm table-hover">
@@ -33,13 +29,16 @@
                     <td>{{product.prod_quantity}}</td>
                     <td>{{product.location.loc_name}}</td>
                     <td>
-                        <button class="btn btn-primary btn-sm">
+                    <button class="btn btn-info btn-sm shadow-none" title="Ver producto" data-bs-toggle="modal" data-bs-target="#modalWatch" (click)="watchProduct(product)">
                       <i class="bi bi-eye-fill"></i>
                     </button>&nbsp;
-                        <button class="btn btn-success btn-sm">
+                    <button class="btn btn-success btn-sm shadow-none" title="Editar">
                       <i class="bi bi-pencil-square"></i>
                     </button>&nbsp;
-                        <button class="btn btn-warning btn-sm">
+                    <button class="btn btn-primary btn-sm shadow-none" title="Agregar productos" data-bs-toggle="modal" data-bs-target="#qtyModal" (click)="updateQtyProduct(product, 'add')">
+                      <i class="bi bi-plus-circle-fill"></i>
+                    </button>&nbsp;
+                    <button class="btn btn-warning btn-sm shadow-none" title="Disminuir productos" data-bs-toggle="modal" data-bs-target="#qtyModal" (click)="updateQtyProduct(product, 'sub')">
                       <i class="bi bi-dash-circle-fill"></i>
                     </button>
                     </td>
@@ -54,3 +53,6 @@
         </button>
     </div>
 </div>
+
+<app-watch [value]="product"></app-watch>
+<app-quantity-prod [updateProduct]="updateProduct"></app-quantity-prod>
