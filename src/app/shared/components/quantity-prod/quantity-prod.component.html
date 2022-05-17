@@ -6,19 +6,22 @@
         <h5 class="modal-title" *ngIf="updateProduct?.action === 'sub'">Menorar  productos</h5>
           <button type="button" id="closeButton" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form #formQty="ngForm">
       <div class="modal-body">
-        <div class="alert " [ngClass]="type" role="alert" *ngIf="isShowingAlert">{{alertMessage}}</div>
-        <label for="prods">Ingrese la cantidad que desee {{updateProduct?.action === 'add' ? 'agregar' : 'menorar'}}</label>
-        <input type="number" class="form-control shadow-none" min="1" max="100" [(ngModel)]="qty">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="isRequesting" (click)="updateQty()">
-          <div class="spinner-border text-primary" role="status" *ngIf="isRequesting"></div>
-          <i class="bi bi-save" *ngIf="!isRequesting"></i>
-          Guardar
-        </button>
-      </div>
+          <div class="alert " [ngClass]="type" role="alert" *ngIf="isShowingAlert">{{alertMessage}}</div>
+            <label for="prods">Ingrese la cantidad que desee {{updateProduct?.action === 'add' ? 'agregar' : 'menorar'}}</label>
+            <input type="number" class="form-control shadow-none" min="1" max="100" [(ngModel)]="qty" name="qty">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" [disabled]="isRequesting" (click)="updateQty()">
+              <div class="spinner-border text-primary" role="status" *ngIf="isRequesting"></div>
+              <i class="bi bi-save" *ngIf="!isRequesting || formQty.valid"></i>
+              Guardar
+            </button>
+          </div>
+      </form>
     </div>
   </div>
 </div>
