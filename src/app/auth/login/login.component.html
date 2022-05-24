@@ -26,7 +26,10 @@
                   Iniciar Sesión
                 </button>
             </div>
-            <a class="forgot" href="#">Forgot your email or password?</a>
+            <hr>
+            <div class="actions d-flex justify-content-center">
+              <buttons class="forgot" [routerLink]="['/auth/forgot-password']" >¿Olvidaste tu contraseña?</buttons>
+            </div>
         </form>
     </div>
 </div>

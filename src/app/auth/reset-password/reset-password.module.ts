@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ResetPasswordComponent } from './reset-password.component';
+
+
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-  ],
+    CommonModule
+  ]
 })
-export class LoginModule {
-
-}
+export class ResetPasswordModule { }
