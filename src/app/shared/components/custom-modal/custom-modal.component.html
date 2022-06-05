@@ -1,0 +1,10 @@
+<div class="backdrop" *ngIf="modalVisible">
+  <div class="custom-modal card">
+    <div class="card-body text-center">
+      <i class="bi bi-check-circle"></i>
+      <h4>Contraseña actualizada correctamente</h4>
+      <p>{{message}}</p>
+      <button class="btn btn-success" (click)="onRedirectClick(true)">Aceptar</button>
+    </div>
+  </div>
+</div>

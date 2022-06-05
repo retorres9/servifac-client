@@ -17,10 +17,14 @@ export class ResetPasswordComponent implements OnInit {
   isRequesting: boolean = false;
   alertType: string = '';
   alertMessage: string = '';
+  modalVisible: boolean;
 
-  constructor(private authService: AuthService, private aRoute: ActivatedRoute, private router: Router) { }
+  constructor(private authService: AuthService,
+    private aRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.modalVisible = false
     this.email = this.aRoute.snapshot.params.user_email;
     this.resetPassForm = new FormGroup({
       tempPass: new FormControl('', {
@@ -51,12 +55,18 @@ export class ResetPasswordComponent implements OnInit {
     if (resetPassForm.newPass === resetPassForm.confirmPass) {
       this.authService.updateUserPassword(passwordUpdate).subscribe(resp => {
         this.isRequesting = false;
-        this.router.navigateByUrl('/auth/login');
+        this.modalVisible = true;
+        // this.router.navigateByUrl('/auth/login');
       }, err => {
         this.isRequesting = false;
         this.setAlert('alert-danger', 'Las contraseña temporal no coincide');
       });
     }
+  }
+
+  redirectToLogin(value: boolean) {
+    this.modalVisible = true;
+    this.router.navigate(['auth', 'login']);
   }
 
   private setAlert(alertType: string, alertMessage: string) {
