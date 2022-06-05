@@ -23,11 +23,12 @@ export class NewProductComponent implements OnInit {
   alertType: string;
   isAlert: boolean;
   loading: boolean = false;
+  isTaxed: boolean = false
 
   constructor(
     private productService: ProductsService,
     private headerService: HeaderService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.headerService.setheaderTitle("Ingreso de Productos");
@@ -94,11 +95,12 @@ export class NewProductComponent implements OnInit {
   }
 
   calculatePrice() {
-    let retailPrice: string | number = this.calculatePrices(this.tax);
+    let normalProfit = this.newProductForm.value.prod_normalProfit;
+    let wholesaleProfit = this.newProductForm.value.prod_wholesaleProfit;
+    let retailPrice: string | number = this.calculatePrices(normalProfit);
     retailPrice = this.roundDecimal(Number(retailPrice));
-    let wholesalePrice: string | number = this.calculatePrices();
+    let wholesalePrice: string | number = this.calculatePrices(wholesaleProfit);
     wholesalePrice = this.roundDecimal(Number(wholesalePrice));
-
     this.newProductForm.controls["prod_wholesalePrice"].setValue(
       Number(wholesalePrice).toFixed(2)
     );
@@ -107,15 +109,13 @@ export class NewProductComponent implements OnInit {
     );
   }
 
-  private calculatePrices(tax?: number) {
+  private calculatePrices(profit: number) {
     const productForm = this.newProductForm.value;
-    return tax
-      ? Number(
-          productForm.prod_price * (0.2 + tax / 100) + productForm.prod_price
-        ).toFixed(2)
-      : Number(productForm.prod_price * 0.27 + productForm.prod_price).toFixed(
-          2
-        );
+    if (this.isTaxed) {
+      return Number(productForm.prod_price * ((this.tax + profit) / 100) + productForm.prod_price).toFixed(2);
+    } else {
+      return Number(productForm.prod_price * (profit / 100) + productForm.prod_price).toFixed(2);
+    }
   }
 
   setPrice(precio: string) {
@@ -126,6 +126,7 @@ export class NewProductComponent implements OnInit {
     this.loading = true;
     const newProduct = new NewProduct();
     const productForm = this.newProductForm.value;
+    newProduct.prod_isTaxed = this.isTaxed;
     newProduct.prod_name = productForm.prod_name;
     newProduct.prod_code = productForm.prod_code;
     newProduct.prod_price = productForm.prod_price;
@@ -158,18 +159,32 @@ export class NewProductComponent implements OnInit {
     }, 5000);
   }
 
-  private roundDecimal(value: number) {
-    let stringNumber = String(value).split(".");
+  updatePrice() {
+    this.isTaxed = !this.isTaxed;
+    this.calculatePrice();
+  }
+
+  updateProfit(event) {
+    this.calculatePrice()
+  }
+
+  private roundDecimal(price: number) {
+    console.log(price, 'price');
+
+    let stringNumber = typeof (price) === 'string' ? String(price).split('.') : String(price.toFixed(2)).split('.');
+    let decimal;
     if (stringNumber[1] === undefined) {
-      return value;
+      return price;
     }
     if (Number(stringNumber[1]) >= 95) {
-      return Math.round(value);
+      return Math.round(price);
     }
-    let decimal;
+    console.log(stringNumber[1], 'before');
+
     Number(stringNumber[1]) % 5 === 0
       ? (decimal = Number(stringNumber[1]))
       : (decimal = Number(Math.floor(Number(stringNumber[1]) / 5) * 5) + 5);
+    console.log(decimal, 'after');
     let newNumber = `${stringNumber[0]}.${decimal}`;
     return newNumber;
   }

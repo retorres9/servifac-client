@@ -13,6 +13,7 @@ import { AmountComponent } from "./components/amount/amount.component";
 import { CreationModalComponent } from './components/creation-modal/creation-modal.component';
 import { WatchComponent } from './components/watch/watch.component';
 import { QuantityProdComponent } from './components/quantity-prod/quantity-prod.component';
+import { CustomModalComponent } from './components/custom-modal/custom-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { QuantityProdComponent } from './components/quantity-prod/quantity-prod.
     CreationModalComponent,
     WatchComponent,
     QuantityProdComponent,
+    CustomModalComponent,
   ],
   imports: [CommonModule, TranslateModule, FormsModule],
   exports: [
@@ -37,7 +39,8 @@ import { QuantityProdComponent } from './components/quantity-prod/quantity-prod.
     AmountComponent,
     CreationModalComponent,
     WatchComponent,
-    QuantityProdComponent
+    QuantityProdComponent,
+    CustomModalComponent
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

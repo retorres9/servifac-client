@@ -20,7 +20,7 @@
                             <label for="iva">IVA:</label>
                           </div>
                           <div class="col-9 mb-3">
-                            <input type="checkbox" class="form-check-input shadow-none">
+                            <input type="checkbox" class="form-check-input shadow-none" [value]="isTaxed" (click)="updatePrice()">
                           </div>
                             <div class="col-3 text-end">
                                 <!-- ? Nombre -->
@@ -48,14 +48,14 @@
                                 <label for="retailGain">Ganancia</label>
                             </div>
                             <div class="col-3 mb-3">
-                                <input type="number" class="form-control form-control-sm" id="retailGain" formControlName="prod_normalProfit" />
+                                <input type="number" class="form-control form-control-sm" id="retailGain" (input)="updateProfit($event)" formControlName="prod_normalProfit" />
                             </div>
                             <!-- ? Ganancia por mayor -->
                             <div class="col-3 text-end">
                                 <label for="majorGain">Ganancia x Mayor</label>
                             </div>
                             <div class="col-3 mb-3">
-                                <input type="number" class="form-control form-control-sm" formControlName="prod_wholesaleProfit" />
+                                <input type="number" class="form-control form-control-sm" (input)="updateProfit($event)" min="0" formControlName="prod_wholesaleProfit" />
                             </div>
                             <!-- ? Precio normal -->
                             <div class="col-3 text-end">

@@ -1,4 +1,5 @@
 export class NewProduct {
+  prod_isTaxed: boolean;
   prod_name: string;
   prod_code: string;
   prod_price: number;

@@ -27,6 +27,8 @@ import { NewClientModalComponent } from './billing/new-client-modal/new-client-m
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './auth/login/login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component'
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -44,7 +46,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ProvidersComponent,
     SearchClientModalComponent,
     AmountGivenModalComponent,
-    NewClientModalComponent
+    NewClientModalComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -75,4 +79,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

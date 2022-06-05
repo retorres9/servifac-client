@@ -10,7 +10,7 @@ import { CredentialsJwt } from './jwt-credentials.model';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   private _loggedIn = new BehaviorSubject<boolean>(false);
   private _loggedUser$ = new BehaviorSubject<string>('Usuario');
   public get loggedUser$() {
@@ -40,5 +40,13 @@ export class AuthService {
 
   getConfiguration() {
     return this.http.get(AppConfig.baseUrl + 'configuration');
+  }
+
+  resetPassword(user_email) {
+    return this.http.post(AppConfig.baseUrl + 'user/reset', user_email);
+  }
+
+  updateUserPassword(passwordUpdate) {
+    return this.http.post(AppConfig.baseUrl + 'user/update', passwordUpdate);
   }
 }
