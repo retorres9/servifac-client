@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductsService } from '../../../products/products.service';
+import { NgForm } from '@angular/forms'
 
 @Component({
   selector: 'app-quantity-prod',
@@ -21,7 +22,7 @@ export class QuantityProdComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updateQty() {
+  updateQty(updateForm: NgForm) {
     const updateData = {
       prod_name: this.updateProduct.prod.prod_code,
       action: this.updateProduct.action,

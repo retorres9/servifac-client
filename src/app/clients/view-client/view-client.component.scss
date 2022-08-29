@@ -1,6 +1,6 @@
 fieldset {
     margin-top: 25px;
-    outline: 1px solid #777;
+    outline: 1px solid #b6b6b6;
     padding: 10px 15px;
     border-radius: 10px;
     position: relative;
@@ -8,10 +8,10 @@ fieldset {
 
 legend {
     position: absolute;
-    top: -25px;
+    top: -20px;
     background-color: #fafafa;
     width: auto;
-    font-size: 12px;
+    font-size: 20px;
 }
 
 .square {

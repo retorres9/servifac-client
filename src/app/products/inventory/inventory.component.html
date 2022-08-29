@@ -14,10 +14,10 @@
                     <th>#</th>
                     <th>Código</th>
                     <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
+                    <th class="text-end">Precio</th>
+                    <th class="text-end">Cantidad</th>
                     <th>Ubicación</th>
-                    <th>Acciones</th>
+                    <th class="text-end">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,10 +25,10 @@
                     <td>{{i + 1}}</td>
                     <td>{{product.prod_code}}</td>
                     <td>{{product.prod_name | titlecase}}</td>
-                    <td>{{product.prod_price | currency}}</td>
-                    <td>{{product.prod_quantity}}</td>
+                    <td class="text-end">{{product.prod_price | currency}}</td>
+                    <td class="text-end">{{product.prod_quantity}}</td>
                     <td>{{product.location.loc_name}}</td>
-                    <td>
+                    <td class="text-end">
                     <button class="btn btn-info btn-sm shadow-none" title="Ver producto" data-bs-toggle="modal" data-bs-target="#modalWatch" (click)="watchProduct(product)">
                       <i class="bi bi-eye-fill"></i>
                     </button>&nbsp;

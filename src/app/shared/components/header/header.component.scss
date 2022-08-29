@@ -8,7 +8,7 @@ ul {
 }
 
 #notification-header {
-    color: #fff;
+    color: rgb(29, 29, 29);
 }
 
 .notification-icon {
@@ -19,7 +19,7 @@ ul {
 .notifications {
     position: absolute;
     display: none;
-    border: 1px solid #555;
+    border: 1px solid;
     background-color: #fafafa;
     right: 116px;
     width: 350px;
@@ -27,14 +27,16 @@ ul {
     border-radius: 0 0 5px 5px;
     z-index: 100;
     overflow: hidden;
+    box-shadow: #333;
+    box-shadow: 0px 0px 20px #6b6b6b;
 }
 
 .notifications>h4 {
-    padding-left: 20px;
+    padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #2196F3;
     margin: 0;
+    border-bottom: 1px solid rgb(172, 172, 172);
 }
 
 .notifications.change {
@@ -69,4 +71,13 @@ hr {
     margin-left: auto;
     border: none;
     background: transparent;
+}
+
+.dropdown-menu {
+  padding: 0;
+  overflow: hidden;
+}
+
+.dropdown-menu li {
+  cursor: pointer;
 }

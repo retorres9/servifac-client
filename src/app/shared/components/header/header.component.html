@@ -6,7 +6,7 @@
     <hr class="mb-2">
     <div class="ms-auto p-2">
         <button class="btn btn-danger me-1" *ngIf="alert" (click)="toggleNotifications()">
-          <i class="bi bi-exclamation-circle"></i>
+          <i class="bi bi-bell"></i>
         </button>
         <div class="notifications" [ngClass]="{'change': isChange === true}">
             <h4 id="notification-header"><strong>Notificaciones</strong></h4>
@@ -14,11 +14,9 @@
                 <li class="notification" *ngIf="setProductAlarm$ | async" (click)="goToMinimums()">
                     <img class="notification-icon" src="assets/product-alert.svg" alt=""><span>Hay Productos debajo del mínimo</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button>
                 </li>
-                <hr>
                 <li class="notification" *ngIf="setSaleAlarm$ | async" (click)="goToOutOfDate()">
                     <img class="notification-icon" src="assets/pay-pending.svg" alt=""><span>Hay deudas de clientes pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button>
                 </li>
-                <hr>
                 <li class="notification" *ngIf="setProviderAlarm$ | async" (click)="goToOutOfDateProv()">
                     <img class="notification-icon" src="assets/pay-pending.svg" alt=""><span>Hay deudas por pagar pendientes</span> <button class="btn-notification"><i class="bi bi-arrow-right-circle"></i></button>
                 </li>
@@ -27,9 +25,7 @@
         <div class="btn-group">
             <button class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">{{user$ | async}}</button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Ajustes</a></li>
-                <li><a class="dropdown-item">Ajustes</a></li>
-                <li><a class="dropdown-item">Ajustes</a></li>
+                <li><a class="dropdown-item">Ajustes de perfil</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
